@@ -22,7 +22,7 @@ class LandingpageController extends Controller
     {
         $banners = Banner::orderBy('created_at', 'desc')->get();
         $galeris = Galeri::with('program')->orderBy('created_at', 'desc')->get();
-        $posts = Post::with('bidang')->orderBy('created_at', 'desc')->get();
+        $posts = Post::with('bidang')->orderBy('created_at', 'desc')->take(6)->get();
         $bidangs = Bidang::all();
     
         return view('landingpage.beranda', compact('posts', 'bidangs', 'galeris', 'banners'));

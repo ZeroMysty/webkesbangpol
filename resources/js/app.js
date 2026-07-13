@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         })
         .then(editor => {
-            console.log('Editor berhasil diinisialisasi', editor);
+            // console.log('Editor berhasil diinisialisasi', editor);
         })
         .catch(error => {
             console.error(error);
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ]
             })
             .then(editor => {
-            console.log(`Editor untuk ${id} berhasil`, editor);
+            // console.log(`Editor untuk ${id} berhasil`, editor);
             })
             .catch(error => {
             console.error(`Editor untuk ${id} gagal:`, error);

@@ -1158,7 +1158,7 @@
                     try {
                         // Solusi 2: Coba gunakan view-doc sebagai route alternatif
                         const alternativeUrl = `/secure-file-renstra/${encodeURIComponent(filename)}`;
-                        console.log('Mencoba memuat PDF melalui route alternatif:', alternativeUrl);
+                        // console.log('Mencoba memuat PDF melalui route alternatif:', alternativeUrl);
                         
                         await renderPdfWithPdfJs(alternativeUrl);
                         return true;
@@ -1168,7 +1168,7 @@
                         
                         try {
                             // Solusi 3: Coba metode object tag
-                            console.log('Mencoba memuat dengan object tag');
+                            // console.log('Mencoba memuat dengan object tag');
                             
                             pdfContainer.innerHTML = `
                                 <object 
