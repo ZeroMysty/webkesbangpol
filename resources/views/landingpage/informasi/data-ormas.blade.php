@@ -608,7 +608,7 @@
                         }
                         
                         const ormas = JSON.parse(ormasData);
-                        console.log('Data ormas:', ormas); // Debug log
+                        // console.log('Data ormas:', ormas); // Debug log
                         
                         const pengurus = ormas.pengurus || [];
                         const dokumen = ormas.dokumen || {};

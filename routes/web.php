@@ -107,8 +107,6 @@ Route::get('/pemilu', [ElectionController::class, 'index'])->name('pemilu.index'
 Route::get('/pemilu/{kategori}', [ElectionController::class, 'show'])->name('pemilu.show');
 Route::get('/pemilu/{kategori}/{id}', [ElectionController::class, 'detail'])->name('pemilu.detail');
 // Route::get('/pemilu/legislatif/terpilih', [ElectionController::class, 'showLegislatifTerpilih'])->name('pemilu.legislatif.terpilih');
-Route::get('/pemilu/{kategori}', [ElectionController::class, 'show'])->name('pemilu.show');
-Route::get('/pemilu/{kategori}/{id}', [ElectionController::class, 'detail'])->name('pemilu.detail');
 
 
 //========================================================================
@@ -122,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/posts', PostController::class);
     Route::resource('/galeris', GaleriController::class);
     Route::resource('/banners', BannerController::class);
+    // 
 
     // PROFILE MANAGEMENT
     Route::resource('/visimisis', VisiMisiController::class);

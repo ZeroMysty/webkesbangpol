@@ -20,15 +20,6 @@
                     <p class="lead fade-in" id="description">Menyajikan Informasi Terbaru dan Artikel Inspiratif untuk Mendukung Pemahaman Kebangsaan Anda</p>
                     
                     <div class="divider fade-in"></div>
-                    
-                    <form action="{{ route('semua-artikel') }}" method="GET" class="search-form fade-in" id="search-group">
-                        <div class="search-input-wrapper">
-                            <input id="search-text" name="search" class="form-control" placeholder="Cari Artikel Terkini..." autocomplete="off">
-                            <button type="submit" class="search-button">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </section>

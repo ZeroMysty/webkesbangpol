@@ -117,7 +117,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const nipInput = document.getElementById('nip');

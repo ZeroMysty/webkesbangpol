@@ -149,5 +149,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Edit Struktur JS Loaded!'); </script>
+    
 @stop
