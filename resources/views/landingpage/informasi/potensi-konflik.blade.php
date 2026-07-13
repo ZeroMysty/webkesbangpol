@@ -405,7 +405,7 @@
                 geoJsonKecamatan = await kecamatanResponse.json();
                 geoJsonKelurahan = await kelurahanResponse.json();
 
-                console.log('GeoJSON data loaded successfully');
+                // console.log('GeoJSON data loaded successfully');
                 
                 updateVisualization();
             } catch (error) {

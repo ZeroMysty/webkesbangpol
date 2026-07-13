@@ -84,5 +84,5 @@
     </script>
 
     {{-- Debug Log --}}
-    <script> console.log('Hi!'); </script>
+    
 @stop

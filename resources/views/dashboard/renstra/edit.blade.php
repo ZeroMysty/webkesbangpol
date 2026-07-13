@@ -56,5 +56,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Edit page loaded'); </script>
+    
 @stop
