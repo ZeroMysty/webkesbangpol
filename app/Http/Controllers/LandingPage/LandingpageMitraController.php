@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\LandingPage;
+
+use App\Http\Controllers\Controller;
 
 // Pastikan use statement ini ada di bagian atas file Anda
 use App\Models\Mitra;

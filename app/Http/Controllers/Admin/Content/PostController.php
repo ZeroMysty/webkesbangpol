@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Content;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Program;
 use App\Models\Bidang;

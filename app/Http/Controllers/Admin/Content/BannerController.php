@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Content;
 
-use App\Models\Program;
-use App\Models\Galeri;
+use App\Http\Controllers\Controller;
+
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -11,26 +12,25 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-class GaleriController extends Controller
+class BannerController extends Controller
 {
     public function index(): View
     {
-        $galeris = Galeri::latest()->paginate(5);
-        return view('dashboard.galeris.index', compact('galeris'));
+        $banners = Banner::latest()->paginate(5);
+        return view('dashboard.banners.index', compact('banners'));
     }
 
     public function create(): View 
     {
-        $programs = Program::all();
-        return view('dashboard.galeris.create', compact('programs'));
+        return view('dashboard.banners.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'judul' => 'required|string|min:5|max:34',
-            'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
+            'judul' => 'required|string|min:5|max:100',
+            'caption' => 'required|string|min:5|max:100',
+            'image'   => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
 
         ]);
 
@@ -42,7 +42,7 @@ class GaleriController extends Controller
         $baseName  = "{$slugJudul}_{$tanggal}";           // misal: "upacara-hut-ri_20250523"
         $imageName = "{$baseName}.{$ext}";                // nama awal
 
-        $path = public_path('images/gallery');
+        $path = public_path('images/banner');
         $counter = 1;
 
         // Cek jika file sudah ada, tambahkan angka
@@ -54,30 +54,29 @@ class GaleriController extends Controller
         // Pindahkan file ke direktori
         $image->move($path, $imageName);
         
-        Galeri::create([
-            'program_id' => $request->program_id,
+        Banner::create([
             'judul' => $request->judul,
+            'caption' => $request->caption,
             'gambar_upload' => $imageName,
         ]);
-        return redirect()->route('galeris.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('banners.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     public function edit(string $id): View
     {
-        $galeris = Galeri::findOrFail($id);
-        $programs = Program::all();
-        return view('dashboard.galeris.edit', compact('galeris', 'programs'));
+        $banners = Banner::findOrFail($id);
+        return view('dashboard.banners.edit', compact('banners'));
     }
 
     public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'judul' => 'required|string|min:5|max:34',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
+            'judul' => 'required|string|min:5|max:100',
+            'caption' => 'required|string|min:5|max:100',
+            'image'   => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
         ]);
 
-        $galeris = Galeri::findOrFail($id);
+        $banners = Banner::findOrFail($id);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -88,7 +87,7 @@ class GaleriController extends Controller
 
             $baseName = "{$slugJudul}_{$tanggal}";
             $imageName = "{$baseName}.{$ext}";
-            $path = public_path('images/gallery');
+            $path = public_path('images/banner');
             $counter = 1;
 
             // Cek jika nama file sudah ada
@@ -98,7 +97,7 @@ class GaleriController extends Controller
             }
 
             // Hapus gambar lama jika ada
-            $oldImagePath = public_path('images/gallery/' . $galeris->gambar_upload);
+            $oldImagePath = public_path('images/banner/' . $banners->gambar_upload);
             if (file_exists($oldImagePath) && is_file($oldImagePath)) {
                 unlink($oldImagePath);
             }
@@ -106,27 +105,27 @@ class GaleriController extends Controller
             // Upload gambar baru
             $image->move($path, $imageName);
 
-            $galeris->update([
-                'program_id' => $request->program_id,
+            $banners->update([
                 'judul' => $request->judul,
+                'caption' => $request->caption,
                 'gambar_upload' => $imageName,
             ]);
         } else {
             // Jika tidak ada gambar baru
-            $galeris->update([
-                'program_id' => $request->program_id,
+            $banners->update([
                 'judul' => $request->judul,
+                'caption' => $request->caption,
             ]);
         }
 
-        return redirect()->route('galeris.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('banners.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
 
     public function destroy($id): RedirectResponse
     {
-        $galeris = Galeri::findOrFail($id);
-        $galeris->delete();
-        return redirect()->route('galeris.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        $banners = Banner::findOrFail($id);
+        $banners->delete();
+        return redirect()->route('banners.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

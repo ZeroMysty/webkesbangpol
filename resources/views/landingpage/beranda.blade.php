@@ -25,183 +25,135 @@
         </section>
         
 
-        <!-- ========================== Carousel ============================================================================================ -->
-        <div class="carousel-section" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-            <div class="swiper mySwiperCarousel">
-                <div class="swiper-wrapper">
-                    @foreach($banners as $banner)
-                        <div class="swiper-slide position-relative">
-                            <img 
-                                src="{{ asset('images/banner/' . $banner->gambar_upload) }}" 
-                                class="d-block w-100" 
-                                alt="{{ $banner->judul }}"
-                            >
-                            <div class="carousel-caption text-center text-white custom-caption-center">
-                                <h5>{{ $banner->judul }}</h5>
-                                <p>{{ $banner->caption }}</p>
-                            </div>
+        <!-- ========================== Sorotan Kegiatan (Highlight Besar) ========================== -->
+        <section class="galeri-section" id="highlight-section" data-aos="fade-up" data-aos-duration="1000">
+            <div class="galeri-header">
+                <span class="section-tag">Sorotan</span>
+                <h2 class="judul-galeri">Kegiatan Terbaru</h2>
+                <p class="desc-galeri">Momen dan kegiatan terkini Bakesbangpol Kota Bandung</p>
+            </div>
+
+            <div class="highlight-stack-container">
+                @foreach($banners as $banner)
+                    <div class="highlight-card"
+                        data-bs-toggle="modal"
+                        data-bs-target="#highlightModal"
+                        data-img="{{ asset('images/banner/' . $banner->gambar_upload) }}"
+                        data-title="{{ $banner->judul }}"
+                        data-desc="{{ $banner->caption }}">
+                        <img src="{{ asset('images/banner/' . $banner->gambar_upload) }}" alt="{{ $banner->judul }}" loading="lazy">
+                        <div class="highlight-overlay">
+                            <h3>{{ $banner->judul }}</h3>
+                            <span class="highlight-tap-hint"><i class="fas fa-circle-info"></i> Ketuk untuk lihat detail</span>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
 
-                <!-- Navigasi -->
-                <div class="swiper-button-prev custom-swiper-button">
-                    <i class="fa-solid fa-angle-left"></i>
+        <!-- Modal Deskripsi Singkat (1 modal dipakai ulang untuk semua highlight) -->
+        <div class="modal fade" id="highlightModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content highlight-modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    <img id="highlightModalImg" src="" alt="" class="highlight-modal-img">
+                    <div class="modal-body">
+                        <h3 id="highlightModalTitle"></h3>
+                        <p id="highlightModalDesc"></p>
+                    </div>
                 </div>
-                <div class="swiper-button-next custom-swiper-button">
-                    <i class="fa-solid fa-angle-right"></i>
-                </div>
-
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
             </div>
         </div>
 
-
-        <!-- ========================== Articles Section ===================================================================================================================== -->
-        <section class="artikel-highlight py-5">
-            <div class="container">
-                <div class="text-center mb-5" id="judul-section-article" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800">
-                    <h2 class="fw-bold">Berita dan Artikel</h2>
-                    <p>Temukan informasi terkini seputar kebijakan, kegiatan, dan berita menarik lainnya dari Bakesbangpol Kota Bandung.</p>
-                </div>
-
-                <div class="row gx-5 artikel-custom-layout">
-                    {{-- Artikel Utama --}}
-                    <div class="col-lg-7 col-md-12" id="artikel-utama-section" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                        <div class="artikel-highlight-box">
-                            {{-- Bagian Swiper Artikel Utama --}}
-                            <div class="swiper artikelSwiper">
-                                <div class="swiper-wrapper" id="artikel-swiper-wrapper">
-                                    <!-- Artikel utama akan dimasukkan dengan JS -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- List Artikel Terbaru --}}
-                    <div class="col-lg-5 col-md-12" id="list-artikel-section" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-                        <div class="list-artikel-wrapper">
-                            <h5 class="fw-bold mb-3">Artikel Terbaru</h5>
-                            <hr>
-                            <div class="artikel-list-container" id="list-artikel-container">
-                                <!-- Artikel terbaru akan dimasukkan dengan JS -->
-                            </div>
-                            <div class="text-center">
-                                <a href="/articles" class="lihat-semua-artikel-btn">
-                                    Lihat Semua Artikel <i class="fa-solid fa-circle-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
         <!-- ========================== Layanan Section ===================================================================================================================== -->
-        <section class="py-5 bg-white" id="layanan-section">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Left side: Section title and subtitle -->
-                    <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="400" data-aos-duration="800">
-                        <div class="section-header position-sticky" style="top: 100px;">
-                            <h2 class="fw-bold display-5 mb-3">Pelayanan Kami</h2>
-                            <p class="text-muted fs-5">Layanan unggulan yang dapat diakses oleh masyarakat</p>
+<section class="py-5 bg-white" id="layanan-section">
+    <div class="container">
+        <!-- Judul di atas, full width -->
+        <div class="section-header text-center mb-5" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+            <h2 class="fw-bold display-5 mb-3">Pelayanan Kami</h2>
+            <p class="text-muted fs-5">Layanan unggulan yang dapat diakses oleh masyarakat</p>
+        </div>
+
+        <!-- 4 box berjejer kiri ke kanan -->
+        <div class="row g-4">
+            <!-- Box 1 -->
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500" data-aos-duration="600">
+                <div class="layanan-box">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="500">
+                            <i class="fas fa-landmark"></i>
                         </div>
+                        <h5 class="fw-bold mb-0">Profil Badan</h5>
                     </div>
-                    
-                    <!-- Right side: Service boxes -->
-                    <div class="col-lg-8">
-                        <div class="row g-4">
-                            <!-- Box 1 -->
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="500" data-aos-duration="600">
-                                <div class="layanan-box">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="500">
-                                            <i class="fas fa-landmark"></i>
-                                        </div>
-                                        <h5 class="fw-bold mb-0">Profil Badan</h5>
-                                    </div>
-                                    <p class="text-muted">Menyajikan informasi mengenai struktur organisasi, tugas pokok, fungsi, dan visi-misi Badan.</p>
-                                    <div class="text-end mt-3">
-                                        <a href="{{ route('tampilmenuprofile') }}" class="layanan-link">
-                                            Selengkapnya 
-                                            <span class="icon-wrapper">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Box 2 -->
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="600" data-aos-duration="600">
-                                <div class="layanan-box">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="600">
-                                            <i class="fas fa-shield-alt"></i>
-                                        </div>
-                                        <h5 class="fw-bold mb-0">Simple Sakti</h5>
-                                    </div>
-                                    <p class="text-muted">Sistem pelaporan situasi keamanan dan ketertiban wilayah Kota Bandung secara digital.</p>
-                                    <div class="text-end mt-3">
-                                        <a href="https://layanan.bandung.go.id" target="_blank" class="layanan-link">
-                                            Selengkapnya 
-                                            <span class="icon-wrapper">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Box 3 -->
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="700" data-aos-duration="600">
-                                <div class="layanan-box">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="700">
-                                            <i class="fas fa-chart-line"></i>
-                                        </div>
-                                        <h5 class="fw-bold mb-0">Dokumen dan Regulasi</h5>
-                                    </div>
-                                    <p class="text-muted">Mengakses dokumen perencanaan strategis serta laporan evaluasi dan pengukuran kinerja Badan.</p>
-                                    <div class="text-end mt-3">
-                                        <a href="{{ route('tampilmenusakip') }}" class="layanan-link">
-                                            Selengkapnya 
-                                            <span class="icon-wrapper">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Box 4 (Added as example, you can remove if not needed) -->
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="800" data-aos-duration="600">
-                                <div class="layanan-box">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="800">
-                                            <i class="fas fa-database"></i>
-                                        </div>
-                                        <h5 class="fw-bold mb-0">Data Organisasi Masyarakat</h5>
-                                    </div>
-                                    <p class="text-muted">Menampilkan informasi dan rekapitulasi data organisasi kemasyarakatan yang terdaftar.</p>
-                                    <div class="text-end mt-3">
-                                        <a href="{{ route('tampil-data-ormas') }}" class="layanan-link">
-                                            Selengkapnya 
-                                            <span class="icon-wrapper">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <p class="text-muted">Menyajikan informasi mengenai struktur organisasi, tugas pokok, fungsi, dan visi-misi Badan.</p>
+                    <div class="text-end mt-3">
+                        <a href="{{ route('tampilmenuprofile') }}" class="layanan-link">
+                            Selengkapnya 
+                            <span class="icon-wrapper"><i class="fas fa-arrow-right"></i></span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Box 2 -->
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600" data-aos-duration="600">
+                <div class="layanan-box">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="600">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Simple Sakti</h5>
+                    </div>
+                    <p class="text-muted">Sistem pelaporan situasi keamanan dan ketertiban wilayah Kota Bandung secara digital.</p>
+                    <div class="text-end mt-3">
+                        <a href="https://layanan.bandung.go.id" target="_blank" class="layanan-link">
+                            Selengkapnya 
+                            <span class="icon-wrapper"><i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 3 -->
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700" data-aos-duration="600">
+                <div class="layanan-box">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="700">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Dokumen dan Regulasi</h5>
+                    </div>
+                    <p class="text-muted">Mengakses dokumen perencanaan strategis serta laporan evaluasi dan pengukuran kinerja Badan.</p>
+                    <div class="text-end mt-3">
+                        <a href="{{ route('tampilmenusakip') }}" class="layanan-link">
+                            Selengkapnya 
+                            <span class="icon-wrapper"><i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Box 4 -->
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800" data-aos-duration="600">
+                <div class="layanan-box">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" data-aos="zoom-in" data-aos-delay="800">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Data Organisasi Masyarakat</h5>
+                    </div>
+                    <p class="text-muted">Menampilkan informasi dan rekapitulasi data organisasi kemasyarakatan yang terdaftar.</p>
+                    <div class="text-end mt-3">
+                        <a href="{{ route('tampil-data-ormas') }}" class="layanan-link">
+                            Selengkapnya 
+                            <span class="icon-wrapper"><i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
         <!-- ========================== Galeri Kegiatan Section ========================== -->
@@ -243,6 +195,46 @@
                 </button>
             </div>
             @endif
+        </section>
+
+        <!-- ========================== Articles Section ===================================================================================================================== -->
+        <section class="artikel-highlight py-5">
+            <div class="container">
+                <div class="text-center mb-5" id="judul-section-article" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800">
+                    <h2 class="fw-bold">Berita dan Artikel</h2>
+                    <p>Temukan informasi terkini seputar kebijakan, kegiatan, dan berita menarik lainnya dari Bakesbangpol Kota Bandung.</p>
+                </div>
+
+                <div class="row gx-5 artikel-custom-layout">
+                    {{-- Artikel Utama --}}
+                    <div class="col-lg-7 col-md-12" id="artikel-utama-section" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                        <div class="artikel-highlight-box">
+                            {{-- Bagian Swiper Artikel Utama --}}
+                            <div class="swiper artikelSwiper">
+                                <div class="swiper-wrapper" id="artikel-swiper-wrapper">
+                                    <!-- Artikel utama akan dimasukkan dengan JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- List Artikel Terbaru --}}
+                    <div class="col-lg-5 col-md-12" id="list-artikel-section" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+                        <div class="list-artikel-wrapper">
+                            <h5 class="fw-bold mb-3">Artikel Terbaru</h5>
+                            <hr>
+                            <div class="artikel-list-container" id="list-artikel-container">
+                                <!-- Artikel terbaru akan dimasukkan dengan JS -->
+                            </div>
+                            <div class="text-center">
+                                <a href="/articles" class="lihat-semua-artikel-btn">
+                                    Lihat Semua Artikel <i class="fa-solid fa-circle-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
@@ -311,6 +303,18 @@
                 hiddenItems.forEach(item => item.classList.remove('hidden'));
                 this.style.display = 'none';
             });
+
+            document.addEventListener('DOMContentLoaded', () => {
+            const highlightModal = document.getElementById('highlightModal');
+            if (highlightModal) {
+                highlightModal.addEventListener('show.bs.modal', (event) => {
+                    const card = event.relatedTarget;
+                    document.getElementById('highlightModalImg').src = card.dataset.img;
+                    document.getElementById('highlightModalTitle').textContent = card.dataset.title;
+                    document.getElementById('highlightModalDesc').textContent = card.dataset.desc || 'Tidak ada deskripsi tambahan.';
+                });
+            }
+        });
         </script>
         
     @endsection

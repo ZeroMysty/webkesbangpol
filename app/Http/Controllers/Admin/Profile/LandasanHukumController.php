@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Profile;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Bidang;
 use App\Models\LandasanHukum;
