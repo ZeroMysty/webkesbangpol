@@ -1,11 +1,29 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Kumpulan Artikel')
-    <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
+
 @section('content')
+
+<style>
+    /* CSS UNIFORMITY: Memaksa semua elemen input sejajar tingginya */
+    .artikel-filter-bar .form-control, 
+    .artikel-filter-bar .form-select {
+        height: 45px !important; 
+        padding: 0.375rem 1rem !important;
+        border-radius: 8px !important;
+        border: 1px solid #ced4da;
+    }
+    
+    .artikel-filter-bar label {
+        margin-bottom: 0.4rem;
+        font-size: 0.9rem;
+    }
+</style>
+
 <div id="semua-artikel" class="container py-5">
     <h2>Semua Artikel</h2>
     
-    <div class="row g-2 align-items-end artikel-filter-bar">
+    <div class="row g-3 align-items-end artikel-filter-bar mt-3">
+        
         <div class="col-lg-3 col-md-6">
             <label class="form-label fw-semibold">
                 <i class="fa-solid fa-layer-group me-1 text-danger"></i> Bidang
@@ -19,12 +37,14 @@
                 @endforeach
             </select>
         </div>
+
         <div class="col-lg-3 col-md-6">
             <label class="form-label fw-semibold">
                 <i class="fa-solid fa-magnifying-glass me-1 text-danger"></i> Pencarian
             </label>
             <input type="text" id="search-input" class="form-control" placeholder="Cari artikel..." autocomplete="off">
         </div>
+
         <div class="col-lg-3 col-md-6">
             <label class="form-label fw-semibold">
                 <i class="fa-solid fa-sort me-1 text-danger"></i> Urutkan
@@ -37,15 +57,15 @@
                 <option value="title_desc">Judul Z-A</option>   
             </select>
         </div>
+
         <div class="col-lg-3 col-md-6 d-grid">
-            <button id="reset-filter" class="btn btn-outline-danger">
+            <button id="reset-filter" class="btn btn-outline-danger" style="height: 45px;">
                 <i class="fa-solid fa-rotate-left me-1"></i> Reset Filter
             </button>
         </div>
     </div>
     
-
-    <div id="artikel-list">
+    <div id="artikel-list" class="mt-4">
         @include('landingpage.artikel.artikel-list', ['posts' => $posts])
     </div>
 </div>
