@@ -4,40 +4,40 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Import Controllers
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\HomeController;
 
 // Landing Page Controllers
-use App\Http\Controllers\LandingpageController;
-use App\Http\Controllers\LandingpageOrmasController;
-use App\Http\Controllers\LandingpagePotensiKonflikController;
-use App\Http\Controllers\LandingpageProfileController;
-use App\Http\Controllers\LandingpageSakipController;
-use App\Http\Controllers\LandingpageMitraController;
+use App\Http\Controllers\LandingPage\LandingpageController;
+use App\Http\Controllers\LandingPage\LandingpageOrmasController;
+use App\Http\Controllers\LandingPage\LandingpagePotensiKonflikController;
+use App\Http\Controllers\LandingPage\LandingpageProfileController;
+use App\Http\Controllers\LandingPage\LandingpageSakipController;
+use App\Http\Controllers\LandingPage\LandingpageMitraController;
 
 // Admin/Dashboard Controllers
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\BidangController;
-use App\Http\Controllers\ElectionController;
-use App\Http\Controllers\GaleriController;
-use App\Http\Controllers\IkuController;
-use App\Http\Controllers\LaporanAkipController;
-use App\Http\Controllers\LandasanHukumController;
-use App\Http\Controllers\MitraController;
-use App\Http\Controllers\OrmasController;
-use App\Http\Controllers\PemiluRayaController;
-use App\Http\Controllers\PilpresController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\PotensiKonflikController;
-use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\RenjaController;
-use App\Http\Controllers\RenstraController;
-use App\Http\Controllers\StrukturController;
-use App\Http\Controllers\UkurKerjaController;
-use App\Http\Controllers\VisiMisiController;
-use App\Http\Controllers\WalikotaController;
+use App\Http\Controllers\Admin\Content\BannerController;
+use App\Http\Controllers\Admin\Profile\BidangController;
+use App\Http\Controllers\LandingPage\ElectionController;
+use App\Http\Controllers\Admin\Content\GaleriController;
+use App\Http\Controllers\Admin\Sakip\IkuController;
+use App\Http\Controllers\Admin\Sakip\LaporanAkipController;
+use App\Http\Controllers\Admin\Profile\LandasanHukumController;
+use App\Http\Controllers\Admin\Content\MitraController;
+use App\Http\Controllers\Admin\Informasi\OrmasController;
+use App\Http\Controllers\Admin\Pemilu\PemiluRayaController;
+use App\Http\Controllers\Admin\Pemilu\PilpresController;
+use App\Http\Controllers\Admin\Content\PostController;
+use App\Http\Controllers\Admin\Informasi\PotensiKonflikController;
+use App\Http\Controllers\Admin\Profile\ProgramController;
+use App\Http\Controllers\Admin\Sakip\RenjaController;
+use App\Http\Controllers\Admin\Sakip\RenstraController;
+use App\Http\Controllers\Admin\Profile\StrukturController;
+use App\Http\Controllers\Admin\Sakip\UkurKerjaController;
+use App\Http\Controllers\Admin\Profile\VisiMisiController;
+use App\Http\Controllers\Admin\Pemilu\WalikotaController;
 
 // Newly added controller for Legislatif
-use App\Http\Controllers\LegislatifController;
+use App\Http\Controllers\Admin\Pemilu\LegislatifController;
 
 //========================================================================
 // AUTHENTICATION ROUTES

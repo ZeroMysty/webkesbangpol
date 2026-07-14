@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Informasi;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\PotensiKonflik;
 use Illuminate\Http\Request;

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Sakip;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Renja;
 use Illuminate\Http\Request;

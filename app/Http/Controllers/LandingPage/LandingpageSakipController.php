@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\LandingPage;
+
+use App\Http\Controllers\Controller;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
