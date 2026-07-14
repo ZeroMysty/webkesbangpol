@@ -4,10 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Import Controllers
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 
 // Landing Page Controllers
@@ -42,21 +38,6 @@ use App\Http\Controllers\WalikotaController;
 
 // Newly added controller for Legislatif
 use App\Http\Controllers\LegislatifController;
-// use App\Http\Controllers\LegislatifTerpilihController;
-// Placeholder for Legislatif Terpilih Controller
-// use App\Http\Controllers\LegislatifTerpilihController;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Di sini Anda dapat mendaftarkan rute web untuk aplikasi Anda. Rute-rute
-| ini dimuat oleh RouteServiceProvider dalam sebuah grup yang
-| berisi grup middleware "web".
-|
-*/
 
 //========================================================================
 // AUTHENTICATION ROUTES
@@ -106,8 +87,6 @@ Route::get('/mitra/detail/{mitra}', [LandingpageController::class, 'showMitraDet
 Route::get('/pemilu', [ElectionController::class, 'index'])->name('pemilu.index');
 Route::get('/pemilu/{kategori}', [ElectionController::class, 'show'])->name('pemilu.show');
 Route::get('/pemilu/{kategori}/{id}', [ElectionController::class, 'detail'])->name('pemilu.detail');
-// Route::get('/pemilu/legislatif/terpilih', [ElectionController::class, 'showLegislatifTerpilih'])->name('pemilu.legislatif.terpilih');
-
 
 //========================================================================
 // ADMIN/DASHBOARD ROUTES (PROTECTED BY AUTH MIDDLEWARE)
@@ -120,7 +99,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/posts', PostController::class);
     Route::resource('/galeris', GaleriController::class);
     Route::resource('/banners', BannerController::class);
-    // 
 
     // PROFILE MANAGEMENT
     Route::resource('/visimisis', VisiMisiController::class);
@@ -150,10 +128,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/potensi-konflik/import', [PotensiKonflikController::class, 'import'])->name('potensi-konflik.import');
     Route::resource('/potensi-konflik', PotensiKonflikController::class);
 
-    Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
     
     // Dashboard Admin
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/pemilu-raya', [PemiluRayaController::class, 'index'])->name('pemilu-raya.dashboard');
 
     // Manajemen Pemilu
@@ -167,20 +145,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('legislatif/import', [LegislatifController::class, 'showImportForm'])->name('legislatif.import.form');
         Route::post('legislatif/import', [LegislatifController::class, 'import'])->name('legislatif.import');
         Route::resource('legislatif', LegislatifController::class);
-        
-        // // Legislatif Terpilih Routes
-        // Route::get('/pemilu/legislatif/terpilih', [LegislatifController::class, 'terpilih'])
-        // ->name('pemilu.legislatif.terpilih');
-
-        // // Resource untuk legislatif terpilih (jika butuh CRUD penuh)
-        // Route::resource('/legislatif-terpilih', LegislatifTerpilihController::class);
-
-        // Resource untuk legislatif biasa
-        Route::resource('/legislatif', LegislatifController::class);
     });
     });
 });
-
 
 //========================================================================
 // FILE SERVING & DEBUGGING ROUTES
