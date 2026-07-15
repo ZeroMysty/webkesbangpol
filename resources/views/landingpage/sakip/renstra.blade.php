@@ -38,7 +38,7 @@
                             <select class="filter-select" id="tahunFilter">
                                 <option value="">Semua Tahun</option>
                                 @php
-                                    $years = $renstras->pluck('tahun')->unique()->sort()->reverse();
+                                    $years = $renstras->pluck('tahun_mulai')->unique()->sort()->reverse();
                                 @endphp
                                 @foreach($years as $year)
                                     <option value="{{ $year }}">{{ $year }}</option>
@@ -85,23 +85,23 @@
                             </thead>
                             <tbody id="renstraTableBody">
                                 @forelse($renstras as $index => $renstra)
-                                <tr class="renstra-item table-row" data-year="{{ $renstra->tahun }}" data-title="{{ $renstra->title }}" data-index="{{ $index + 1 }}">
+                                <tr class="renstra-item table-row" data-year="{{ $renstra->tahun_mulai }}" data-title="{{ $renstra->title }}" data-index="{{ $index + 1 }}">
                                     <td class="item-number table-cell-number">
                                         <span class="row-number">{{ $index + 1 }}</span>
                                     </td>
                                     <td class="table-cell-year">
-                                        <span class="badge badge-year">{{ $renstra->tahun }}</span>
-                                    </td>
+                                    <span class="badge badge-year">{{ $renstra->tahun_mulai }} - {{ $renstra->tahun_selesai }}</span>
+                                </td>
                                     <td class="table-cell-title">
                                         <div class="document-title">{{ $renstra->title }}</div>
                                     </td>
                                     <td class="table-cell-actions">
                                         <a href="{{ asset($renstra->file_upload) }}" target="_blank" class="btn btn-preview">
-    <i class="fas fa-eye"></i> Preview
-</a>
-<a href="{{ asset($renstra->file_upload_wm) }}" class="btn btn-download" download>
-    <i class="fas fa-download"></i> Unduh
-</a>
+                                            <i class="fas fa-eye"></i> Preview
+                                        </a>
+                                        <a href="{{ asset($renstra->file_upload_wm) }}" class="btn btn-download" download>
+                                            <i class="fas fa-download"></i> Unduh
+                                        </a>
                                         </div>
                                     </td>
                                 </tr>

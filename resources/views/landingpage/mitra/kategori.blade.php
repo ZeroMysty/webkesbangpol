@@ -8,7 +8,7 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-text">
-                    <h1 class="hero-title">FORKOPIMDA</h1>
+                    <h1 class="hero-title">{{ strtoupper(str_replace('-', ' ', $namaKategori)) }}</h1>
                     <p class="hero-subtitle">Daftar Semua Mitra Dalam Kategori Ini</p>
                 </div>
             </div>
