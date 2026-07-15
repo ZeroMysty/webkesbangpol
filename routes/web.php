@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Import Controllers
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 // Landing Page Controllers
 use App\Http\Controllers\LandingPage\LandingpageController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\Admin\Pemilu\LegislatifController;
 //========================================================================
 // AUTHENTICATION ROUTES
 //========================================================================
+Route::get('/captcha', [LoginController::class, 'captcha'])->name('captcha');
 Auth::routes();
 
 
