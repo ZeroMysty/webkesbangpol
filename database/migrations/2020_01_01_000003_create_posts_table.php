@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,16 +8,20 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel posts — sudah terkonsolidasi:
+     * - Kolom bidang_id & program_id (NOT NULL, FK)
+     * - Slug dengan unique constraint
      */
     public function up(): void
     {
-        // Resep untuk membuat tabel 'posts'
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('content');
             $table->string('image_path')->nullable();
+            $table->foreignId('bidang_id')->constrained('bidangs')->onDelete('restrict');
+            $table->foreignId('program_id')->constrained('programs')->onDelete('restrict');
             $table->timestamps();
         });
     }

@@ -8,11 +8,15 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel banners.
      */
     public function up(): void
     {
-        Schema::table('visi_misis', function (Blueprint $table) {
-            $table->string('sejarah_image')->nullable()->after('sejarah'); // sesuaikan posisi jika perlu
+        Schema::create('banners', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('image');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('visi_misis', function (Blueprint $table) {
-            $table->dropColumn('sejarah_image');
-        });
+        Schema::dropIfExists('banners');
     }
 };

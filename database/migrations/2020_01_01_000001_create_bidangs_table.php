@@ -8,11 +8,15 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel bidangs.
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->unique('slug');  // Menambahkan unique constraint
+        Schema::create('bidangs', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_bidang');
+            $table->text('deskripsi')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropUnique(['slug']);  // Menghapus unique constraint
-        });
+        Schema::dropIfExists('bidangs');
     }
 };

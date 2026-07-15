@@ -8,15 +8,18 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel strukturors — sudah terkonsolidasi:
+     * - Kolom foto_profile sudah langsung ada di sini
      */
     public function up(): void
     {
-        Schema::create('ikus', function (Blueprint $table) {
+        Schema::create('strukturors', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('jabatan');
+            $table->string('pangkat')->nullable();
+            $table->string('foto_profile')->nullable();
             $table->timestamps();
-            $table->string('title');
-            $table->year('tahun');
-            $table->string('file_upload');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ikus');
+        Schema::dropIfExists('strukturors');
     }
 };

@@ -8,6 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel mitras.
      */
     public function up(): void
     {

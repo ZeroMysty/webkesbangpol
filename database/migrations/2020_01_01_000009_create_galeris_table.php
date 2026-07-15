@@ -8,15 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel galeris.
      */
     public function up(): void
     {
-        Schema::create('renjas', function (Blueprint $table) {
+        Schema::create('galeris', function (Blueprint $table) {
             $table->id();
+            $table->string('judul');
+            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
+            $table->string('gambar_upload');
             $table->timestamps();
-            $table->string('title');
-            $table->year('tahun');
-            $table->string('file_upload');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('renjas');
+        Schema::dropIfExists('galeris');
     }
 };

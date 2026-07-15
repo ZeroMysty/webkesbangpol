@@ -8,15 +8,19 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Tabel visi_misis — sudah terkonsolidasi:
+     * - Kolom visi & misi bertipe text (bukan string)
+     * - Kolom sejarah_image
      */
     public function up(): void
     {
-        Schema::create('renstras', function (Blueprint $table) {
+        Schema::create('visi_misis', function (Blueprint $table) {
             $table->id();
+            $table->text('visi');
+            $table->text('misi');
+            $table->text('sejarah')->nullable();
+            $table->string('sejarah_image')->nullable();
             $table->timestamps();
-            $table->string('title');
-            $table->year('tahun');
-            $table->string('file_upload');
         });
     }
 
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('renstras');
+        Schema::dropIfExists('visi_misis');
     }
 };
