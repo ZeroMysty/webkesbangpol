@@ -29,7 +29,7 @@
                     <div class="sejarah-body">
                         @if ($visimisis->first()->sejarah_image)
                             <div class="sejarah-image">
-                                <img src="{{ asset('images/component/' . $visimisis->first()->sejarah_image) }}" alt="Sejarah Image">
+                                <img src="{{ asset('images/component/sejarah_image.png') }}" alt="Sejarah Image">
                             </div>
                         @endif
 
