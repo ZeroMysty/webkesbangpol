@@ -26,10 +26,8 @@
         </div>
     </div>
     
-<style>
-    .tmt-3 p {
-        text-align: justify;
-    }
-</style>    
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush    
 </body>
 </html>

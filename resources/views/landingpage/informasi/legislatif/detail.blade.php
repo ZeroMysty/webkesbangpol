@@ -2,21 +2,9 @@
 @section('title', $legislatif->nama_lengkap)
 
 @section('content')
-<style>
-    .detail-hero { padding: 3rem 0; background-color: #f8f9fa; }
-    .detail-card { background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
-    .detail-header { padding: 2rem; background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%); color: white; }
-    .header-info h1 { font-weight: 700; margin-bottom: 0.25rem; }
-    .header-info p { margin-bottom: 0; opacity: 0.9; }
-    .detail-body { padding: 2rem; }
-    .info-section { margin-bottom: 2rem; }
-    .info-title { font-weight: 600; color: #B40D14; margin-bottom: 1rem; border-bottom: 2px solid #f1f1f1; padding-bottom: 0.5rem; }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-    .info-item { display: flex; align-items: flex-start; gap: 1rem; }
-    .info-item .icon { font-size: 1.2rem; color: #B40D14; margin-top: 5px; }
-    .info-item .label { font-weight: 600; color: #6c757d; display: block; font-size: 0.9rem; }
-    .info-item .value { color: #212529; }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-informasi.css') }}">
+@endpush
 
 <section class="detail-hero">
     <div class="container">

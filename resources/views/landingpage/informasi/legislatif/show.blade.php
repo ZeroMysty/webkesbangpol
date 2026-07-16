@@ -2,90 +2,9 @@
 @section('title', 'Pemilihan Legislatif')
 
 @section('content')
-<style>
-    .hero-legislatif {
-        padding: 4rem 0;
-        background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
-        color: white;
-        text-align: center;
-    }
-    .filter-section {
-        padding: 2rem 0;
-        background-color: #fff;
-        border-bottom: 1px solid #dee2e6;
-    }
-    .dapil-section {
-        margin-bottom: 3rem;
-        display: none; /* Sembunyikan semua secara default */
-    }
-    .dapil-section.active {
-        display: block; /* Tampilkan yang aktif */
-    }
-    .dapil-title {
-        font-weight: 700;
-        color: #2c3e50;
-        border-bottom: 3px solid #B40D14;
-        padding-bottom: 0.5rem;
-        margin-bottom: 2rem;
-    }
-    .caleg-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-        transition: all 0.3s ease;
-        height: 100%;
-        border: 1px solid #e9ecef;
-        display: flex;
-        flex-direction: column;
-    }
-    .caleg-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    .caleg-card .card-body {
-        padding: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-    .caleg-no-urut {
-        background-color: #B40D14;
-        color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        align-self: center;
-    }
-    .caleg-partai {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #6c757d;
-        text-transform: uppercase;
-        margin-bottom: 0.5rem;
-        text-align: center;
-    }
-    .caleg-nama {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #212529;
-        margin-bottom: 1rem;
-        flex-grow: 1;
-        text-align: center;
-    }
-    .caleg-nama a {
-        text-decoration: none;
-        color: inherit;
-    }
-    .caleg-nama a:hover {
-        color: #B40D14;
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-informasi.css') }}">
+@endpush
 
 <section class="hero-legislatif">
     <div class="container">

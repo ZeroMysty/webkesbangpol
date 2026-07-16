@@ -88,9 +88,7 @@
 @endsection
 
 @push('styles')
-<style>
-    .main-wrapper .dashboard-content {
-        padding-top: 1rem !important;
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 @endpush

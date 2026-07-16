@@ -87,46 +87,9 @@
         </div>
     </div>
 
-    <style>
-        .page-link {
-            color: #B40D14 !important;
-            background-color: #fff !important;
-            border-color: #ddd !important;
-        }
-        .page-link:hover {
-            color: #ffffff !important;
-            background-color: #B40D14 !important;
-            border-color: #B40D14 !important;
-        }
-        .page-item.active .page-link {
-            color: #fff !important;
-            background-color: #B40D14 !important;
-            border-color: #B40D14 !important;
-        }
-        .page-item.disabled .page-link {
-            color: #6c757d !important;
-            background-color: #f8f9fa !important;
-            border-color: #dee2e6 !important;
-        }
-
-        .table thead th {
-            text-align: center !important;
-            vertical-align: middle !important;
-        }
-
-        .table tbody tr td:nth-child(1) {
-            text-align: left !important;
-        }
-
-        .table tbody tr td:nth-child(2),
-        .table tbody tr td:nth-child(3) {
-            text-align: justify !important;
-        }
-
-        .table tbody tr td:nth-child(4) {
-            align-items: center !important;
-        }
-    </style>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
     <script>
         @if(session()->has('success'))
