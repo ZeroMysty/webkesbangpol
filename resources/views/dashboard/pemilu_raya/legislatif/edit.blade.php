@@ -36,6 +36,16 @@
                                                 @error('nama_partai') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
+                                                <label for="logo_partai" class="form-label">Logo Partai</label>
+                                                <input type="file" class="form-control @error('logo_partai') is-invalid @enderror" id="logo_partai" name="logo_partai" accept=".jpg,.jpeg,.png,.webp">
+                                                @if($legislatif->logo_partai)
+                                                    <small class="text-muted">Kosongkan jika tidak ingin mengubah logo. <a href="{{ asset($legislatif->logo_partai) }}" target="_blank">Lihat logo saat ini</a></small>
+                                                @else
+                                                    <small class="text-muted">Opsional. Kalau partai ini sudah punya logo di kandidat lain, boleh dikosongkan.</small>
+                                                @endif
+                                                @error('logo_partai') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                                            </div>
+                                            <div class="col-md-4 mb-3">
                                                 <label for="tempat_lahir" class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $legislatif->tempat_lahir) }}" required>
                                                 @error('tempat_lahir') <div class="invalid-feedback">{{ $message }}</div> @enderror

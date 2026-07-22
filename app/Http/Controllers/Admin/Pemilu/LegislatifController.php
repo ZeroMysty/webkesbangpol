@@ -42,6 +42,7 @@ class LegislatifController extends Controller
             'no_urut' => 'required|integer',
             'nama_lengkap' => 'required|string|max:255',
             'nama_partai' => 'required|string|max:255',
+            'logo_partai' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'tempat_lahir' => 'nullable|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'dapil' => 'required|string|max:255',
@@ -49,6 +50,26 @@ class LegislatifController extends Controller
             'riwayat_pendidikan' => 'nullable|string',
             'riwayat_pekerjaan' => 'nullable|string',
         ]);
+
+        // Upload logo partai (opsional). Kalau partai yang sama sudah
+        // pernah punya logo di kandidat lain, tidak wajib upload ulang —
+        // halaman publik akan otomatis pakai logo yang sudah ada.
+        $uploadPath = 'images/pemilu';
+        if ($request->hasFile('logo_partai')) {
+            $file = $request->file('logo_partai');
+            $filename = time() . '_partai_' . $file->hashName();
+            $file->move(public_path($uploadPath), $filename);
+            $validated['logo_partai'] = $uploadPath . '/' . $filename;
+        } else {
+            // Belum upload di form ini -> coba warisi logo dari kandidat lain
+            // yang partainya sama, biar tidak perlu upload berkali-kali.
+            $existingLogo = Legislatif::where('nama_partai', $validated['nama_partai'])
+                ->whereNotNull('logo_partai')
+                ->value('logo_partai');
+            if ($existingLogo) {
+                $validated['logo_partai'] = $existingLogo;
+            }
+        }
 
         Legislatif::create($validated);
 
@@ -66,6 +87,7 @@ class LegislatifController extends Controller
             'no_urut' => 'required|integer',
             'nama_lengkap' => 'required|string|max:255',
             'nama_partai' => 'required|string|max:255',
+            'logo_partai' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'tempat_lahir' => 'nullable|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'dapil' => 'required|string|max:255',
@@ -73,6 +95,20 @@ class LegislatifController extends Controller
             'riwayat_pendidikan' => 'nullable|string',
             'riwayat_pekerjaan' => 'nullable|string',
         ]);
+
+        $uploadPath = 'images/pemilu';
+        if ($request->hasFile('logo_partai')) {
+            if ($legislatif->logo_partai && file_exists(public_path($legislatif->logo_partai))) {
+                unlink(public_path($legislatif->logo_partai));
+            }
+            $file = $request->file('logo_partai');
+            $filename = time() . '_partai_' . $file->hashName();
+            $file->move(public_path($uploadPath), $filename);
+            $validated['logo_partai'] = $uploadPath . '/' . $filename;
+        } else {
+            // Tidak upload baru -> pertahankan logo yang sudah ada di baris ini
+            unset($validated['logo_partai']);
+        }
 
         $legislatif->update($validated);
 

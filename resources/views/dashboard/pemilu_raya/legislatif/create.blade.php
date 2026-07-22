@@ -15,7 +15,7 @@
 
     <div class="card border-0 shadow-sm rounded">
         <div class="card-body">
-            <form action="{{ route('admin.pemilu.legislatif.store') }}" method="POST">
+            <form action="{{ route('admin.pemilu.legislatif.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 <div class="row">
@@ -33,6 +33,12 @@
                         <label for="nama_partai" class="form-label">Nama Partai <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('nama_partai') is-invalid @enderror" id="nama_partai" name="nama_partai" value="{{ old('nama_partai') }}" required>
                         @error('nama_partai') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="logo_partai" class="form-label">Logo Partai</label>
+                        <input type="file" class="form-control @error('logo_partai') is-invalid @enderror" id="logo_partai" name="logo_partai" accept=".jpg,.jpeg,.png,.webp">
+                        <small class="text-muted">Opsional. Kalau partai ini sudah punya logo di kandidat lain, boleh dikosongkan — otomatis dipakai ulang.</small>
+                        @error('logo_partai') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
