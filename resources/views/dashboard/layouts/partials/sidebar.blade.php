@@ -41,10 +41,9 @@
                             <i class="fas fa-eye me-2"></i> <span class="sidebar-text">Profil Organisasi</span>
                         </a>
 
-                        <a href="{{ url('/strukturors') }}" class="nav-link {{ Request::is('strukturors*') ? 'active' : '' }}">
-                            <i class="fas fa-project-diagram me-2"></i> <span class="sidebar-text">Struktur Organisasi</span>
+                        <a href="{{ url('/strukturors') }}" class="nav-link {{ Request::is('strukturors') || Request::is('strukturors?*') ? 'active' : '' }}">
+                            <i class="fas fa-list me-2"></i> <span class="sidebar-text">Data Struktur</span>
                         </a>
-
                         <a href="{{ url('/landasanhukum') }}" class="nav-link {{ Request::is('landasanhukum*') ? 'active' : '' }}">
                             <i class="fas fa-gavel me-2"></i> <span class="sidebar-text">Dasar Hukum</span>
                         </a>
