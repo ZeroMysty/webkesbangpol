@@ -17,8 +17,8 @@
 
 /* ---- Toolbar ---- */
 .toolbar-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
-.toolbar-row .hint { font-size:0.68rem; color:#b0b8c9; margin-left:auto; }
-.toolbar-row .hint kbd { background:#f0f2f5; border:1px solid #dde3ec; border-radius:3px; padding:1px 4px; font-size:0.65rem; font-family:monospace; }
+.toolbar-row .hint { font-size:0.6rem; color:#c8cdd8; margin-left:auto; white-space:nowrap; line-height:1; }
+.toolbar-row .hint kbd { background:#f4f6f9; border:1px solid #e8eaee; border-radius:3px; padding:1px 4px; font-size:0.58rem; font-family:monospace; color:#c0c7d4; }
 .tb-sep { width:1px; height:18px; background:#e0e4ea; }
 
 /* ---- Tool Mode Buttons ---- */
@@ -38,26 +38,40 @@
 #rubber-band-select { position:absolute; pointer-events:none; z-index:50; border:1.5px solid #3b82f6; background:rgba(59,130,246,0.07); border-radius:3px; display:none; }
 #rubber-band-select.show { display:block; }
 
-/* Floating connector toolbar (fixed at top-center of canvas) */
-.connector-toolbar { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:100; background:#fff; border:1px solid #e0e4ea; border-radius:30px; box-shadow:0 6px 25px rgba(0,0,0,0.12); padding:6px 14px; display:none; gap:8px; align-items:center; }
-.connector-toolbar.show { display:flex; }
-.ct-group { display:flex; gap:2px; background:#f0f2f5; border-radius:20px; padding:2px; }
-.ct-btn { border:none; background:transparent; color:#555; font-size:0.75rem; font-weight:600; padding:4px 9px; border-radius:15px; cursor:pointer; transition:all 0.12s; }
+/* ---- Panel garis: style group inline ---- */
+.ct-group { display:flex; gap:2px; background:#f0f2f5; border-radius:8px; padding:2px; }
+.ct-btn { border:none; background:transparent; color:#555; font-size:0.78rem; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.12s; }
 .ct-btn.active { background:#fff; color:#B40D1A; box-shadow:0 1px 4px rgba(0,0,0,0.1); }
 .ct-btn:hover:not(.active) { background:rgba(255,255,255,0.7); }
 .ct-btn-danger { color:#dc3545; }
 .ct-btn-danger:hover { background:#fdecea; }
-.ct-sep { width:1px; height:16px; background:#e0e4ea; }
-.ct-label { font-size:0.68rem; font-weight:600; color:#8892a8; }
-.ct-select { border:1px solid #dde3ec; border-radius:6px; padding:2px 6px; font-size:0.72rem; color:#333; background:#f8fafd; cursor:pointer; outline:none; }
+.ct-select { width:100%; padding:6px 8px; border:1.5px solid #dde3ec; border-radius:6px; font-size:0.8rem; color:#1a1a2e; background:#f8fafd; cursor:pointer; outline:none; }
+.ct-select:focus { border-color:#B40D1A; }
 
-/* Floating color picker */
+/* Panel garis color swatches */
+.panel-garis-swatches { display:flex; gap:4px; flex-wrap:wrap; }
+.panel-garis-swatches .cg-swatch { width:24px; height:24px; border-radius:5px; border:2.5px solid transparent; cursor:pointer; transition:all 0.12s; }
+.panel-garis-swatches .cg-swatch:hover { transform:scale(1.15); }
+.panel-garis-swatches .cg-swatch.active { border-color:#1a1a2e; box-shadow:0 0 0 2px #fff,0 0 0 4px #1a1a2e; }
+.panel-garis-swatches .cg-reset { width:24px; height:24px; border-radius:5px; border:2px solid #dde3ec; cursor:pointer; background:#f4f6f9; font-size:0.75rem; color:#8892a8; display:flex; align-items:center; justify-content:center; transition:all 0.12s; }
+.panel-garis-swatches .cg-reset:hover { border-color:#8892a8; background:#e8eaee; }
+
+/* Panel disabled state (idle mode) */
+.panel-section { display:none; }
+.panel-section.active { display:block; }
+.panel-disabled-overlay { pointer-events:none; opacity:0.45; }
+.panel-idle-hint { text-align:center; padding:14px 8px 6px; color:#b0b8c9; font-size:0.75rem; line-height:1.6; }
+.panel-idle-hint i { font-size:1.6rem; display:block; margin-bottom:6px; opacity:0.4; }
+.panel-save-btn { width:100%; padding:8px; background:linear-gradient(135deg,#B40D1A,#8a0a12); color:#fff; font-weight:700; font-size:0.82rem; border:none; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 3px 10px rgba(180,13,26,0.2); transition:all 0.15s; }
+.panel-save-btn:hover { background:linear-gradient(135deg,#8a0a12,#5a060d); transform:translateY(-1px); }
+.panel-divider { border:none; border-top:1px solid #eef0f5; margin:8px 0; }
+
+/* Floating color picker (keep for long-press) */
 .connector-color-picker { position:fixed; z-index:1070; background:#fff; border:1px solid #e0e4ea; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.15); padding:7px 10px; display:none; gap:4px; align-items:center; }
 .connector-color-picker.show { display:flex; }
-.connector-color-picker .cp-label { font-size:0.6rem; color:#8892a8; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; margin-right:4px; }
-.connector-color-picker .cp-swatch, .connector-toolbar .cp-swatch { width:18px; height:18px; border-radius:4px; border:2px solid transparent; cursor:pointer; transition:all 0.12s; }
-.connector-color-picker .cp-swatch:hover, .connector-toolbar .cp-swatch:hover { transform:scale(1.25); }
-.connector-color-picker .cp-swatch.active, .connector-toolbar .cp-swatch.active { border-color:#1a1a2e; box-shadow:0 0 0 1.5px #fff,0 0 0 3px #1a1a2e; }
+.connector-color-picker .cp-swatch { width:18px; height:18px; border-radius:4px; border:2px solid transparent; cursor:pointer; transition:all 0.12s; }
+.connector-color-picker .cp-swatch:hover { transform:scale(1.25); }
+.connector-color-picker .cp-swatch.active { border-color:#1a1a2e; box-shadow:0 0 0 1.5px #fff,0 0 0 3px #1a1a2e; }
 .connector-color-picker .cp-reset { width:20px; height:20px; border-radius:4px; border:2px solid #dde3ec; cursor:pointer; background:#f4f6f9; font-size:0.7rem; color:#8892a8; display:flex; align-items:center; justify-content:center; transition:all 0.12s; margin-left:2px; }
 .connector-color-picker .cp-reset:hover { border-color:#8892a8; background:#e8eaee; }
 
@@ -136,8 +150,10 @@
 .align-guide { stroke:#3b82f6; stroke-width:1.5; fill:none; pointer-events:none; stroke-dasharray:4,3; opacity:0.85; }
 
 /* ---- Edit Panel ---- */
-.builder-page-wrapper { padding-right:310px; transition:padding-right 0.2s ease; }
-.builder-panel-inline { position:fixed; top:60px; right:0; bottom:0; width:295px; background:#fff; border-left:1px solid #e0e4ea; z-index:1040; overflow-y:auto; padding:16px 14px; display:flex; flex-direction:column; gap:12px; box-shadow:-4px 0 20px rgba(0,0,0,0.06); transform:none !important; }
+.builder-page-wrapper { padding-right:0; transition:none; }
+.builder-layout-flex { display:flex; gap:0; align-items:flex-start; }
+.builder-editor-col { flex:1; min-width:0; }
+.builder-panel-inline { flex-shrink:0; width:300px; background:#fff; border-left:1px solid #e0e4ea; z-index:10; overflow-y:auto; padding:16px 14px; display:flex; flex-direction:column; gap:12px; box-shadow:-4px 0 20px rgba(0,0,0,0.06); position:sticky; top:0; max-height:calc(100vh - 60px); align-self:flex-start; border-radius:0 0 0 10px; }
 .panel-title { font-size:0.82rem; font-weight:700; color:#1a1a2e; margin:0 0 2px; display:flex; align-items:center; gap:6px; }
 .panel-title i { color:#B40D1A; }
 .panel-subtitle { font-size:0.7rem; color:#8892a8; margin-bottom:6px; }
@@ -160,7 +176,7 @@
 .panel-btn-danger:hover { background:#dc3545; color:#fff; }
 .panel-btn-purple { background:#6366f1; color:#fff; }
 .panel-btn-purple:hover { background:#4f46e5; }
-.panel-close-btn { display:none !important; }
+
 .panel-multi-info { display:flex; align-items:center; gap:8px; padding:10px 12px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; font-size:0.8rem; color:#1d4ed8; }
 .panel-multi-info i { font-size:1rem; flex-shrink:0; }
 .shortcut-tip { font-size:0.65rem; color:#94a3b8; line-height:1.6; }
@@ -234,12 +250,6 @@
     <div class="page-header">
         <div>
             <h1 class="page-title">Penyusun Struktur Organisasi</h1>
-            <p class="page-subtitle">Atur tata letak bagan organisasi dengan drag &amp; drop.</p>
-        </div>
-        <div class="page-actions">
-            <button class="btn-primary-red" id="btn-tambah-data-inline">
-                <i class="fas fa-plus"></i> Tambah Data
-            </button>
         </div>
     </div>
 
@@ -252,6 +262,10 @@
 
     {{-- Toolbar --}}
     <div class="toolbar-row">
+        <button class="btn-primary-red" id="btn-tambah-data-inline">
+            <i class="fas fa-plus"></i> Tambah Data
+        </button>
+        <div class="tb-sep"></div>
         <button class="btn-outline" id="btn-undo-inline" disabled title="Undo (Ctrl+Z)"><i class="fas fa-undo"></i></button>
         <div class="tb-sep"></div>
         <button class="btn-outline" id="btn-save-layout-inline" style="background:#B40D1A;border-color:#B40D1A;color:#fff;">
@@ -270,138 +284,191 @@
                 <i class="fas fa-project-diagram"></i> Hubungkan
             </button>
         </div>
-        <div class="tb-sep"></div>
         <span class="hint">
-            <kbd>Scroll</kbd>=Zoom &middot; <kbd>MMB</kbd>=Geser &middot; <kbd>V</kbd>/<kbd>C</kbd>=Mode &middot;
-            <kbd>Ctrl+A</kbd>=Semua &middot; <kbd>Shift</kbd>+Klik=Multi &middot; <kbd>Del</kbd>=Hapus
+            <kbd>Scroll</kbd>=Zoom &middot;
+            <kbd>MMB</kbd>=Geser &middot;
+            <kbd>V</kbd>/<kbd>C</kbd>=Mode &middot;
+            <kbd>Ctrl+A</kbd>=Semua &middot;
+            <kbd>Shift</kbd>+Klik=Multi &middot;
+            <kbd>Del</kbd>=Hapus
         </span>
     </div>
 
-    {{-- Builder Canvas --}}
-    <div class="builder-body" id="builder-body-inline">
-        {{-- Floating Connector Toolbar (fixed at top-center of canvas) --}}
-        <div class="connector-toolbar" id="connector-toolbar-inline">
-            <span class="ct-label"><i class="fas fa-project-diagram" style="color:#B40D1A;"></i> Garis:</span>
-            <div class="ct-group" id="ct-style-group">
-                <button class="ct-btn active" data-style="orthogonal" title="Siku (Orthogonal)">┌</button>
-                <button class="ct-btn" data-style="straight" title="Lurus (Straight)">—</button>
-                <button class="ct-btn" data-style="curved" title="Lengkung (Curved)">~</button>
-            </div>
-            <div class="ct-sep"></div>
-            <div class="ct-group" id="ct-dash-group">
-                <button class="ct-btn active" data-dash="solid" title="Utuh">──</button>
-                <button class="ct-btn" data-dash="dashed" title="Putus-putus">- -</button>
-            </div>
-            <div class="ct-sep"></div>
-            <span class="ct-label">Dari:</span>
-            <select class="ct-select" id="ct-from-port">
-                <option value="b">Bawah</option>
-                <option value="t">Atas</option>
-                <option value="r">Kanan</option>
-                <option value="l">Kiri</option>
-            </select>
-            <span class="ct-label">Ke:</span>
-            <select class="ct-select" id="ct-to-port">
-                <option value="t">Atas</option>
-                <option value="b">Bawah</option>
-                <option value="l">Kiri</option>
-                <option value="r">Kanan</option>
-            </select>
-            <div class="ct-sep"></div>
-            <div class="cp-swatch" data-color="blue" style="background:#3b82f6;" title="Biru"></div>
-            <div class="cp-swatch" data-color="red" style="background:#ef4444;" title="Merah"></div>
-            <div class="cp-swatch" data-color="green" style="background:#22c55e;" title="Hijau"></div>
-            <div class="cp-swatch" data-color="yellow" style="background:#eab308;" title="Kuning"></div>
-            <div class="cp-swatch" data-color="purple" style="background:#a855f7;" title="Ungu"></div>
-            <div class="cp-swatch" data-color="gray" style="background:#6b7280;" title="Abu"></div>
-            <div class="ct-sep"></div>
-            <button class="ct-btn ct-btn-danger" id="ct-delete-btn" title="Hapus Koneksi"><i class="fas fa-trash"></i></button>
-        </div>
-
-        <canvas id="canvas-grid-inline"></canvas>
-        <div id="canvas-stage-inline">
-            <svg id="svg-connectors-inline"></svg>
-            @if($allStrukturors->isEmpty())
-            <div class="builder-empty" id="builder-empty-inline">
-                <i class="fas fa-sitemap"></i>
-                <p>Belum ada data. Tambah data terlebih dahulu, atau klik kanan pada kanvas.</p>
-            </div>
-            @endif
-        </div>
-        <div id="rubber-band-select"></div>
-    </div>
-</div>
-
-{{-- Edit Panel --}}
-<div class="builder-panel-inline" id="builder-panel-inline">
-    <button class="panel-close-btn" id="panel-close-btn"><i class="fas fa-times"></i></button>
-    <div>
-        <h3 class="panel-title"><i class="fas fa-pen-square"></i> Edit Kotak</h3>
-        <p class="panel-subtitle">Pilih kotak pada kanvas, lalu perbarui datanya.</p>
-    </div>
-
-    {{-- Multi-select info --}}
-    <div class="panel-multi-info" id="panel-multi-select-info" style="display:none;">
-        <i class="fas fa-object-group"></i>
-        <span><strong id="panel-multi-count">0</strong> kotak dipilih.<br>Geser untuk memindahkan semua bersama.</span>
-    </div>
-
-    {{-- Single-select fields --}}
-    <div id="panel-single-fields">
-        <div class="panel-group">
-            <label class="panel-label">Nama</label>
-            <input class="panel-input" id="edit-nama-inline" placeholder="Nama lengkap">
-        </div>
-        <div class="panel-group">
-            <label class="panel-label">NIP</label>
-            <input class="panel-input" id="edit-nip-inline" placeholder="18 digit" maxlength="22">
-        </div>
-        <div class="panel-group">
-            <label class="panel-label">Jabatan</label>
-            <input class="panel-input" id="edit-jabatan-inline" placeholder="Nama jabatan">
-        </div>
-        <div class="panel-group">
-            <label class="panel-label">Atasan</label>
-            <select class="panel-select" id="edit-parent-inline">
-                <option value="">-- Root --</option>
-                @foreach($allStrukturors as $s)
-                    <option value="{{ $s->id }}">{{ $s->jabatan }} {{ $s->nama !== '-' ? '- '.$s->nama : '' }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="panel-group">
-            <label class="panel-label">Warna</label>
-            <div class="panel-colors" id="edit-colors-inline">
-                <div class="panel-color-swatch active" data-color="blue" style="background:#3b82f6;" title="Biru"></div>
-                <div class="panel-color-swatch" data-color="red" style="background:#ef4444;" title="Merah"></div>
-                <div class="panel-color-swatch" data-color="green" style="background:#22c55e;" title="Hijau"></div>
-                <div class="panel-color-swatch" data-color="yellow" style="background:#eab308;" title="Kuning"></div>
-                <div class="panel-color-swatch" data-color="purple" style="background:#a855f7;" title="Ungu"></div>
-                <div class="panel-color-swatch" data-color="orange" style="background:#f97316;" title="Oranye"></div>
-                <div class="panel-color-swatch" data-color="teal" style="background:#14b8a6;" title="Teal"></div>
-                <div class="panel-color-swatch" data-color="pink" style="background:#ec4899;" title="Pink"></div>
-                <div class="panel-color-swatch" data-color="gray" style="background:#6b7280;" title="Abu"></div>
+    {{-- Builder Canvas + Panel (flex row) --}}
+    <div class="builder-layout-flex">
+        {{-- Editor Column --}}
+        <div class="builder-editor-col">
+            <div class="builder-body" id="builder-body-inline">
+                <canvas id="canvas-grid-inline"></canvas>
+                <div id="canvas-stage-inline">
+                    <svg id="svg-connectors-inline"></svg>
+                    @if($allStrukturors->isEmpty())
+                    <div class="builder-empty" id="builder-empty-inline">
+                        <i class="fas fa-sitemap"></i>
+                        <p>Belum ada data. Tambah data terlebih dahulu, atau klik kanan pada kanvas.</p>
+                    </div>
+                    @endif
+                </div>
+                <div id="rubber-band-select"></div>
             </div>
         </div>
-        <div class="panel-coord">X: <span id="edit-x-inline">0</span> · Y: <span id="edit-y-inline">0</span></div>
-        <div class="panel-btn-row">
-            <button class="panel-btn panel-btn-primary" id="btn-update-node-inline"><i class="fas fa-check"></i> Perbarui</button>
-            <button class="panel-btn panel-btn-danger" id="btn-delete-node-inline"><i class="fas fa-trash"></i> Hapus</button>
-        </div>
-        <div class="panel-btn-row">
-            <button class="panel-btn panel-btn-purple" id="btn-duplicate-node-inline"><i class="fas fa-copy"></i> Duplikat</button>
-        </div>
-        <hr style="border:none;border-top:1px solid #eef0f5;margin:6px 0;">
-        <p class="shortcut-tip">
-            <kbd>Klik garis</kbd> = Pilih garis<br>
-            <kbd>Tahan garis</kbd> = Ubah warna<br>
-            <kbd>Drag titik □</kbd> = Tambah belok<br>
-            <kbd>Drag titik ○</kbd> = Geser belok<br>
-            <kbd>Klik kanan ○</kbd> = Hapus belok<br>
-            <kbd>Dblclick garis</kbd> = Tambah titik<br>
-        </p>
-    </div>
-</div>
+
+        {{-- Right Panel: 3 modes (idle / edit-kotak / edit-garis) --}}
+        <div class="builder-panel-inline" id="builder-panel-inline">
+
+            {{-- === MODE IDLE: tidak ada yang dipilih === --}}
+            <div class="panel-section active" id="panel-section-idle">
+                <div class="panel-idle-hint">
+                    <i class="fas fa-mouse-pointer"></i>
+                    Pilih <strong>kotak</strong> untuk mengedit data,<br>
+                    atau <strong>garis</strong> untuk mengubah gaya koneksi.
+                </div>
+                <div class="panel-disabled-overlay">
+                    <div class="panel-group">
+                        <label class="panel-label">Nama</label>
+                        <input class="panel-input" disabled placeholder="Nama lengkap">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">NIP</label>
+                        <input class="panel-input" disabled placeholder="18 digit">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Jabatan</label>
+                        <input class="panel-input" disabled placeholder="Nama jabatan">
+                    </div>
+                </div>
+            </div>
+
+            {{-- === MODE KOTAK === --}}
+            <div class="panel-section" id="panel-section-kotak">
+                <div>
+                    <h3 class="panel-title"><i class="fas fa-square"></i> Edit Kotak</h3>
+                    <p class="panel-subtitle">Perbarui data kotak yang dipilih.</p>
+                </div>
+
+                {{-- Multi-select --}}
+                <div class="panel-multi-info" id="panel-multi-select-info" style="display:none;">
+                    <i class="fas fa-object-group"></i>
+                    <span><strong id="panel-multi-count">0</strong> kotak dipilih.<br>Geser untuk memindahkan semua bersama.</span>
+                </div>
+
+                {{-- Single-select fields --}}
+                <div id="panel-single-fields">
+                    <div class="panel-group">
+                        <label class="panel-label">Nama</label>
+                        <input class="panel-input" id="edit-nama-inline" placeholder="Nama lengkap">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">NIP</label>
+                        <input class="panel-input" id="edit-nip-inline" placeholder="18 digit" maxlength="22">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Jabatan</label>
+                        <input class="panel-input" id="edit-jabatan-inline" placeholder="Nama jabatan">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Atasan</label>
+                        <select class="panel-select" id="edit-parent-inline">
+                            <option value="">-- Root --</option>
+                            @foreach($allStrukturors as $s)
+                                <option value="{{ $s->id }}">{{ $s->jabatan }} {{ $s->nama !== '-' ? '- '.$s->nama : '' }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Warna Kotak</label>
+                        <div class="panel-colors" id="edit-colors-inline">
+                            <div class="panel-color-swatch active" data-color="blue" style="background:#3b82f6;" title="Biru"></div>
+                            <div class="panel-color-swatch" data-color="red" style="background:#ef4444;" title="Merah"></div>
+                            <div class="panel-color-swatch" data-color="green" style="background:#22c55e;" title="Hijau"></div>
+                            <div class="panel-color-swatch" data-color="yellow" style="background:#eab308;" title="Kuning"></div>
+                            <div class="panel-color-swatch" data-color="purple" style="background:#a855f7;" title="Ungu"></div>
+                            <div class="panel-color-swatch" data-color="orange" style="background:#f97316;" title="Oranye"></div>
+                            <div class="panel-color-swatch" data-color="teal" style="background:#14b8a6;" title="Teal"></div>
+                            <div class="panel-color-swatch" data-color="pink" style="background:#ec4899;" title="Pink"></div>
+                            <div class="panel-color-swatch" data-color="gray" style="background:#6b7280;" title="Abu"></div>
+                        </div>
+                    </div>
+                    <div class="panel-coord">X: <span id="edit-x-inline">0</span> · Y: <span id="edit-y-inline">0</span></div>
+                    <div class="panel-btn-row">
+                        <button class="panel-btn panel-btn-primary" id="btn-update-node-inline"><i class="fas fa-check"></i> Perbarui</button>
+                        <button class="panel-btn panel-btn-danger" id="btn-delete-node-inline"><i class="fas fa-trash"></i> Hapus</button>
+                    </div>
+                    <div class="panel-btn-row">
+                        <button class="panel-btn panel-btn-purple" id="btn-duplicate-node-inline"><i class="fas fa-copy"></i> Duplikat</button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- === MODE GARIS === --}}
+            <div class="panel-section" id="panel-section-garis">
+                <div>
+                    <h3 class="panel-title"><i class="fas fa-project-diagram"></i> Edit Garis</h3>
+                    <p class="panel-subtitle">Ubah gaya koneksi yang dipilih.</p>
+                </div>
+
+                <div class="panel-group">
+                    <label class="panel-label">Bentuk Garis</label>
+                    <div class="ct-group" id="ct-style-group">
+                        <button class="ct-btn active" data-style="orthogonal" title="Siku"><i class="fas fa-project-diagram"></i> Siku</button>
+                        <button class="ct-btn" data-style="straight" title="Lurus">— Lurus</button>
+                        <button class="ct-btn" data-style="curved" title="Lengkung">~ Lengkung</button>
+                    </div>
+                </div>
+
+                <div class="panel-group">
+                    <label class="panel-label">Tipe Garis</label>
+                    <div class="ct-group" id="ct-dash-group">
+                        <button class="ct-btn active" data-dash="solid" title="Utuh">── Utuh</button>
+                        <button class="ct-btn" data-dash="dashed" title="Putus-putus">- - Putus</button>
+                    </div>
+                </div>
+
+                <div class="panel-group">
+                    <label class="panel-label">Port Asal (Dari)</label>
+                    <select class="ct-select" id="ct-from-port">
+                        <option value="b">Bawah</option>
+                        <option value="t">Atas</option>
+                        <option value="r">Kanan</option>
+                        <option value="l">Kiri</option>
+                    </select>
+                </div>
+
+                <div class="panel-group">
+                    <label class="panel-label">Port Tujuan (Ke)</label>
+                    <select class="ct-select" id="ct-to-port">
+                        <option value="t">Atas</option>
+                        <option value="b">Bawah</option>
+                        <option value="l">Kiri</option>
+                        <option value="r">Kanan</option>
+                    </select>
+                </div>
+
+                <div class="panel-group">
+                    <label class="panel-label">Warna Garis</label>
+                    <div class="panel-garis-swatches" id="ct-color-swatches">
+                        <div class="cg-swatch" data-color="blue" style="background:#3b82f6;" title="Biru"></div>
+                        <div class="cg-swatch" data-color="red" style="background:#ef4444;" title="Merah"></div>
+                        <div class="cg-swatch" data-color="green" style="background:#22c55e;" title="Hijau"></div>
+                        <div class="cg-swatch" data-color="yellow" style="background:#eab308;" title="Kuning"></div>
+                        <div class="cg-swatch" data-color="purple" style="background:#a855f7;" title="Ungu"></div>
+                        <div class="cg-swatch" data-color="orange" style="background:#f97316;" title="Oranye"></div>
+                        <div class="cg-swatch" data-color="teal" style="background:#14b8a6;" title="Teal"></div>
+                        <div class="cg-swatch" data-color="pink" style="background:#ec4899;" title="Pink"></div>
+                        <div class="cg-swatch" data-color="gray" style="background:#6b7280;" title="Abu"></div>
+                        <div class="cg-reset" id="cg-reset-btn" title="Reset warna">↺</div>
+                    </div>
+                </div>
+
+                <div class="panel-btn-row">
+                    <button class="panel-btn panel-btn-danger" id="ct-delete-btn"><i class="fas fa-trash"></i> Hapus Garis</button>
+                </div>
+            </div>
+
+        </div>{{-- /builder-panel-inline --}}
+
+    </div>{{-- /builder-layout-flex --}}
+</div>{{-- /container-fluid --}}
 
 {{-- Context Menu (Node & Connector & Waypoint) --}}
 <div class="builder-context-menu-inline" id="context-menu-inline">
@@ -1071,6 +1138,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 startConnect(e, parseInt(handle.dataset.id), port);
             });
         });
+
+        // Tombol X: hapus kotak langsung
+        stage.querySelectorAll('.node-delete-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(btn.dataset.id);
+                deleteNode(id);
+            });
+        });
+
         renderConnectors();
     }
 
@@ -1348,6 +1425,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // ===== PANEL MODE SWITCHER =====
+    function setPanelMode(mode) { // 'idle' | 'kotak' | 'garis'
+        document.getElementById('panel-section-idle').classList.toggle('active', mode === 'idle');
+        document.getElementById('panel-section-kotak').classList.toggle('active', mode === 'kotak');
+        document.getElementById('panel-section-garis').classList.toggle('active', mode === 'garis');
+    }
+
     // ===== SELECTION =====
     function selectNode(id, addToSelection) {
         if (!addToSelection) selectedNodeIds.clear();
@@ -1355,8 +1439,8 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedNodeIds.add(id);
         refreshNodeClasses();
         updatePanel(id);
+        setPanelMode('kotak');
         if (selectedNodeIds.size > 1) updateMultiSelectPanel();
-        else panel.classList.add('open');
         // Clear connector selection
         if (selectedConnectorKey) {
             selectedConnectorKey = null;
@@ -1376,9 +1460,9 @@ document.addEventListener('DOMContentLoaded', function() {
         refreshNodeClasses();
         if (selectedNodeId) {
             updatePanel(selectedNodeId);
+            setPanelMode('kotak');
             if (selectedNodeIds.size > 1) updateMultiSelectPanel();
-            else panel.classList.add('open');
-        } else { panel.classList.remove('open'); }
+        } else { setPanelMode('idle'); }
     }
 
     function deselectAll() {
@@ -1393,6 +1477,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('edit-y-inline').textContent = '0';
         colorSwatches.forEach(s => s.classList.remove('active'));
         colorSwatches[0].classList.add('active');
+        setPanelMode('idle');
     }
 
     function refreshNodeClasses() {
@@ -1604,12 +1689,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Left mouse on empty canvas or endpoint handle
         // Jangan nutup popup saat klik di context menu, toolbar, atau modal
         if (e.button === 0 && !e.target.closest('.builder-node') && !e.target.closest('.endpoint-handle-div')
-            && !e.target.closest('#context-menu-inline') && !e.target.closest('#connector-toolbar-inline')
+            && !e.target.closest('#context-menu-inline') && !e.target.closest('.builder-panel-inline')
             && !e.target.closest('#wp-modal-inline') && !e.target.closest('#connector-color-picker-inline')) {
             if (selectedConnectorKey) {
                 selectedConnectorKey = null;
                 document.getElementById('connector-color-picker-inline').classList.remove('show');
-                document.getElementById('connector-toolbar-inline').classList.remove('show');
+                setPanelMode('idle');
                 renderConnectors();
             }
             if (toolMode === 'select') {
@@ -1685,9 +1770,8 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedNodeId = null;
             selectedNodeIds.clear();
             refreshNodeClasses();
-            panel.classList.remove('open');
             renderConnectors();
-            showConnectorToolbar(key);
+            showConnectorPanel(key);
             return;
         }
         // SVG background → let bubble to body (starts rubber-band)
@@ -2232,10 +2316,9 @@ document.addEventListener('DOMContentLoaded', function() {
         renderConnectors(); showToast('Titik belok ditambahkan', 'success');
     });
 
-    // ===== CONNECTOR TOOLBAR & STYLING =====
-    function showConnectorToolbar(key) {
-        var tb = document.getElementById('connector-toolbar-inline');
-        if (!key) { tb.classList.remove('show'); return; }
+    // ===== CONNECTOR PANEL (right panel - Edit Garis) =====
+    function showConnectorPanel(key) {
+        if (!key) { setPanelMode('idle'); return; }
 
         var st = getConnectorStyle(key);
         var curColor = connectorColors.get(key) || '';
@@ -2256,20 +2339,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('ct-to-port').value   = toP;
 
         // Highlight active style button
-        tb.querySelectorAll('#ct-style-group .ct-btn').forEach(function(b) {
+        document.querySelectorAll('#ct-style-group .ct-btn').forEach(function(b) {
             b.classList.toggle('active', b.dataset.style === (st.type || 'orthogonal'));
         });
         // Highlight active dash button
-        tb.querySelectorAll('#ct-dash-group .ct-btn').forEach(function(b) {
+        document.querySelectorAll('#ct-dash-group .ct-btn').forEach(function(b) {
             b.classList.toggle('active', b.dataset.dash === (st.dash || 'solid'));
         });
         // Highlight active color swatch
-        tb.querySelectorAll('.cp-swatch').forEach(function(s) {
+        document.querySelectorAll('#ct-color-swatches .cg-swatch').forEach(function(s) {
             s.classList.toggle('active', s.dataset.color === curColor);
         });
 
-        tb.classList.add('show');
+        setPanelMode('garis');
     }
+    // alias for backward compat (endpoint drag etc)
+    function showConnectorToolbar(key) { showConnectorPanel(key); }
 
     document.getElementById('ct-from-port').addEventListener('change', function() {
         if (!selectedConnectorKey) return;
@@ -2285,14 +2370,14 @@ document.addEventListener('DOMContentLoaded', function() {
         pushUndo(); renderConnectors(); showToast('Port tujuan diubah', 'success'); persistConnectorData();
     });
 
-    // Bind Connector Toolbar buttons
+    // ===== Bind Connector Panel buttons (Edit Garis) =====
     document.querySelectorAll('#ct-style-group .ct-btn').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
             if (!selectedConnectorKey) return;
             var cur = getConnectorStyle(selectedConnectorKey);
             connectorStyles.set(selectedConnectorKey, { type: btn.dataset.style, dash: cur.dash || 'solid' });
-            pushUndo(); renderConnectors(); showConnectorToolbar(selectedConnectorKey);
+            pushUndo(); renderConnectors(); showConnectorPanel(selectedConnectorKey);
             showToast('Bentuk garis: ' + btn.title, 'success'); persistConnectorData();
         });
     });
@@ -2303,19 +2388,26 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!selectedConnectorKey) return;
             var cur = getConnectorStyle(selectedConnectorKey);
             connectorStyles.set(selectedConnectorKey, { type: cur.type || 'orthogonal', dash: btn.dataset.dash });
-            pushUndo(); renderConnectors(); showConnectorToolbar(selectedConnectorKey);
+            pushUndo(); renderConnectors(); showConnectorPanel(selectedConnectorKey);
             showToast('Tipe garis diubah', 'success'); persistConnectorData();
         });
     });
 
-    document.querySelectorAll('#connector-toolbar-inline .cp-swatch').forEach(function(sw) {
+    document.querySelectorAll('#ct-color-swatches .cg-swatch').forEach(function(sw) {
         sw.addEventListener('click', function(e) {
             e.stopPropagation();
             if (!selectedConnectorKey) return;
             pushUndo(); connectorColors.set(selectedConnectorKey, sw.dataset.color);
-            renderConnectors(); showConnectorToolbar(selectedConnectorKey, e.clientX, e.clientY);
+            renderConnectors(); showConnectorPanel(selectedConnectorKey);
             showToast('Warna garis diubah', 'success'); persistConnectorData();
         });
+    });
+
+    document.getElementById('cg-reset-btn').addEventListener('click', function(e) {
+        e.stopPropagation(); if (!selectedConnectorKey) return;
+        pushUndo(); connectorColors.delete(selectedConnectorKey);
+        renderConnectors(); showConnectorPanel(selectedConnectorKey);
+        showToast('Warna garis di-reset', 'info'); persistConnectorData();
     });
 
     document.getElementById('ct-delete-btn').addEventListener('click', function(e) {
@@ -2330,8 +2422,9 @@ document.addEventListener('DOMContentLoaded', function() {
             connectorWaypoints.delete(selectedConnectorKey);
             connectorColors.delete(selectedConnectorKey);
             connectorStyles.delete(selectedConnectorKey);
+            connectorPorts.delete(selectedConnectorKey);
             selectedConnectorKey = null;
-            document.getElementById('connector-toolbar-inline').classList.remove('show');
+            setPanelMode('idle');
             renderNodes(); showToast('Koneksi dihapus', 'info'); persistConnectorData();
         }
     });
@@ -2612,7 +2705,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btn-undo-inline').addEventListener('click', undo);
     document.getElementById('btn-zoom-fit-inline').addEventListener('click', zoomFit);
     document.getElementById('btn-zoom-reset-inline').addEventListener('click', function() { zoomLevel = 1; panX = 0; panY = 0; applyTransform(); });
-    document.getElementById('panel-close-btn').addEventListener('click', function() { panel.classList.remove('open'); });
     document.getElementById('btn-tambah-data-inline').addEventListener('click', function() {
         const r = body.getBoundingClientRect();
         addNode((r.width / 2 - panX) / zoomLevel - 100, (r.height / 2 - panY) / zoomLevel - 30, null);
@@ -2659,11 +2751,11 @@ document.addEventListener('DOMContentLoaded', function() {
             else if (selectedNodeId) deleteNode(selectedNodeId);
         }
         if (e.key === 'Escape') {
-            deselectAll(); panel.classList.remove('open');
+            deselectAll();
             contextMenu.classList.remove('show');
             selectedConnectorKey = null;
             document.getElementById('connector-color-picker-inline').classList.remove('show');
-            document.getElementById('connector-toolbar-inline').classList.remove('show');
+            setPanelMode('idle');
             renderConnectors();
         }
         if (e.key === 'v' && !e.ctrlKey && !inInput) document.getElementById('tool-select-btn').click();
