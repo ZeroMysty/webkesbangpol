@@ -1,0 +1,995 @@
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+
+        .table tbody tr td:nth-child(2) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+                /* Center text in table headers */
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: justify !important;
+            padding-left: 2rem;
+        }
+
+        .table tbody tr td:nth-child(2) {
+            text-align: center !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: left !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            text-align: center !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.ck-editor__editable_inline {
+            min-height: 200px; /* Atur sesuai keinginan */
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: center !important;
+        }
+
+        .table tbody tr td:nth-child(2) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            align-items: center !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.ck-editor__editable_inline{
+            min-height: 200px;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.ck-editor__editable_inline{
+            min-height: 150px; /* Lebih kecil untuk form edit */
+        }
+        
+        /* Style untuk preview gambar */
+        .img-thumbnail {
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            padding: 4px;
+        }
+        
+        /* Style untuk form actions */
+        .form-actions {
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        /* Style untuk text info */
+        .text-info {
+            font-size: 0.875rem;
+        }
+        
+        /* Style untuk card header edit */
+        .card-header.bg-warning {
+            background-color: #ffc107 !important;
+            color: #212529 !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Pengaturan dasar tabel */
+    .table {
+        table-layout: fixed;
+        width: 1500px;/* Minimum width untuk mencegah kolom terlalu sempit */
+    }
+
+    /* Pengaturan ukuran kolom spesifik */
+    .table thead th:nth-child(1) { /* Kategori */
+        width: 50px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(2) { /* Logo Lembaga */
+        width: 20px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(3) { /* Nama Lembaga */
+        width: 50px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(4) { /* Alamat */
+        width: 50px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(5) { /* Deskripsi */
+        width: 40px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(6) { /* Ketua */
+        width: 40px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(7) { /* Foto Ketua */
+        width: 20px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(8) { /* Kontak */
+        width: 30px;
+        text-align: center !important;
+    }
+
+    .table thead th:nth-child(9) { /* Aksi */
+        width: 40px;
+        text-align: center !important;
+    }
+
+    /* Pengaturan konten sel */
+    .table tbody td {
+        vertical-align: middle !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Kolom kategori */
+    .table tbody td:nth-child(1) {
+        text-align: center !important;
+        font-weight: 600;
+    }
+
+    /* Kolom logo lembaga */
+    .table tbody td:nth-child(2) {
+        text-align: center !important;
+        padding: 8px;
+    }
+
+    .table tbody td:nth-child(2) img {
+        max-width: 80px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Kolom nama lembaga */
+    .table tbody td:nth-child(3) {
+        text-align: left !important;
+        font-weight: 600;
+        padding-left: 12px;
+    }
+
+    /* Kolom alamat */
+    .table tbody td:nth-child(4) {
+        text-align: left !important;
+        padding-left: 12px;
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    /* Kolom deskripsi */
+    .table tbody td:nth-child(5) {
+        text-align: left !important;
+        padding-left: 12px;
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    /* Kolom ketua */
+    .table tbody td:nth-child(6) {
+        text-align: center !important;
+        font-weight: 600;
+    }
+
+    /* Kolom foto ketua */
+    .table tbody td:nth-child(7) {
+        text-align: center !important;
+        padding: 8px;
+    }
+
+    .table tbody td:nth-child(7) img {
+        max-width: 60px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    /* Kolom kontak */
+    .table tbody td:nth-child(8) {
+        text-align: center !important;
+        font-weight: 600;
+        font-size: 0.9em;
+    }
+
+    /* Kolom aksi */
+    .table tbody td:nth-child(9) {
+        text-align: center !important;
+        white-space: nowrap;
+    }
+
+    .kolom-aksi .btn {
+        margin: 0 2px;
+        padding: 4px 8px;
+    }
+
+    .kolom-aksi form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1400px) {
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .table {
+            min-width: 1000px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .table {
+            min-width: 900px;
+            font-size: 0.85em;
+        }
+        
+        .table tbody td:nth-child(2) img,
+        .table tbody td:nth-child(7) img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+        
+        .kolom-aksi .btn {
+            padding: 2px 6px;
+            font-size: 0.8em;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .table {
+            min-width: 800px;
+            font-size: 0.8em;
+        }
+        
+        .table th,
+        .table td {
+            padding: 6px 4px;
+        }
+        
+        .table tbody td:nth-child(2) img,
+        .table tbody td:nth-child(7) img {
+            max-width: 40px;
+            max-height: 40px;
+        }
+    }
+
+    /* Perbaikan untuk header tabel */
+    .table thead th {
+        text-align: center !important;
+        vertical-align: middle !important;
+        font-weight: 600;
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+        padding: 12px 8px;
+    }
+
+    /* Styling untuk row hover */
+    .table-hover tbody tr:hover {
+        background-color: rgba(180, 13, 20, 0.05);
+    }
+
+    /* Alert styling untuk empty state */
+    .alert-warning {
+        border: none;
+        background-color: #fff3cd;
+        color: #856404;
+        border-radius: 6px;
+        padding: 20px;
+        margin: 0;
+    }
+
+    /* Existing pagination and button styles remain unchanged */
+    .page-link {
+        color: #B40D14 !important;
+        background-color: #fff !important;
+        border-color: #ddd !important;
+    }
+
+    .page-link:hover {
+        color: #ffffff !important;
+        background-color: #B40D14 !important;
+        border-color: #B40D14 !important;
+    }
+
+    .page-item.active .page-link {
+        color: #fff !important;
+        background-color: #B40D14 !important;
+        border-color: #B40D14 !important;
+    }
+
+    .page-item.disabled .page-link {
+        color: #6c757d !important;
+        background-color: #f8f9fa !important;
+        border-color: #dee2e6 !important;
+    }
+
+        /* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+                .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+
+        .table tbody tr td:nth-child(2) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.ck-editor__editable_inline {
+                                min-height: 200px; /* Atur sesuai keinginan */
+                            }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+    .page-link {
+        color: #B40D14 !important;
+        background-color: #fff !important;
+        border-color: #ddd !important;
+    }
+
+    /* Hover */
+    .page-link:hover {
+        color: #ffffff !important;
+        background-color: #B40D14 !important;
+        border-color: #B40D14 !important;
+    }
+
+    /* Tombol aktif */
+    .page-item.active .page-link {
+        color: #fff !important;
+        background-color: #B40D14 !important;
+        border-color: #B40D14 !important;
+    }
+
+    /* Tombol disabled */
+    .page-item.disabled .page-link {
+        color: #6c757d !important;
+        background-color: #f8f9fa !important;
+        border-color: #dee2e6 !important;
+    }
+
+    .table thead th {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    .table tbody tr td:nth-child(1) {
+        text-align: center !important;
+    }
+
+    .table tbody tr td:nth-child(2) {
+        text-align: justify !important;
+    }
+
+    .table tbody tr td:nth-child(3) {
+        text-align: justify !important;
+    }
+
+    .table tbody tr td:nth-child(4) {
+        align-items: center !important;
+    }
+
+    /* Search container styles */
+    .search-container {
+        flex-shrink: 0;
+    }
+
+    .search-container .input-group {
+        min-width: 250px;
+    }
+
+    .search-container .form-control:focus {
+        border-color: #B40D14;
+        box-shadow: 0 0 0 0.2rem rgba(180, 13, 20, 0.25);
+    }
+
+    .search-container .btn-outline-secondary {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+    .search-container .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+    }
+
+    .search-container .btn-outline-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: #fff;
+    }
+
+    /* Highlight search results */
+    mark {
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 1px 2px;
+        border-radius: 2px;
+    }
+
+    /* Responsive search */
+    @media (max-width: 768px) {
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .search-container .input-group {
+            width: 100% !important;
+            min-width: unset;
+        }
+    }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.bg-gradient-red {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+.card-header {
+    border: none;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.main-wrapper .dashboard-content {
+        padding-top: 1rem !important;
+    }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Style untuk memperjelas pemisahan data */
+    .detail-group {
+        margin-bottom: 1.5rem;
+    }
+    .detail-group h4 {
+        color: #B40D14;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    /* PERUBAHAN: Style untuk layout rata kiri, label di atas nilai */
+    .detail-item {
+        margin-bottom: 1rem; /* Memberi jarak antar item */
+    }
+    .detail-item .label {
+        font-weight: 600;
+        color: #6c757d;
+        display: block; /* Membuat label menjadi elemen block */
+        margin-bottom: 0.25rem; /* Jarak kecil antara label dan nilai */
+        font-size: 0.9rem;
+    }
+    .detail-item .value {
+        /* Tidak perlu style khusus, akan mengikuti alur normal (rata kiri) */
+        padding-left: 0.5rem; /* Sedikit indentasi untuk nilai */
+    }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.ck-editor__editable_inline {
+            min-height: 400px; /* Atur sesuai keinginan */
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+                .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+
+        .table tbody tr td:nth-child(2) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.tmt-3 p {
+        text-align: justify;
+    }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Proporsi kolom yang lebih baik */
+        .program-table {
+            width: 100% !important;
+            table-layout: fixed !important;
+        }
+
+        .program-table th.kolom-nama_program,
+        .program-table td.kolom-nama_program {
+            width: 50% !important;
+            text-align: justify  !important;
+        }
+
+        .program-table th.kolom-bidang,
+        .program-table td.kolom-bidang {
+            width: 30% !important;
+        }
+
+        .program-table th.kolom-aksi,
+        .program-table td.kolom-aksi {
+            width: 20% !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        /* Penanganan text dan padding */
+        .program-table td {
+            padding: 12px 15px !important;
+            white-space: normal !important;
+            word-break: break-word !important;
+            vertical-align: middle !important;
+        }
+
+        .program-table th {
+            padding: 12px 15px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            font-weight: 600 !important;
+        }
+
+        /* Tombol aksi */
+        .kolom-aksi .btn {
+            margin: 0 2px !important;
+        }
+
+        /* Pagination styling */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .program-table th.kolom-nama_program,
+            .program-table td.kolom-nama_program {
+                width: 50% !important;
+            }
+            
+            .program-table th.kolom-bidang,
+            .program-table td.kolom-bidang {
+                width: 30% !important;
+            }
+            
+            .program-table th.kolom-aksi,
+            .program-table td.kolom-aksi {
+                width: 20% !important;
+            }
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+                /* Center text in table headers */
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(2) {
+            text-align: center !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: left !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            text-align: center !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+/* Tombol normal */
+        .page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+
+        /* Hover */
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol aktif */
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+
+        /* Tombol disabled */
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+
+        /* Center text in table headers */
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(2) {
+            text-align: center !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: left !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            text-align: center !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.page-link {
+            color: #B40D14 !important;
+            background-color: #fff !important;
+            border-color: #ddd !important;
+        }
+        .page-link:hover {
+            color: #ffffff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+        .page-item.active .page-link {
+            color: #fff !important;
+            background-color: #B40D14 !important;
+            border-color: #B40D14 !important;
+        }
+        .page-item.disabled .page-link {
+            color: #6c757d !important;
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6 !important;
+        }
+
+        .table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: left !important;
+        }
+
+        .table tbody tr td:nth-child(2),
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            align-items: center !important;
+        }
+
+/* =========================================
+   Extracted Style Block 
+   ========================================= */
+.table thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr td:nth-child(1) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(2) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(3) {
+            text-align: justify !important;
+        }
+
+        .table tbody tr td:nth-child(4) {
+            text-align: justify !important;
+        }
+        .table tbody tr td:nth-child(5) {
+            align-items: center !important;
+        }
+

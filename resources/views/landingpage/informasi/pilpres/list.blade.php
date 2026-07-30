@@ -1,59 +1,9 @@
 @extends('landingpage.layouts.app')
 
 @push('styles')
-<style>
-    .candidate-card {
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: #ffffff;
-    }
-
-    .candidate-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    .candidate-card .card-header {
-        background: linear-gradient(90deg, #002147, #8b0000);
-        color: #fff;
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
-
-    .candidate-card .card-img-top {
-        height: 220px;
-        object-fit: cover;
-        object-position: top;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .candidate-card .card-body h5 {
-        color: #002147;
-    }
-
-    .btn-detail {
-        background-color: #002147;
-        color: #fff;
-        border: none;
-        transition: background 0.3s ease;
-    }
-
-    .btn-detail:hover {
-        background-color: #8b0000;
-        color: #fff;
-    }
-
-    .btn-back {
-        color: #002147;
-        border-color: #002147;
-    }
-
-    .btn-back:hover {
-        background-color: #002147;
-        color: #fff;
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-informasi.css') }}">
+@endpush
 @endpush
 
 @section('content')

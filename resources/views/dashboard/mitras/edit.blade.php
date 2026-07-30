@@ -163,35 +163,8 @@
         </div>
     </div>
     
-    <style>
-        .ck-editor__editable_inline{
-            min-height: 150px; /* Lebih kecil untuk form edit */
-        }
-        
-        /* Style untuk preview gambar */
-        .img-thumbnail {
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            padding: 4px;
-        }
-        
-        /* Style untuk form actions */
-        .form-actions {
-            border-top: 1px solid #dee2e6;
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-        
-        /* Style untuk text info */
-        .text-info {
-            font-size: 0.875rem;
-        }
-        
-        /* Style untuk card header edit */
-        .card-header.bg-warning {
-            background-color: #ffc107 !important;
-            color: #212529 !important;
-        }
-    </style>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
 @stop

@@ -1,33 +1,9 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-<style>
-    /* Style untuk memperjelas pemisahan data */
-    .detail-group {
-        margin-bottom: 1.5rem;
-    }
-    .detail-group h4 {
-        color: #B40D14;
-        border-bottom: 2px solid #f0f0f0;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-    }
-    /* PERUBAHAN: Style untuk layout rata kiri, label di atas nilai */
-    .detail-item {
-        margin-bottom: 1rem; /* Memberi jarak antar item */
-    }
-    .detail-item .label {
-        font-weight: 600;
-        color: #6c757d;
-        display: block; /* Membuat label menjadi elemen block */
-        margin-bottom: 0.25rem; /* Jarak kecil antara label dan nilai */
-        font-size: 0.9rem;
-    }
-    .detail-item .value {
-        /* Tidak perlu style khusus, akan mengikuti alur normal (rata kiri) */
-        padding-left: 0.5rem; /* Sedikit indentasi untuk nilai */
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
 <div class="container-fluid">
     <div class="card">

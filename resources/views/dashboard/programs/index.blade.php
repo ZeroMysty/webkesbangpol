@@ -65,94 +65,9 @@
             </div>
         </div>
     </div>
-    <style>
-        /* Proporsi kolom yang lebih baik */
-        .program-table {
-            width: 100% !important;
-            table-layout: fixed !important;
-        }
-
-        .program-table th.kolom-nama_program,
-        .program-table td.kolom-nama_program {
-            width: 50% !important;
-            text-align: justify  !important;
-        }
-
-        .program-table th.kolom-bidang,
-        .program-table td.kolom-bidang {
-            width: 30% !important;
-        }
-
-        .program-table th.kolom-aksi,
-        .program-table td.kolom-aksi {
-            width: 20% !important;
-            text-align: center !important;
-            vertical-align: middle !important;
-        }
-
-        /* Penanganan text dan padding */
-        .program-table td {
-            padding: 12px 15px !important;
-            white-space: normal !important;
-            word-break: break-word !important;
-            vertical-align: middle !important;
-        }
-
-        .program-table th {
-            padding: 12px 15px !important;
-            text-align: center !important;
-            vertical-align: middle !important;
-            font-weight: 600 !important;
-        }
-
-        /* Tombol aksi */
-        .kolom-aksi .btn {
-            margin: 0 2px !important;
-        }
-
-        /* Pagination styling */
-        .page-link {
-            color: #B40D14 !important;
-            background-color: #fff !important;
-            border-color: #ddd !important;
-        }
-
-        .page-link:hover {
-            color: #ffffff !important;
-            background-color: #B40D14 !important;
-            border-color: #B40D14 !important;
-        }
-
-        .page-item.active .page-link {
-            color: #fff !important;
-            background-color: #B40D14 !important;
-            border-color: #B40D14 !important;
-        }
-
-        .page-item.disabled .page-link {
-            color: #6c757d !important;
-            background-color: #f8f9fa !important;
-            border-color: #dee2e6 !important;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .program-table th.kolom-nama_program,
-            .program-table td.kolom-nama_program {
-                width: 50% !important;
-            }
-            
-            .program-table th.kolom-bidang,
-            .program-table td.kolom-bidang {
-                width: 30% !important;
-            }
-            
-            .program-table th.kolom-aksi,
-            .program-table td.kolom-aksi {
-                width: 20% !important;
-            }
-        }
-    </style>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
     <script>
         //message with toastr

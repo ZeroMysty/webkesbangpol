@@ -54,11 +54,9 @@
             </div>
         </div>
     </div>
-    <style>
-        .ck-editor__editable_inline {
-            min-height: 200px; /* Atur sesuai keinginan */
-        }
-    </style>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
 @stop
 

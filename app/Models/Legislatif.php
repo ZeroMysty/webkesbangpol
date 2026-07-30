@@ -22,6 +22,7 @@ class Legislatif extends Model
         'riwayat_pekerjaan',
         'jenis_kelamin',
         'nama_partai',
+        'logo_partai',
         'dapil',
         'suara_sah',
     ];

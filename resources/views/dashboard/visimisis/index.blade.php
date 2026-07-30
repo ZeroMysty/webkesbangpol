@@ -61,31 +61,9 @@
         </div>
     </div>
 
-    <style>
-        .table thead th {
-            text-align: center !important;
-            vertical-align: middle !important;
-        }
-
-        .table tbody tr td:nth-child(1) {
-            text-align: justify !important;
-        }
-
-        .table tbody tr td:nth-child(2) {
-            text-align: justify !important;
-        }
-
-        .table tbody tr td:nth-child(3) {
-            text-align: justify !important;
-        }
-
-        .table tbody tr td:nth-child(4) {
-            text-align: justify !important;
-        }
-        .table tbody tr td:nth-child(5) {
-            align-items: center !important;
-        }
-    </style>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 
     <script>
         //message with toastr

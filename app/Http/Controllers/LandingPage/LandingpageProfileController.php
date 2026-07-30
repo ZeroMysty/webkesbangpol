@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\AppSetting;
 use App\Models\VisiMisi;
 use App\Models\Strukturor;
 use App\Models\Program;
 use App\Models\Bidang;
 use App\Models\LandasanHukum;
-
-use Laravel\Ui\Presets\Vue;
 
 class LandingpageProfileController extends Controller
 {
@@ -31,8 +30,14 @@ class LandingpageProfileController extends Controller
 
     public function tampilStruktur(): View
     {
+        Strukturor::checkAndInitializePositions();
         $strukturors = Strukturor::all();
-        return view('landingpage.profile.strukturorganisasi', compact('strukturors'));
+
+        // Load connector data (waypoints, colors, styles, ports) from database
+        $raw = AppSetting::getValue('struktur_connector_data', null);
+        $connectorData = $raw ? json_decode($raw, true) : [];
+
+        return view('landingpage.profile.strukturorganisasi', compact('strukturors', 'connectorData'));
     }
 
     public function tampilDasarHukum(): View

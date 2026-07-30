@@ -1,68 +1,9 @@
 @extends('landingpage.layouts.app')
 
 @push('styles')
-<style>
-    .candidate-card {
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .candidate-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    .candidate-card .card-header {
-        background: linear-gradient(90deg, #B40D14, #8B0000);
-        color: #fff;
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
-    
-    /* Style untuk kontainer foto */
-    .photo-container {
-        display: flex;
-        border-bottom: 1px solid #dee2e6;
-        height: 250px; /* Memberi tinggi yang seragam */
-        background-color: #f8f9fa;
-    }
-
-    /* Style untuk foto jika ada DUA */
-    .candidate-photo-pair {
-        width: 50%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-    }
-    .candidate-photo-pair:first-child {
-        border-right: 1px solid #dee2e6;
-    }
-
-    /* Style untuk foto jika hanya SATU */
-    .candidate-photo-single {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-    }
-
-    .candidate-card .card-body {
-        flex-grow: 1;
-    }
-
-    .btn-detail {
-        background-color: #B40D14;
-        color: #fff;
-        border: none;
-    }
-    .btn-detail:hover {
-        background-color: #8B0000;
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-informasi.css') }}">
+@endpush
 @endpush
 
 @section('content')

@@ -26,7 +26,7 @@
         }
 
     /* Hero Section */
-    .ukurkerja-hero {
+    .dokumen-hero {
         background: #b40D14;
         color: var(--white);
         padding: 4rem 2rem;
@@ -35,7 +35,7 @@
         overflow: hidden;
     }
 
-    .ukurkerja-hero::before {
+    .dokumen-hero::before {
         content: '';
         position: absolute;
         top: 0;
@@ -46,7 +46,7 @@
     }
 
     /* Floating Elements */
-    .ukurkerja-hero .floating {
+    .dokumen-hero .floating {
         position: absolute;
         width: 40px;
         height: 40px;
@@ -57,13 +57,13 @@
     }
 
     /* Variasi posisi awal floating element */
-    .ukurkerja-hero .floating.f1 {
+    .dokumen-hero .floating.f1 {
         top: 10%;
         left: 15%;
         animation-delay: 0s;
     }
 
-    .ukurkerja-hero .floating.f2 {
+    .dokumen-hero .floating.f2 {
         top: 40%;
         left: 70%;
         animation-delay: 1.5s;
@@ -71,7 +71,7 @@
         height: 30px;
     }
 
-    .ukurkerja-hero .floating.f3 {
+    .dokumen-hero .floating.f3 {
         bottom: 15%;
         left: 35%;
         animation-delay: 3s;
@@ -87,13 +87,13 @@
     }
 
 
-        .ukurkerja-overlay {
+        .dokumen-overlay {
             position: absolute;
             inset: 0;
             opacity: 0.1;
         }
 
-        .ukurkerja-content {
+        .dokumen-content {
             position: relative;
             z-index: 2;
             max-width: 800px;
@@ -121,7 +121,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .ukurkerja-title {
+        .dokumen-title {
             font-size: clamp(1rem, 3vw, 2rem);
             font-weight: 700;
             margin-bottom: 1rem;
@@ -130,7 +130,7 @@
             line-height: 1.1;
         }
 
-        .ukurkerja-subtitle {
+        .dokumen-subtitle {
             font-size: clamp(1.125rem, 3vw, 1.5rem);
             font-weight: 600;
             margin-bottom: 1.5rem;
@@ -139,7 +139,7 @@
             color: var(--white);
         }
 
-        .ukurkerja-lead {
+        .dokumen-lead {
             font-size: 1.125rem;
             font-weight: 400;
             opacity: 0.85;
@@ -272,17 +272,17 @@
             min-width: 100%;
         }
 
-        .ukurkerja-table {
+        .dokumen-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
         }
 
-        .ukurkerja-table thead tr {
+        .dokumen-table thead tr {
             background: linear-gradient(135deg, #B40D14 0%, #DC2626 50%, #EF4444 100%);
         }
 
-        .ukurkerja-table th {
+        .dokumen-table th {
             padding: 1.25rem 1rem;
             color: var(--white);
             font-weight: 600;
@@ -308,7 +308,7 @@
             box-shadow: var(--shadow-sm);
         }
 
-        .ukurkerja-table td {
+        .dokumen-table td {
             padding: 1.25rem 1rem;
             vertical-align: middle;
             border: none;
@@ -603,7 +603,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .ukurkerja-hero {
+            .dokumen-hero {
                 padding: 3rem 1rem;
             }
             

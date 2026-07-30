@@ -2,20 +2,9 @@
 
 @section('content')
 
-<style>
-    .table-details {
-        table-layout: fixed;
-        width: 100%;
-    }
-    .table-details th {
-        width: 150px;
-        vertical-align: top;
-    }
-    .table-details td {
-        word-wrap: break-word;
-        vertical-align: top;
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-informasi.css') }}">
+@endpush
 
 <div class="container my-5">
     @php

@@ -1,0 +1,1427 @@
+/* =========================================
+   From resources/views/landingpage/mitra/index.blade.php
+   ========================================= */
+
+        /* Section Styling */
+        .mitra-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .partai-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 100%);
+        }
+
+        /* Section Header */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .section-lead {
+            font-size: 1.1rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #dc3545, #c82333);
+            border-radius: 2px;
+            margin-top: 1.5rem;
+        }
+
+        /* Mitra Card Styling */
+        .mitra-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .mitra-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .mitra-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .mitra-card-header {
+            padding: 2rem 1.5rem 1rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mitra-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .mitra-logo {
+            max-height: 80px;
+            max-width: 120px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .mitra-logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 2rem;
+        }
+
+        .mitra-card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .mitra-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .mitra-card-subtitle {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .mitra-card-arrow {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #dc3545;
+        }
+
+        .mitra-card:hover .mitra-card-arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* Partai Politik CTA */
+        .partai-cta {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .partai-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(220, 53, 69, 0.3);
+        }
+
+        .partai-cta-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .partai-cta-desc {
+            color: #6c757d;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-partai {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-partai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(220, 53, 69, 0.4);
+            color: white;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mitra-card-header {
+                padding: 1.5rem 1rem 0.75rem;
+            }
+            
+            .mitra-logo-container {
+                height: 80px;
+            }
+            
+            .mitra-logo {
+                max-height: 60px;
+            }
+            
+            .partai-cta {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .partai-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .partai-cta-title {
+                font-size: 1.25rem;
+            }
+        }
+    
+
+/* =========================================
+   From resources/views/landingpage/mitra/detail.blade.php
+   ========================================= */
+
+        /* Reset dan Global Styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Variables untuk konsistensi */
+        :root {
+            --primary-color: #dc3545;
+            --primary-dark: #c82333;
+            --secondary-color: #6c757d;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #e9ecef;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 25px rgba(0,0,0,0.1);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+            --border-radius: 15px;
+            --border-radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Main Container */
+        .mitra-section {
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mitra-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+/* Hero Section Styles */
+        .category-hero {
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #b40d14 0%, #8b0000 100%);
+            opacity: 0.9;
+        }
+
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .breadcrumb-nav {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-link:hover {
+            color: white;
+        }
+
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb-current {
+            color: white;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Header Card */
+/* Header Card - Layout Revisi */
+.mitra-header-card {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border-radius: var(--border-radius-lg);
+    padding: 50px;
+    margin-bottom: 50px;
+    color: white;
+    box-shadow: var(--shadow-lg);
+    align-items: flex-start;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.mitra-header-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+}
+
+/* BARU: Baris atas untuk logo & judul.
+  'display: flex' dipindahkan ke sini.
+*/
+.header-top-row {
+    display: flex;
+    align-items: center; /* Membuat logo dan judul sejajar */
+    gap: 30px;
+}
+
+/* Logo (tidak banyak berubah) */
+.mitra-logo-container {
+    flex-shrink: 0; /* Mencegah logo menyusut */
+}
+
+.mitra-logo {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 15px; /* Padding agar logo tidak terlalu mepet */
+}
+
+.mitra-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* BARU: Pembungkus untuk judul dan badge */
+.mitra-title-info {
+    flex: 1; /* Mengisi sisa ruang */
+}
+
+.mitra-name {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.mitra-category-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* REVISI: Styling untuk deskripsi.
+  Sekarang posisinya di bawah dan akan rata kiri secara otomatis.
+*/
+.mitra-description {
+    margin-top: 30px; /* Jarak dari header di atasnya */
+    padding-top: 30px; /* Padding di atas untuk ruang nafas */
+    border-top: 1px solid rgba(255,255,255,0.25); /* Garis pemisah */
+}
+
+.mitra-description p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin: 0;
+    padding: 0;
+    text-align: justify; /* Teks rata kiri */
+}
+
+/* ================================================== */
+/* == STYLING RESPONSIVE YANG SUDAH DISESUAIKAN == */
+/* ================================================== */
+
+@media (max-width: 768px) {
+    .mitra-header-card {
+        padding: 30px 25px;
+        transform: translateY(-60px); /* Efek visual tetap ada */
+    }
+
+    .mitra-name {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Saat layar kecil, buat logo dan judul tersusun ke bawah */
+    .header-top-row {
+        flex-direction: column;
+        align-items: center; /* Posisikan di tengah saat ke bawah */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .mitra-description {
+        margin-top: 25px;
+        padding-top: 25px;
+    }
+
+    /* Pastikan teks deskripsi tetap rata kiri di mobile */
+    .mitra-description p {
+        text-align: left;
+    }
+}
+
+        /* Detail Grid */
+        .mitra-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .detail-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e9ecef 100%);
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-title i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* Leadership Card */
+        .leader-profile {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .leader-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .leader-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .leader-info {
+            flex: 1;
+        }
+
+        .leader-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .leader-position {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        /* Contact Card */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 18px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .contact-item:hover {
+            background: #e9ecef;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-value {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-value:hover {
+            color: var(--primary-color);
+        }
+
+        
+        /* Back Navigation */
+        .back-navigation {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--secondary-color), #495057);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            border: 1px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #495057, #343a40);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        /* Share Section */
+        .share-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e9ecef 100%);
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .share-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 50px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .share-header {
+            margin-bottom: 40px;
+        }
+
+        .share-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .share-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .share-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            color: white;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid transparent;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .share-btn i {
+            font-size: 1.1rem;
+        }
+
+        .share-btn.facebook {
+            background: linear-gradient(135deg, #3b5998, #2d4373);
+        }
+
+        .share-btn.facebook:hover {
+            background: linear-gradient(135deg, #2d4373, #1e2e4f);
+        }
+
+        .share-btn.twitter {
+            background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+        }
+
+        .share-btn.twitter:hover {
+            background: linear-gradient(135deg, #0d8bd9, #0a6eaa);
+        }
+
+        .share-btn.whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+
+        .share-btn.whatsapp:hover {
+            background: linear-gradient(135deg, #128c7e, #0a6b5d);
+        }
+
+        .share-btn.email {
+            background: linear-gradient(135deg, #ea4335, #d33b2c);
+        }
+
+        .share-btn.email:hover {
+            background: linear-gradient(135deg, #d33b2c, #b52d20);
+        }
+
+        .share-btn.copy {
+            background: linear-gradient(135deg, var(--secondary-color), #495057);
+        }
+
+        .share-btn.copy:hover {
+            background: linear-gradient(135deg, #495057, #343a40);
+        }
+
+        /* Toast Notification */
+        .copy-toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .copy-toast.show {
+            transform: translateX(0);
+        }
+
+        .copy-toast i {
+            font-size: 1.2rem;
+        }
+
+        /* Section Decorations */
+        .section-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .dot-pattern {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(220, 53, 69, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .dot-pattern-1 {
+            top: 10%;
+            left: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .dot-pattern-2 {
+            bottom: 10%;
+            right: -50px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .mitra-detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mitra-header-card {
+                padding: 40px 30px;
+            }
+            
+            .mitra-name {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mitra-section {
+                padding: 60px 0;
+            }
+            
+            .mitra-hero {
+                min-height: 40vh;
+            }
+            
+            .mitra-title {
+                font-size: 2.8rem;
+            }
+            
+            .mitra-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .mitra-header-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 35px 25px;
+                gap: 30px;
+                transform: translateY(-60px);
+            }
+
+            .mitra-name {
+                font-size: 2rem;
+            }
+            
+            .mitra-container {
+                padding: 0 15px;
+            }
+
+            .leader-profile {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .share-card {
+                padding: 40px 25px;
+            }
+            
+            .share-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .share-btn {
+                min-width: 200px;
+                justify-content: center;
+            }
+            
+            .copy-toast {
+                right: 15px;
+                top: 20px;
+                left: 15px;
+                transform: translateY(-100%);
+            }
+            
+            .copy-toast.show {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mitra-title {
+                font-size: 2.2rem;
+            }
+            
+            .mitra-name {
+                font-size: 1.7rem;
+            }
+            
+            .mitra-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card-header {
+                padding: 20px;
+            }
+            
+            .card-body {
+                padding: 25px 20px;
+            }
+            
+            .share-card {
+                padding: 30px 20px;
+            }
+            
+            .share-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .detail-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .detail-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .detail-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    
+
+/* =========================================
+   From resources/views/landingpage/mitra/kategori.blade.php
+   ========================================= */
+
+        /* Hero Section Styles */
+        .category-hero {
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #b40d14 0%, #8b0000 100%);
+            opacity: 0.9;
+        }
+
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .breadcrumb-nav {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-link:hover {
+            color: white;
+        }
+
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb-current {
+            color: white;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 30px 0;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 10px 12px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active,
+        .view-btn:hover {
+            border-color: #dc2626;
+            background: #dc2626;
+            color: white;
+        }
+
+        /* Mitra Grid Section */
+        .mitra-grid-section {
+            padding: 60px 0;
+        }
+
+        .mitra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .mitra-card {
+            transition: transform 0.3s ease;
+        }
+
+        .mitra-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        .card-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626, #b91c1c);
+        }
+
+        .card-content:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mitra-logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-placeholder {
+            color: #6c757d;
+            font-size: 2rem;
+        }
+
+        .card-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            color: #8b7800;
+            padding: 8px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mitra-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .mitra-leader {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .view-detail {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-detail:hover {
+            color: #b91c1c;
+        }
+
+        .view-detail i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-content:hover .view-detail i {
+            transform: translateX(5px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #e9ecef;
+            margin-bottom: 30px;
+        }
+
+        .empty-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .empty-description {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(220, 38, 38, 0.3);
+            color: white;
+        }
+
+        .back-section {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: #6c757d;
+            text-decoration: none;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .mitra-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                padding: 60px 0;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    
+

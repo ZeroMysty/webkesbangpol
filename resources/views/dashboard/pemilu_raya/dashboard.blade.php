@@ -115,40 +115,7 @@
 
 </div>
 
-<style>
-.hover-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
-}
-
-.bg-gradient-red {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-}
-
-.bg-gradient-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-
-.opacity-75 {
-    opacity: 0.75;
-}
-
-.card-header {
-    border: none;
-}
-
-.btn-lg {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-}
-
-.shadow-lg {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+@endpush
 @endsection

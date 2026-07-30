@@ -1,0 +1,19 @@
+/* =========================================
+   From resources\views\landingpage\artikel\semua-artikel.blade.php
+   ========================================= */
+
+    /* CSS UNIFORMITY: Memaksa semua elemen input sejajar tingginya */
+    .artikel-filter-bar .form-control, 
+    .artikel-filter-bar .form-select {
+        height: 45px !important; 
+        padding: 0.375rem 1rem !important;
+        border-radius: 8px !important;
+        border: 1px solid #ced4da;
+    }
+    
+    .artikel-filter-bar label {
+        margin-bottom: 0.4rem;
+        font-size: 0.9rem;
+    }
+
+
