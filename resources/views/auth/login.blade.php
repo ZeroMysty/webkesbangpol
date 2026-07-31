@@ -3,8 +3,6 @@
 @section('title', 'Login')
 
 @section('auth_body')
-    {{-- Tambahkan Script reCAPTCHA --}}
-    {!! NoCaptcha::renderJs() !!}
     <link rel="stylesheet" href="{{ asset('assets/css/login-form.css') }}">
 
     @php
@@ -46,14 +44,20 @@
                     @enderror
                 </div>
 
-                {{-- RECAPTCHA --}}
+                {{-- CAPTCHA --}}
                 <div class="form-group mt-3">
-                    {!! NoCaptcha::display() !!}
-                    @if ($errors->has('g-recaptcha-response'))
-                        <span class="text-danger">
-                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                        </span>
-                    @endif
+                    <label for="captcha">Captcha</label>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="captcha-box">
+                            <img src="{{ route('captcha') }}" alt="Captcha" class="captcha-image" id="captcha-image">
+                        </div>
+                        <input type="text" id="captcha" name="captcha"
+                            class="form-control @error('captcha') is-invalid @enderror"
+                            placeholder="Kode captcha" required autocomplete="off">
+                    </div>
+                    @error('captcha')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 {{-- Remember Me --}}
@@ -82,12 +86,6 @@
                     </div>
                 @endif
 
-                {{-- Register --}}
-                @if($registerUrl)
-                    <div class="text-center mt-2">
-                        <a href="{{ $registerUrl }}" class="link-secondary">Belum punya akun? Daftar</a>
-                    </div>
-                @endif
             </form>
         </div>
     </div>

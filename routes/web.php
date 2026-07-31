@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Import Controllers
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 // Landing Page Controllers
 use App\Http\Controllers\LandingPage\LandingpageController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\Admin\Pemilu\LegislatifController;
 //========================================================================
 // AUTHENTICATION ROUTES
 //========================================================================
+Route::get('/captcha', [LoginController::class, 'captcha'])->name('captcha');
 Auth::routes();
 
 
@@ -95,7 +97,13 @@ Route::middleware(['auth'])->group(function () {
     // DASHBOARD
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // BERANDA MANAGEMENT
+    // STRUKTUR ORGANISASI ROUTES
+    Route::get('/strukturors', [StrukturController::class, 'index'])->name('strukturors.index');
+    Route::post('/strukturors/save-layout', [StrukturController::class, 'saveLayout'])->name('strukturors.save-layout');
+    Route::post('/strukturors/store-box', [StrukturController::class, 'storeBox'])->name('strukturors.store-box');
+    Route::match(['PUT', 'PATCH', 'POST'], '/strukturors-builder/update/{id}', [StrukturController::class, 'updateBox'])->name('strukturors.update-box');
+    Route::delete('/strukturors-builder/delete/{id}', [StrukturController::class, 'deleteBox'])->name('strukturors.delete-box');
+
     Route::resource('/posts', PostController::class);
     Route::resource('/galeris', GaleriController::class);
     Route::resource('/banners', BannerController::class);
@@ -104,7 +112,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/visimisis', VisiMisiController::class);
     Route::resource('/programs', ProgramController::class);
     Route::get('/get-programs-by-bidang', [ProgramController::class, 'getProgramsByBidang'])->name('get-programs-by-bidang');
-    Route::resource('/strukturors', StrukturController::class);
     Route::resource('/bidangs', BidangController::class);
     Route::resource('/landasanhukum', LandasanHukumController::class);
 
