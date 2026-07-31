@@ -14,6 +14,60 @@
         background-color: #fff;
         border-bottom: 1px solid #dee2e6;
     }
+    .dapil-filter-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+    }
+    .dapil-filter-label {
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0;
+        white-space: nowrap;
+        font-size: 1.15rem;
+    }
+    #dapil-select.dapil-select {
+        /* color-scheme: light + background/color pakai !important, supaya
+           TIDAK bisa ke-timpa tema gelap OS/browser (itu penyebab select-nya
+           kelihatan biru-navy gelap sebelumnya) */
+        color-scheme: light;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: inline-block;
+        min-width: 220px;
+        background-color: #ffffff !important;
+        color: #B40D14 !important;
+        font-weight: 700;
+        font-size: 1.15rem;
+        line-height: 1.3;
+        border: 2px solid #B40D14;
+        border-radius: 10px;
+        padding: 0.55rem 2.6rem 0.55rem 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(180, 13, 20, 0.12);
+        transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23B40D14' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 14px;
+    }
+    #dapil-select.dapil-select:hover {
+        background-color: #fdf1f1 !important;
+        box-shadow: 0 4px 12px rgba(180, 13, 20, 0.22);
+    }
+    #dapil-select.dapil-select:focus {
+        outline: none;
+        border-color: #8B0000;
+        box-shadow: 0 0 0 4px rgba(180, 13, 20, 0.18);
+    }
+    #dapil-select.dapil-select option {
+        color: #212529 !important;
+        background-color: #fff !important;
+    }
     .dapil-section {
         margin-bottom: 3rem;
         display: none; /* Sembunyikan semua secara default */
@@ -236,20 +290,49 @@
 <section class="filter-section sticky-top">
     <div class="container">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                <label for="dapil-select" class="form-label fw-bold">Pilih Daerah Pemilihan (Dapil):</label>
-                <select class="form-select" id="dapil-select" style="max-width: 250px; display: inline-block; width: auto;">
-                    <option value="all" selected>Semua Dapil</option>
-                    @for ($i = 1; $i <= 7; $i++)
-                        <option value="{{ $i }}">Dapil {{ $i }}</option>
-                    @endfor
-                </select>
+            <div class="col-md-10 text-center mb-3 mb-md-0">
+                <div class="dapil-filter-wrap">
+                    <label for="dapil-select" class="dapil-filter-label">Pilih Daerah Pemilihan (Dapil):</label>
+                    <select class="dapil-select" id="dapil-select">
+                        <option value="all" selected>Semua Dapil</option>
+                        @for ($i = 1; $i <= 7; $i++)
+                            <option value="{{ $i }}">Dapil {{ $i }}</option>
+                        @endfor
+                    </select>
+                </div>
             </div>
             
 
 
 <section class="py-5 bg-light">
     <div class="container">
+        @php
+            // Satukan dapil yang sebenarnya sama tapi beda cara nulis di database
+            // (misal "Kota Bandung 1" vs "KOTA BANDUNG 1" vs "Kota  Bandung 1"
+            // yang ada spasi dobel) -> supaya tidak muncul jadi 2 baris terpisah.
+            function canonicalDapil($dapilRaw) {
+                $clean = trim(preg_replace('/\s+/', ' ', $dapilRaw ?? ''));
+                return [
+                    'key'   => strtoupper($clean),
+                    'label' => ucwords(strtolower($clean)),
+                ];
+            }
+
+            $groupedLegislatifs = $groupedLegislatifs
+                ->collapse()
+                // Partai Gemoy bukan partai resmi (data ngaco) -> jangan ditampilkan sama sekali
+                ->reject(function ($c) {
+                    return str_contains(strtoupper($c->nama_partai ?? ''), 'GEMOY');
+                })
+                ->groupBy(function ($c) {
+                    return canonicalDapil($c->dapil)['key'];
+                })
+                ->sortBy(function ($group, $key) {
+                    // urutkan dari Dapil 1, 2, 3, dst (ambil angka di ujung nama)
+                    preg_match('/(\d+)\s*$/', $key, $m);
+                    return isset($m[1]) ? (int) $m[1] : 9999;
+                });
+        @endphp
         @if($groupedLegislatifs->isEmpty())
             <div class="text-center py-5">
                 <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
@@ -274,8 +357,8 @@
                         ['keywords' => ['GOLKAR', 'GOLONGAN KARYA'],                   'nama' => 'Partai Golkar',                'logo' => 'golkar.png'],
                         ['keywords' => ['GERINDRA', 'GERAKAN INDONESIA RAYA'],         'nama' => 'Partai Gerindra',              'logo' => 'gerindra.png'],
                         ['keywords' => ['NASDEM', 'NASIONAL DEMOKRAT'],                'nama' => 'Partai NasDem',                'logo' => 'nasdem.png'],
-                        ['keywords' => ['KEBANGKITAN NUSANTARA'],                      'nama' => 'Partai Kebangkitan Nusantara', 'logo' => 'pkn.png'],
-                        ['keywords' => ['KEBANGKITAN BANGSA', 'KEBANGKITAN NASIONAL'], 'nama' => 'Partai Kebangkitan Bangsa',    'logo' => 'pkb.png'],
+                        ['keywords' => ['KEBANGKITAN NUSANTARA', 'KEBANGKITAN NASIONAL'], 'nama' => 'Partai Kebangkitan Nusantara', 'logo' => 'pkn.png'],
+                        ['keywords' => ['KEBANGKITAN BANGSA'],                        'nama' => 'Partai Kebangkitan Bangsa',    'logo' => 'pkb.png'],
                         ['keywords' => ['KEADILAN SEJAHTERA'],                         'nama' => 'Partai Keadilan Sejahtera',    'logo' => 'pks.png'],
                         ['keywords' => ['DEMOKRAT'],                                   'nama' => 'Partai Demokrat',              'logo' => 'demokrat.png'],
                         ['keywords' => ['AMANAT'],                                     'nama' => 'Partai Amanat Nasional',       'logo' => 'pan.png'],
@@ -304,11 +387,14 @@
                 }
             @endphp
 
-            @foreach($groupedLegislatifs as $dapil => $calegsInDapil)
-                @php $collapseId = 'dapil-collapse-' . $loop->index; @endphp
-                <div class="dapil-section" data-dapil="{{ $dapil }}">
+            @foreach($groupedLegislatifs as $dapilKey => $calegsInDapil)
+                @php
+                    $collapseId = 'dapil-collapse-' . $loop->index;
+                    $dapilLabel = canonicalDapil($calegsInDapil->first()->dapil)['label'];
+                @endphp
+                <div class="dapil-section" data-dapil="{{ $dapilLabel }}">
                     <button type="button" class="dapil-toggle" data-target="{{ $collapseId }}" aria-expanded="false" aria-controls="{{ $collapseId }}">
-                        <h2 class="dapil-title mb-0">{{ $dapil }}</h2>
+                        <h2 class="dapil-title mb-0">{{ $dapilLabel }}</h2>
                         <span class="dapil-toggle-right">
                             <span class="dapil-toggle-count">{{ $calegsInDapil->groupBy(fn($c) => canonicalPartai($c->nama_partai)['nama'])->count() }} Partai</span>
                             <i class="fas fa-chevron-down dapil-toggle-icon"></i>
