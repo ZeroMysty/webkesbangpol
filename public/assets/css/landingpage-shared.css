@@ -357,3 +357,39 @@ img.responsive-photo {
 body.menu-open {
     overflow: hidden;
 }
+
+/* ==========================================================================
+   PUBLIC LAYOUT - SOLID PLAIN BACKGROUNDS (POLOS TANPA BUBBLE / ANIMASI)
+   ========================================================================== */
+.floating-elements,
+.float-element,
+.dot-pattern,
+.dot-pattern-1,
+.dot-pattern-2,
+.floating,
+.hero-shapes,
+.hero-shape,
+.bg-bubbles,
+.bubbles,
+.circle-shape,
+.bg-pattern,
+.bg-animation,
+.section-decoration {
+    display: none !important;
+    animation: none !important;
+    background-image: none !important;
+}
+
+#layanan-section::before,
+#layanan-section::after,
+.galeri-section::before,
+.dokumen-hero::before,
+.hero-background::before,
+.mitra-header-card::before,
+.ultra-modern-modal .modal-header::before {
+    display: none !important;
+    content: none !important;
+    background-image: none !important;
+    animation: none !important;
+}
+

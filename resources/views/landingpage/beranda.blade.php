@@ -2,15 +2,7 @@
     @section('title', 'Halaman Beranda')
     @section('content')
         <!-- ========================== Hero Section ======================================================================================= -->
-        <section  class="hero">
-            <!-- Floating Elements for Background -->
-            <div class="floating-elements">
-                <div class="float-element float-1"></div>
-                <div class="float-element float-2"></div>
-                <div class="float-element float-3"></div>
-                <div class="float-element float-4"></div>
-            </div>
-            
+        <section class="hero">
             <div class="hero-container">
                 <!-- Hero Content -->
                 <div class="hero-content">

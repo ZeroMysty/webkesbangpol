@@ -5,12 +5,6 @@
 @section('content')
     <!-- Hero Section -->
     <section class="visimisi-hero">
-        <div class="floating-elements">
-            <div class="float-element float-1"></div>
-            <div class="float-element float-2"></div>
-            <div class="float-element float-3"></div>
-            <div class="float-element float-4"></div>
-        </div>
         <div class="visimisi-hero-overlay"></div>
         <div class="visimisi-hero-content">
             <div class="hero-badge">History</div>

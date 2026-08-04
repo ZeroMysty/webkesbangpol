@@ -154,10 +154,6 @@
         </div>
     </div>
 
-    <div class="section-decoration">
-        <div class="dot-pattern dot-pattern-1"></div>
-        <div class="dot-pattern dot-pattern-2"></div>
-    </div>
 </section>
    
 

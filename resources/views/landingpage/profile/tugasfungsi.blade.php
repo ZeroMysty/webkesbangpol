@@ -5,12 +5,6 @@
 @section('content')
     <!-- Hero Section -->
     <section class="tf-hero">
-        <div class="floating-elements">
-            <div class="float-element float-1"></div>
-            <div class="float-element float-2"></div>
-            <div class="float-element float-3"></div>
-            <div class="float-element float-4"></div>
-        </div>
         <div class="tf-hero-overlay"></div>
         <div class="tf-hero-content">
             <div class="hero-badge">Duties & Functions</div>
@@ -18,16 +12,10 @@
             <p class="tf-subtitle">Badan Kesatuan Bangsa dan Politik Kota Bandung</p>
 
         </div>
-        <div class="hero-shape"></div>
     </section>
 
     <!-- Tugas Pokok dan Fungsi -->
     <section class="tf-content-section" id="main-content">
-        <div class="section-decoration">
-            <div class="dot-pattern dot-pattern-1"></div>
-            <div class="dot-pattern dot-pattern-2"></div>
-        </div>
-        
         <div class="tf-container">
             <div class="section-header" data-aos="fade-up" data-aos-duration="800">
                 <span class="section-badge">Landasan Operasional</span>
