@@ -160,7 +160,7 @@
                 @foreach ($galeris as $item)
                     <a href="{{ asset('images/gallery/' . $item->gambar_upload) }}"
                         data-fancybox="gallery"
-                        class="galeri-item {{ $loop->index > 2 ? 'hidden' : '' }}">
+                        class="galeri-item {{ $loop->index > 3 ? 'hidden' : '' }}">
                         <div class="galeri-card">
                             <div class="image-container">
                                 <img src="{{ asset('images/gallery/' . $item->gambar_upload) }}"
@@ -177,7 +177,7 @@
                 @endforeach
             </div>
 
-            @if ($galeris->count() > 3)
+            @if ($galeris->count() > 4)
             <div class="lihat-lebih-container" data-aos="fade-up" data-aos-delay="300">
                 <button id="lihat-lebih-btn">
                     <span>Lihat Gambar Lainnya</span>
