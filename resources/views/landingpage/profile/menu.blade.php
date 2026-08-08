@@ -1,6 +1,5 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Profile')
-    <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
 
 @section('content')
 
@@ -205,6 +204,7 @@
     </script>
 
     @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/landingpage-dokumen.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/sakip-menu.css') }}">
 @endpush
 @endsection

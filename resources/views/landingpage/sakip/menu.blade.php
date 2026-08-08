@@ -1,6 +1,5 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Dokumen')
-    <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
 
 @section('content')
 
@@ -149,7 +148,9 @@
     </section>
 
     @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/landingpage-dokumen.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/sakip-menu.css') }}">
 @endpush
         <!-- Script Share -->
     <script>

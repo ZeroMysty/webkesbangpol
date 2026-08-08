@@ -1,0 +1,181 @@
+/* ==========================================================================
+   CSS bersama untuk halaman "menu hub" bertema card (hero + grid kartu):
+   - resources/views/landingpage/sakip/menu.blade.php   (Dokumen & Regulasi)
+   - resources/views/landingpage/profile/menu.blade.php (Profil Badan)
+   Dua-duanya pakai markup class yang sama persis, jadi cukup 1 file CSS.
+   Sebelumnya kedua halaman salah pasang link CSS (nyambung ke file yang
+   isinya untuk halaman lain), makanya tampil polos tanpa desain.
+   ========================================================================== */
+
+.profile-container {
+    background-color: #f4f6f9;
+}
+
+/* ===== Hero Section ===== */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 1.5rem;
+    background: linear-gradient(135deg, #8B0000 0%, #B40D14 100%);
+    text-align: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 2.4rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Shape dekorasi dihilangkan sesuai permintaan */
+.hero-decoration {
+    display: none;
+}
+
+/* ===== Menu Grid ===== */
+.menu-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 4.5rem;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+}
+
+.menu-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #eee0e0;
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(180, 13, 20, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.menu-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #B40D14, #EF4444);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 34px rgba(180, 13, 20, 0.22);
+}
+
+.menu-card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #B40D14, #DC2626);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 6px 16px rgba(180, 13, 20, 0.35);
+}
+
+.card-title {
+    color: #212529;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+}
+
+.card-description {
+    color: #6c757d;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1.4rem;
+}
+
+.card-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #B40D14;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding-bottom: 3px;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.card-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #B40D14;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.card-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.card-link:hover {
+    gap: 0.65rem;
+    color: #8B0000;
+}
+
+.card-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    .menu-container {
+        padding: 2.5rem 1.25rem 3rem;
+    }
+}
