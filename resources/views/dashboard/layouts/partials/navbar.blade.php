@@ -1,10 +1,4 @@
-<nav class="dashboard-navbar d-flex justify-content-between align-items-center px-3">
-    <div class="d-flex align-items-center gap-3">
-        <button id="sidebarToggle" class="btn btn-dark">
-            <i class="fas fa-bars" style="font-size: 1rem"></i>
-        </button>
-    </div>
-
+<nav class="dashboard-navbar d-flex justify-content-end align-items-center px-3">
     <div class="d-flex align-items-center gap-2">
         <form class="navbar-search collapsed" role="search">
             <input type="text" class="dashboard-navbar-search-input" placeholder="Search...">
@@ -13,51 +7,14 @@
             </button>
         </form>
 
-
-
         {{-- Fullscreen --}}
-        <button class="btn btn-md" onclick="toggleFullscreen()" style="color: #D6D6D6">
-            <i class="fas fa-expand-arrows-alt" style="font-size: 1rem"></i>
+        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand-arrows-alt"></i>
         </button>
-
-        {{-- User --}}
-        @auth
-        <div class="dashboard-user-dropdown">
-            <button class="dashboard-user-btn">
-                <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
-            </button>
-            <ul class="dashboard-user-menu">
-                <li>
-                    <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a>
-                </li>
-                <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="dropdown-item">
-                            <i class="fas fa-sign-out-alt"></i> Keluar
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-        @endauth
-        
     </div>
 </nav>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Sidebar toggle
-        const toggleBtn = document.getElementById('sidebarToggle');
-        const sidebar = document.querySelector('.dashboard-sidebar');
-        const wrapper = document.querySelector('.main-wrapper');
-
-        if (toggleBtn && sidebar && wrapper) {
-            toggleBtn.addEventListener('click', function () {
-                sidebar.classList.toggle('collapsed');
-                wrapper.classList.toggle('expanded');
-            });
-        }
-
         // Inisialisasi dropdown Bootstrap
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
         dropdownToggles.forEach(function (el) {
@@ -118,5 +75,3 @@
         });
     });
 </script>
-
-

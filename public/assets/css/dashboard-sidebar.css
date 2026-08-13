@@ -1,102 +1,193 @@
-/* Sidebar */
+/* ==========================================================================
+   Sidebar Admin — didesain ulang: rounded active/hover state, gradient
+   merah brand (bukan warna coral #FF6F61 yang tadinya kepasang), dan
+   profil admin sekarang ada di bagian bawah sidebar (dipindah dari navbar).
+   ========================================================================== */
+
 .dashboard-sidebar {
-    width: 250px;
+    width: 260px;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #B40D14;
-    overflow-y: auto;
-    transition: width 0.3s;
-    z-index: 1000;
-    font-family: 'Roboto', sans-serif; 
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #8B0000 0%, #B40D14 55%, #B40D14 100%);
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1100;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Sidebar yang ter-collapsed */
 .dashboard-sidebar.collapsed {
     width: 80px;
 }
 
-/* Branding logo sidebar */
+/* ===== Branding logo sidebar ===== */
 .dashboard-sidebar-brand {
     color: white;
     text-decoration: none;
-    padding: 1rem;
+    padding: 1.1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: none;
+    gap: 0.6rem;
+    flex-shrink: 0;
 }
 .dashboard-sidebar-brand:hover {
-    background-color: transparent; 
-    color: white; 
-}
-/* Judul sidebar akan tersembunyi pada mode collapsed */
-.sidebar-title {
-    transition: opacity 0.3s;
-}
-
-/* Menyembunyikan teks saat sidebar dalam keadaan collapsed */
-.dashboard-sidebar.collapsed .sidebar-title,
-.dashboard-sidebar.collapsed .sidebar-text,
-.dashboard-sidebar.collapsed .sidebar-heading {
-    display: none;
-}
-
-/* Styling untuk menu */
-.dashboard-sidebar-menu .nav-link {
-    color: #E1E1E1;
-    padding: 10px 20px;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    transition: background 0.2s, color 0.2s;
-    font-size: 1rem;
-}
-
-/* Ikon menu */
-.dashboard-sidebar-menu .nav-link i {
-    width: 20px;
-    text-align: center;
-    color: #D6D6D6;
-}
-
-/* Efek hover pada menu */
-.dashboard-sidebar-menu .nav-link:hover {
-    background-color: #FF6F61; 
     color: white;
 }
 
-.dashboard-sidebar-menu .nav-link i:hover {
-    color: #fff;
+.sidebar-logo {
+    border-radius: 8px;
+    background: #fff;
+    padding: 3px;
 }
 
-/* Heading sidebar */
-.sidebar-heading {
-    font-size: 0.75rem;
-    color: #E1E1E1;  /* Warna untuk heading menu */
-    text-transform: uppercase;
-    margin-left: 1.25rem;
-    margin-top: 0.5rem;
+.sidebar-title {
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    font-size: 1.05rem;
+    transition: opacity 0.3s;
 }
 
 .sidebar-divider {
     border: 0;
-    border-top: 2px solid #ffffff;
-    margin: 0 1rem;
-    opacity: 0.3; /* opsional, bisa diatur sesuai selera */
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    margin: 0 1.1rem;
+    flex-shrink: 0;
 }
 
-.dashboard-sidebar-menu .nav-link.active {
-    background-color: #fff;
-    color: #B40D14;
+/* Sembunyikan teks saat sidebar collapsed */
+.dashboard-sidebar.collapsed .sidebar-title,
+.dashboard-sidebar.collapsed .sidebar-text,
+.dashboard-sidebar.collapsed .sidebar-heading,
+.dashboard-sidebar.collapsed .sidebar-user-info,
+.dashboard-sidebar.collapsed .sidebar-user-caret {
+    display: none;
+}
+
+/* ===== Area menu (scrollable, footer profil tetap di bawah) ===== */
+.dashboard-sidebar-menu {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.5rem 0.65rem 1rem;
+}
+.dashboard-sidebar-menu::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===== Link menu ===== */
+/* Tekstur titik halus di background sidebar, biar nggak polos flat */
+.dashboard-sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.dashboard-sidebar-brand,
+.dashboard-sidebar-menu,
+.sidebar-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-sidebar-menu .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 9px 12px;
+    margin: 2px 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+
+.dashboard-sidebar-menu .nav-link i {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.92rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dashboard-sidebar-menu .nav-link:hover i {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 .dashboard-sidebar-menu .nav-link.active i {
-    color: #B40D14;
+    background: #B40D14;
+    color: #fff;
 }
 
-/* Dropdown styling */
+/* Saat menyempit: icon center, tanpa teks */
+.dashboard-sidebar.collapsed .dashboard-sidebar-menu .nav-link {
+    justify-content: center;
+    padding: 9px 0;
+}
+
+/* Hover: overlay putih transparan, bukan coral lagi */
+.dashboard-sidebar-menu .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    transform: translateX(2px);
+}
+
+.dashboard-sidebar-menu .nav-link:hover i {
+    color: #fff;
+}
+
+/* Active: pill putih dengan teks merah, ada aksen garis kiri */
+.dashboard-sidebar-menu .nav-link.active {
+    background-color: #ffffff;
+    color: #B40D14;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    position: relative;
+}
+
+.dashboard-sidebar-menu .nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: #FFD166;
+    border-radius: 4px;
+}
+
+/* ===== Heading section (BERANDA, PROFIL, dst) ===== */
+.sidebar-heading {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 1.1rem 0.9rem 0.4rem;
+}
+
+.nav-item:first-child .sidebar-heading {
+    margin-top: 0.3rem;
+}
+
+/* ===== Dropdown submenu (kalau ada) ===== */
 .sidebar-dropdown-toggle {
     cursor: pointer;
     position: relative;
@@ -104,6 +195,7 @@
 }
 
 .sidebar-dropdown-toggle .fa-angle-down {
+    margin-left: auto;
     transition: transform 0.3s;
 }
 
@@ -112,30 +204,22 @@
 }
 
 .sidebar-submenu {
-    padding-left: 1rem;
+    padding-left: 0.75rem;
 }
 
 .sidebar-submenu .nav-link {
-    padding: 8px 15px 8px 28px;
-    font-size: 0.95rem;
-    position: relative;
+    padding: 8px 14px 8px 24px;
+    font-size: 0.88rem;
 }
 
 .sidebar-submenu .nav-link i {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
-/* Animation for the dropdown */
 .collapse {
     transition: all 0.3s ease;
 }
 
-/* Add hover effect to dropdown toggle */
-.nav-link.sidebar-dropdown-toggle:hover {
-    background-color: rgba(255, 111, 97, 0.8);
-}
-
-/* When collapsed, properly show dropdown items */
 .dashboard-sidebar.collapsed .sidebar-dropdown-toggle .fa-angle-down {
     display: none;
 }
@@ -144,17 +228,159 @@
     position: absolute;
     left: 80px;
     top: 0;
-    width: 200px;
-    background-color: #B40D14;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 0 4px 4px 0;
+    width: 210px;
+    background: #B40D14;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 0 10px 10px 0;
+    padding: 0.5rem;
 }
 
 .dashboard-sidebar.collapsed .sidebar-submenu .nav-link {
-    padding-left: 20px;
+    padding-left: 14px;
 }
 
-/* Add open state to collapsed sidebar dropdown */
 .dashboard-sidebar.collapsed .nav-item:hover > .collapse {
     display: block;
+}
+
+/* ==========================================================================
+   Footer profil admin (dipindah dari navbar kanan atas ke sini)
+   ========================================================================== */
+.sidebar-footer {
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 0.65rem;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.sidebar-user-dropdown {
+    position: relative;
+}
+
+.sidebar-user-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-user-btn:hover,
+.sidebar-user-dropdown.open .sidebar-user-btn {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.sidebar-user-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #B40D14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+}
+
+.sidebar-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.2;
+    overflow: hidden;
+}
+
+.sidebar-user-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+.sidebar-user-role {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.sidebar-user-caret {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.25s ease;
+}
+
+.sidebar-user-dropdown.open .sidebar-user-caret {
+    transform: rotate(180deg);
+}
+
+/* Menu dropdown terbuka ke ATAS (soalnya posisinya di bawah sidebar) */
+.sidebar-user-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% + 8px);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    list-style: none;
+    margin: 0;
+    padding: 0.4rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: all 0.2s ease;
+    z-index: 1100;
+}
+
+.sidebar-user-dropdown.open .sidebar-user-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.sidebar-user-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 7px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.sidebar-user-menu .dropdown-item:hover {
+    background-color: #fdf1f1;
+    color: #B40D14;
+}
+
+.sidebar-user-menu .dropdown-item i {
+    width: 16px;
+    color: #B40D14;
+}
+
+/* Saat collapsed, avatar tetap kelihatan, teks & caret disembunyikan */
+.dashboard-sidebar.collapsed .sidebar-user-btn {
+    justify-content: center;
+}
+.dashboard-sidebar.collapsed .sidebar-user-menu {
+    left: 100%;
+    bottom: 0;
+    margin-left: 8px;
+    width: 200px;
 }

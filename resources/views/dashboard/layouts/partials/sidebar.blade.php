@@ -1,4 +1,4 @@
-    <aside class="dashboard-sidebar">
+<aside class="dashboard-sidebar">
         <a href="{{ url('/home') }}" class="dashboard-sidebar-brand d-flex align-items-center justify-content-center py-3">
             <img src="{{ asset('images/component/logo1-2.png') }}" alt="Logo" class="sidebar-logo" width="35" height="35">
             <span class="sidebar-title">BAKESBANGPOL</span>
@@ -105,26 +105,74 @@
 
             </ul>
         </nav>
+
+        {{-- Profil Admin — dipindah ke sini dari navbar kanan atas --}}
+        @auth
+        <div class="sidebar-footer">
+            <div class="sidebar-user-dropdown" id="sidebarUserDropdown">
+                <button type="button" class="sidebar-user-btn" id="sidebarUserBtn">
+                    <span class="sidebar-user-avatar"><i class="fas fa-user"></i></span>
+                    <span class="sidebar-user-info sidebar-text">
+                        <span class="sidebar-user-name">{{ Auth::user()->name }}</span>
+                        <span class="sidebar-user-role">Administrator</span>
+                    </span>
+                    <i class="fas fa-chevron-up sidebar-user-caret sidebar-text"></i>
+                </button>
+                <ul class="sidebar-user-menu">
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a>
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i> Keluar
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @endauth
     </aside>
 
-    <style>
-        .dashboard-sidebar {
-            overflow-y: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const wrapper = document.querySelector('.main-wrapper');
 
-        .dashboard-sidebar::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
+            if (sidebar && wrapper) {
+                // Sidebar mulai dalam keadaan menyempit (icon-only),
+                // otomatis melebar begitu kursor masuk area sidebar,
+                // dan menyempit lagi begitu kursor keluar.
+                sidebar.classList.add('collapsed');
+                wrapper.classList.add('expanded');
 
-        /* Ensure the sidebar has a fixed height or max-height */
-        .dashboard-sidebar {
-            max-height: 100vh; /* Or set a specific height like 100vh or 800px */
-        }
+                sidebar.addEventListener('mouseenter', function () {
+                    sidebar.classList.remove('collapsed');
+                });
 
-        /* Optional: Add some padding to the bottom of the sidebar menu for better spacing */
-        .dashboard-sidebar-menu {
-            padding-bottom: 20px;
-        }
-    </style>
+                sidebar.addEventListener('mouseleave', function () {
+                    sidebar.classList.add('collapsed');
+                    // Tutup juga dropdown profil kalau lagi kebuka
+                    const userDropdown = document.getElementById('sidebarUserDropdown');
+                    if (userDropdown) userDropdown.classList.remove('open');
+                });
+            }
+
+            const dropdown = document.getElementById('sidebarUserDropdown');
+            const btn = document.getElementById('sidebarUserBtn');
+            if (!dropdown || !btn) return;
+
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
