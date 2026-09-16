@@ -35,14 +35,19 @@ class StrukturController extends Controller
             'nodes.*.x'         => 'required|numeric',
             'nodes.*.y'         => 'required|numeric',
             'nodes.*.parent_id' => 'nullable|integer|exists:strukturors,id',
+            'nodes.*.color'     => 'nullable|string|max:50',
         ]);
 
         foreach ($data['nodes'] as $nodeData) {
-            Strukturor::where('id', $nodeData['id'])->update([
+            $updateData = [
                 'x'         => $nodeData['x'],
                 'y'         => $nodeData['y'],
                 'parent_id' => $nodeData['parent_id'] ?? null,
-            ]);
+            ];
+            if (!empty($nodeData['color'])) {
+                $updateData['color'] = $nodeData['color'];
+            }
+            Strukturor::where('id', $nodeData['id'])->update($updateData);
         }
 
         // Save connector data (waypoints, colors, styles, ports) to app_settings
@@ -62,6 +67,10 @@ class StrukturController extends Controller
      */
     public function storeBox(Request $request)
     {
+        if ($request->has('parent_id') && ($request->parent_id === '' || $request->parent_id === 'null')) {
+            $request->merge(['parent_id' => null]);
+        }
+
         $request->validate([
             'jabatan'   => 'required|string|max:255',
             'nama'      => 'nullable|string|max:255',
@@ -114,6 +123,10 @@ class StrukturController extends Controller
      */
     public function updateBox(Request $request, $id)
     {
+        if ($request->has('parent_id') && ($request->parent_id === '' || $request->parent_id === 'null')) {
+            $request->merge(['parent_id' => null]);
+        }
+
         $request->validate([
             'jabatan'   => 'required|string|max:255',
             'nama'      => 'nullable|string|max:255',
@@ -137,8 +150,8 @@ class StrukturController extends Controller
             'jabatan'  => $request->jabatan,
             'nama'     => $request->nama ?? '-',
             'nip'      => $nip,
-            'golongan' => $request->golongan ?? $node->golongan,
-            'pangkat'  => $request->pangkat ?? $node->pangkat,
+            'golongan' => $request->has('golongan') ? ($request->golongan ?: '-') : $node->golongan,
+            'pangkat'  => $request->has('pangkat') ? ($request->pangkat ?: '-') : $node->pangkat,
             'color'    => $request->color ?? $node->color,
         ];
 
@@ -146,7 +159,22 @@ class StrukturController extends Controller
             $updateData['parent_id'] = $request->parent_id ?: null;
         }
 
-        if ($request->hasFile('image')) {
+        if ($request->filled('x')) {
+            $updateData['x'] = $request->x;
+        }
+        if ($request->filled('y')) {
+            $updateData['y'] = $request->y;
+        }
+
+        if ($request->boolean('remove_image')) {
+            if (!empty($node->foto_profile)) {
+                $oldPath = public_path('images/struktur-organisasi/' . $node->foto_profile);
+                if (file_exists($oldPath) && is_file($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+            $updateData['foto_profile'] = null;
+        } elseif ($request->hasFile('image')) {
             if (!empty($node->foto_profile)) {
                 $oldPath = public_path('images/struktur-organisasi/' . $node->foto_profile);
                 if (file_exists($oldPath) && is_file($oldPath)) {

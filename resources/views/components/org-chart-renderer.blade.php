@@ -7,9 +7,9 @@
     }
 
     $colorMap = [
-        'blue' => '#3b82f6', 'red' => '#ef4444', 'green' => '#22c55e',
-        'yellow' => '#eab308', 'purple' => '#a855f7', 'orange' => '#f97316',
-        'teal' => '#14b8a6', 'pink' => '#ec4899', 'gray' => '#6b7280',
+        'blue' => '#2563eb', 'red' => '#A91E23', 'green' => '#16a34a',
+        'yellow' => '#ca8a04', 'purple' => '#9333ea', 'orange' => '#ea580c',
+        'teal' => '#0d9488', 'pink' => '#db2777', 'gray' => '#4b5563',
     ];
 
     // Normalize connector data arrays
@@ -21,8 +21,8 @@
     // Calculate bounding box
     $minX = $nodes->min('x') ?? 0;
     $minY = $nodes->min('y') ?? 0;
-    $maxX = $nodes->max(function($n) { return ($n->x ?? 0) + 220; });
-    $maxY = $nodes->max(function($n) { return ($n->y ?? 0) + 80; });
+    $maxX = $nodes->max(function($n) { return ($n->x ?? 0) + 300; });
+    $maxY = $nodes->max(function($n) { return ($n->y ?? 0) + 110; });
 
     $padding = 60;
     $totalW = max($maxX - $minX + $padding * 2, 800);
@@ -33,7 +33,146 @@
 @endphp
 
 <div class="org-chart-static" id="{{ $uid }}-wrap" style="position:relative;width:100%;overflow:auto;scrollbar-width:none;-ms-overflow-style:none;">
-<style>.org-chart-static::-webkit-scrollbar{display:none}</style>
+<style>
+.org-chart-static::-webkit-scrollbar{display:none}
+
+/* ---- Card Design matching Reference (288px wide, 20% scaled down) ---- */
+.builder-node {
+    position:absolute; z-index:10; cursor:default; user-select:none;
+    width:288px; height:96px; box-sizing:border-box;
+    border-radius:4px; background:#fff;
+    border:1px solid #e0e5ec;
+    box-shadow:0 3px 14px rgba(0,0,0,0.10);
+    transition:box-shadow 0.18s;
+    overflow:visible;
+}
+.builder-node:hover { box-shadow:0 6px 20px rgba(0,0,0,0.15); }
+
+/* Color themes */
+.builder-node, .builder-node.color-blue { --theme-color:#2563eb; --theme-dark:#1e3a8a; --theme-light:#eff6ff; }
+.builder-node.color-red   { --theme-color:#A91E23; --theme-dark:#58060a; --theme-light:#fff0f0; }
+.builder-node.color-green { --theme-color:#16a34a; --theme-dark:#14532d; --theme-light:#f0fdf4; }
+.builder-node.color-yellow{ --theme-color:#ca8a04; --theme-dark:#713f12; --theme-light:#fefce8; }
+.builder-node.color-purple{ --theme-color:#9333ea; --theme-dark:#581c87; --theme-light:#faf5ff; }
+.builder-node.color-orange{ --theme-color:#ea580c; --theme-dark:#9a3412; --theme-light:#fff7ed; }
+.builder-node.color-teal  { --theme-color:#0d9488; --theme-dark:#115e59; --theme-light:#f0fdfa; }
+.builder-node.color-pink  { --theme-color:#db2777; --theme-dark:#831843; --theme-light:#fdf2f8; }
+.builder-node.color-gray  { --theme-color:#4b5563; --theme-dark:#1f2937; --theme-light:#f9fafb; }
+
+/* Banner Ribbon on the top-right */
+.node-card-top {
+    position:absolute;
+    top:0;
+    left:97px;
+    right:-14px;
+    height:30px;
+    z-index:5;
+}
+.node-header-banner {
+    width:100%;
+    height:100%;
+    background:var(--theme-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 14px 0 22px;
+    box-sizing:border-box;
+    clip-path:polygon(19px 100%, 0 0, 100% 0, 100% 100%);
+    overflow:hidden;
+}
+.node-header-title {
+    font-size:0.67rem;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.25);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height:1.2;
+    text-align:center;
+}
+/* 3D fold underneath the protruding ribbon */
+.node-header-tail {
+    position:absolute;
+    right:0;
+    top:30px;
+    width:14px;
+    height:13px;
+    background:var(--theme-dark);
+    clip-path:polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Card body: photo on left, details on right */
+.node-main-body {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding:10px;
+    box-sizing:border-box;
+    width:100%;
+    height:100%;
+}
+.node-photo-box {
+    width:76px; min-width:76px; height:76px;
+    border:2px solid var(--theme-color);
+    background:#f8fafc;
+    border-radius:2px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.node-photo-img {
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:top center;
+    display:block;
+}
+.node-photo-placeholder { font-size:1.9rem; color:#cbd5e1; }
+
+/* Text details below the banner */
+.node-details {
+    flex:1; min-width:0;
+    padding-left:11px;
+    padding-top:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:2px;
+    box-sizing:border-box;
+}
+.node-name {
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--theme-color);
+    line-height:1.2;
+    margin-bottom:1px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.node-name.empty { color:#94a3b8; font-style:italic; font-weight:500; }
+.node-meta-row {
+    font-size:0.58rem;
+    line-height:1.35;
+    color:#111827;
+    display:flex;
+    gap:3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.node-meta-lbl { font-weight:800; color:#111827; flex-shrink:0; }
+.node-meta-val { font-weight:700; color:#111827; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* Unit only */
+.node-unit-center { display:flex; align-items:center; justify-content:center; text-align:center; padding:10px; width:100%; height:100%; box-sizing:border-box; }
+.node-unit-title { font-size:0.74rem; font-weight:800; color:var(--theme-color); letter-spacing:0.02em; line-height:1.25; }
+</style>
     <div style="position:relative;width:100%;min-width:{{ $totalW }}px;height:{{ $totalH }}px;min-height:500px;">
 
         {{-- SVG Connectors — initial estimated positions, will be corrected by JS --}}
@@ -47,8 +186,8 @@
                         $pColor = $colorMap[$savedColors[$connKey] ?? $parent->color] ?? ($colorMap[$parent->color] ?? '#8892a8');
 
                         // Use saved ports if available, else auto-detect
-                        $pRect = ['x' => $parent->x ?? 0, 'y' => $parent->y ?? 0, 'w' => 200, 'h' => 65];
-                        $cRect = ['x' => $node->x ?? 0, 'y' => $node->y ?? 0, 'w' => 200, 'h' => 65];
+                        $pRect = ['x' => $parent->x ?? 0, 'y' => $parent->y ?? 0, 'w' => 288, 'h' => 96];
+                        $cRect = ['x' => $node->x ?? 0, 'y' => $node->y ?? 0, 'w' => 288, 'h' => 96];
                         $pCx = $pRect['x'] + $pRect['w'] / 2;
                         $pCy = $pRect['y'] + $pRect['h'] / 2;
                         $cCx = $cRect['x'] + $cRect['w'] / 2;
@@ -73,9 +212,10 @@
                                 default:  $x2 = $cRect['x']; $y2 = $cCy; break;
                             }
                         } else {
-                            if (abs($dy) >= abs($dx)) {
-                                if ($dy >= 0) { $x1 = $pCx; $y1 = $pRect['y'] + $pRect['h']; $x2 = $cCx; $y2 = $cRect['y']; $fd = 'b'; $td = 't'; }
-                                else         { $x1 = $pCx; $y1 = $pRect['y']; $x2 = $cCx; $y2 = $cRect['y'] + $cRect['h']; $fd = 't'; $td = 'b'; }
+                            if ($cRect['y'] >= $pRect['y'] + $pRect['h'] * 0.4) {
+                                $x1 = $pCx; $y1 = $pRect['y'] + $pRect['h']; $x2 = $cCx; $y2 = $cRect['y']; $fd = 'b'; $td = 't';
+                            } elseif ($cRect['y'] + $cRect['h'] <= $pRect['y'] + $pRect['h'] * 0.6) {
+                                $x1 = $pCx; $y1 = $pRect['y']; $x2 = $cCx; $y2 = $cRect['y'] + $cRect['h']; $fd = 't'; $td = 'b';
                             } else {
                                 if ($dx >= 0) { $x1 = $pRect['x'] + $pRect['w']; $y1 = $pCy; $x2 = $cRect['x']; $y2 = $cCy; $fd = 'r'; $td = 'l'; }
                                 else         { $x1 = $pRect['x']; $y1 = $pCy; $x2 = $cRect['x'] + $cRect['w']; $y2 = $cCy; $fd = 'l'; $td = 'r'; }
@@ -184,22 +324,71 @@
         {{-- Nodes with data-id (required by JS to compute actual dimensions) --}}
         @foreach($nodes as $node)
             @php
-                $colorHex = $colorMap[$node->color] ?? '#3b82f6';
+                $colorName = $node->color ?? 'blue';
                 $hasName = $node->nama && $node->nama !== '-';
+                $hasNip = $node->nip && $node->nip !== '-';
+                $hasPhoto = !empty($node->foto_profile) && trim($node->foto_profile) !== '';
+                $isKelompokUnit = !$hasPhoto && !$hasName && !$hasNip && str_contains(strtoupper($node->jabatan ?? ''), 'KELOMPOK');
+
+                $golText = '-';
+                if ($node->pangkat && $node->pangkat !== '-' && $node->golongan && $node->golongan !== '-') {
+                    $golText = $node->pangkat . ' / ' . $node->golongan;
+                } elseif ($node->golongan && $node->golongan !== '-') {
+                    $golText = $node->golongan;
+                } elseif ($node->pangkat && $node->pangkat !== '-') {
+                    $golText = $node->pangkat;
+                }
             @endphp
-            <div class="builder-node" data-id="{{ $node->id }}" style="position:absolute;left:{{ $node->x ?? 0 }}px;top:{{ $node->y ?? 0 }}px;cursor:default;">
-                <div class="node-header">
-                    <span class="node-color-dot" style="background:{{ $colorHex }};"></span>
-                    <span class="node-jabatan">{{ $node->jabatan }}</span>
-                </div>
-                <div class="node-body">
-                    <div class="node-nama{{ !$hasName ? ' empty' : '' }}">
-                        {{ $hasName ? $node->nama : '[Kosong]' }}
+            <div class="builder-node color-{{ $colorName }}" data-id="{{ $node->id }}" style="position:absolute;left:{{ $node->x ?? 0 }}px;top:{{ $node->y ?? 0 }}px;cursor:default;">
+
+                @if($isKelompokUnit)
+                    <div class="node-card-top">
+                        <div class="node-header-banner">
+                            <div class="node-header-title" title="{{ $node->jabatan }}">{{ $node->jabatan }}</div>
+                        </div>
+                        <div class="node-header-tail"></div>
                     </div>
-                    @if($node->nip && $node->nip !== '-')
-                        <div class="node-nip">{{ $node->nip }}</div>
-                    @endif
-                </div>
+                    <div class="node-main-body node-unit-center">
+                        <div class="node-unit-title">{{ $node->jabatan }}</div>
+                    </div>
+                @else
+                    {{-- Top right ribbon banner --}}
+                    <div class="node-card-top">
+                        <div class="node-header-banner">
+                            <div class="node-header-title" title="{{ $node->jabatan }}">{{ $node->jabatan }}</div>
+                        </div>
+                        <div class="node-header-tail"></div>
+                    </div>
+
+                    <div class="node-main-body">
+                        {{-- Photo: LEFT 1:1 --}}
+                        <div class="node-photo-box">
+                            @if($hasPhoto)
+                                <img src="{{ asset('images/struktur-organisasi/' . $node->foto_profile) }}"
+                                     class="node-photo-img"
+                                     alt="{{ $node->nama }}"
+                                     onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\'fas fa-user node-photo-placeholder\'></i>';">
+                            @else
+                                <i class="fas fa-user node-photo-placeholder"></i>
+                            @endif
+                        </div>
+
+                        {{-- Details right --}}
+                        <div class="node-details">
+                            <div class="node-name{{ !$hasName ? ' empty' : '' }}">
+                                {{ $hasName ? $node->nama : '[Nama Belum Diisi]' }}
+                            </div>
+                            <div class="node-meta-row">
+                                <span class="node-meta-lbl">NIP &nbsp;:</span>
+                                <span class="node-meta-val">{{ $hasNip ? $node->nip : '-' }}</span>
+                            </div>
+                            <div class="node-meta-row">
+                                <span class="node-meta-lbl">Golongan :</span>
+                                <span class="node-meta-val">{{ $golText }}</span>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         @endforeach
 
@@ -233,7 +422,7 @@
         var n = nodesMap[id];
         if (!n) return null;
         var el = getNodeEl(id);
-        var w = 200, h = 65;
+        var w = 288, h = 96;
         if (el) {
             var r = el.getBoundingClientRect();
             if (r.width > 0)  w = r.width;
