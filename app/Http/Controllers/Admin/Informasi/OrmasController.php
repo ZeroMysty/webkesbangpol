@@ -30,8 +30,15 @@ class OrmasController extends Controller
             $query->where('nama_organisasi', 'LIKE', '%' . $searchTerm . '%');
         }
         
-        $ormass = $query->orderBy('nama_organisasi')
-                        ->paginate(10);
+        // Handle sort filter (terbaru / terlama)
+        $sort = $request->get('sort', 'terbaru');
+        if ($sort === 'terlama') {
+            $query->orderBy('created_at', 'asc')->orderBy('id', 'asc');
+        } else {
+            $query->orderBy('created_at', 'desc')->orderBy('id', 'desc');
+        }
+        
+        $ormass = $query->paginate(10);
                         
         return view('dashboard.ormass.index', compact('ormass'));
     }
@@ -134,13 +141,13 @@ class OrmasController extends Controller
             'bidang'                => 'required|string|max:255',
             'alamat'                => 'required|string',
             'sumber_data'           => 'required|string|max:255',
-            'dokumen.akta_notaris'  => 'nullable|string|max:255',
-            'dokumen.ahu_skt'       => 'nullable|string|max:255',
+            'dokumen.akta_notaris'  => 'required|string|max:255',
+            'dokumen.ahu_skt'       => 'required|string|max:255',
             'dokumen.npwp'          => 'nullable|string|max:255',
-            'pengurus'              => 'nullable|array|min:1',
-            'pengurus.*.nama'       => 'nullable|string|max:255',
-            'pengurus.*.jabatan'    => 'nullable|string|in:Ketua,Sekretaris,Bendahara',
-            'pengurus.*.no_telepon' => ['nullable','string','max:20','regex:/^[0-9+\-\s]+$/'],
+            'pengurus'              => 'required|array',
+            'pengurus.*.nama'       => 'required|string|max:255',
+            'pengurus.*.jabatan'    => 'required|string|in:Ketua,Sekretaris,Bendahara',
+            'pengurus.*.no_telepon' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s()]+$/'],
         ]);
 
         try {
@@ -149,11 +156,11 @@ class OrmasController extends Controller
                 $ormas = Ormas::create([
                     'nama_organisasi' => $validated['nama_organisasi'],
                     'bidang'          => $validated['bidang'],
-                    'alamat'          => Purifier::clean($validated['alamat']),
+                    'alamat'          => preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])),
                     'sumber_data'     => $validated['sumber_data'],
                 ]);
 
-                // 3. Simpan dokumen ormas
+                // 3. Simpan dokumen ormas (akta dan ahu wajib, npwp opsional)
                 DokumenOrmas::create([
                     'ormas_id'      => $ormas->id,
                     'akta_notaris'  => $validated['dokumen']['akta_notaris'] ?? null,
@@ -161,14 +168,18 @@ class OrmasController extends Controller
                     'npwp'          => $validated['dokumen']['npwp'] ?? null,
                 ]);
 
-                // 4. Simpan setiap pengurus
-                foreach ($validated['pengurus'] as $p) {
-                    PengurusOrmas::create([
-                        'ormas_id'   => $ormas->id,
-                        'jabatan'    => $p['jabatan'] ?? null,
-                        'nama'       => $p['nama'] ?? null,
-                        'no_telepon' => $p['no_telepon'] ?? null,
-                    ]);
+                // 4. Simpan setiap pengurus yang memiliki nama
+                if (isset($validated['pengurus']) && is_array($validated['pengurus'])) {
+                    foreach ($validated['pengurus'] as $p) {
+                        if (!empty($p['nama'])) {
+                            PengurusOrmas::create([
+                                'ormas_id'   => $ormas->id,
+                                'jabatan'    => $p['jabatan'] ?? null,
+                                'nama'       => $p['nama'],
+                                'no_telepon' => !empty($p['no_telepon']) ? $p['no_telepon'] : null,
+                            ]);
+                        }
+                    }
                 }
             });
 
@@ -180,7 +191,8 @@ class OrmasController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
             return redirect()
-                ->route('ormass.index')
+                ->back()
+                ->withInput()
                 ->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
         }
     }
@@ -212,13 +224,13 @@ class OrmasController extends Controller
             'bidang'                => 'required|string|max:255',
             'alamat'                => 'required|string',
             'sumber_data'           => 'required|string|max:255',
-            'dokumen.akta_notaris'  => 'nullable|string|max:255',
-            'dokumen.ahu_skt'       => 'nullable|string|max:255',
+            'dokumen.akta_notaris'  => 'required|string|max:255',
+            'dokumen.ahu_skt'       => 'required|string|max:255',
             'dokumen.npwp'          => 'nullable|string|max:255',
-            'pengurus'              => 'nullable|array|min:1',
-            'pengurus.*.nama'       => 'nullable|string|max:255',
-            'pengurus.*.jabatan'    => 'nullable|string|in:Ketua,Sekretaris,Bendahara',
-            'pengurus.*.no_telepon' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s]+$/'],
+            'pengurus'              => 'required|array',
+            'pengurus.*.nama'       => 'required|string|max:255',
+            'pengurus.*.jabatan'    => 'required|string|in:Ketua,Sekretaris,Bendahara',
+            'pengurus.*.no_telepon' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s()]+$/'],
             'pengurus.*.id'         => 'nullable|exists:pengurus_ormas,id',
         ]);
 
@@ -231,7 +243,7 @@ class OrmasController extends Controller
                 $ormas->update([
                     'nama_organisasi' => $validated['nama_organisasi'],
                     'bidang'          => $validated['bidang'],
-                    'alamat'          => Purifier::clean($validated['alamat']),
+                    'alamat'          => preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])),
                     'sumber_data'     => $validated['sumber_data'],
                 ]);
 

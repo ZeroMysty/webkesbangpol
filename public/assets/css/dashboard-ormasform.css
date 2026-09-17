@@ -1,7 +1,7 @@
 /* Ormas Management Styles
 
 /* Toggle Switch */
-/* Toggle Switch - Fixed styling */
+/* Toggle Switch - Red theme */
 .input-toggle-container {
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
-    background: linear-gradient(to right, #4568DC, #B06AB3);
+    background: linear-gradient(135deg, #B40D14, #d4363c);
     border-radius: 30px;
     overflow: hidden;
 }
@@ -55,23 +55,23 @@
     left: 4px;
     width: calc(50% - 8px);
     height: calc(100% - 8px);
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.25);
     border-radius: 26px;
     z-index: 1;
     transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-.toggle-input:checked + .toggle-label::before {
+.toggle-input:checked+.toggle-label::before {
     transform: translateX(calc(100%));
 }
 
-.toggle-input:checked + .toggle-label .toggle-option:first-child {
-    color: #555;
+.toggle-input:checked+.toggle-label .toggle-option:first-child {
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.toggle-input:not(:checked) + .toggle-label .toggle-option:last-child {
-    color: #555;
+.toggle-input:not(:checked)+.toggle-label .toggle-option:last-child {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* Card Styles */
@@ -147,15 +147,15 @@ textarea.form-control {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4568DC, #B06AB3);
+    background: linear-gradient(135deg, #B40D14, #d4363c);
     border: none;
-    box-shadow: 0 4px 10px rgba(69, 104, 220, 0.3);
+    box-shadow: 0 4px 10px rgba(180, 13, 20, 0.3);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #3A56BA, #9A4E9D);
+    background: linear-gradient(135deg, #960a10, #B40D14);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(69, 104, 220, 0.4);
+    box-shadow: 0 6px 15px rgba(180, 13, 20, 0.4);
 }
 
 .btn-warning {
@@ -172,13 +172,13 @@ textarea.form-control {
 }
 
 .btn-outline-primary {
-    border: 1px solid #4568DC;
-    color: #4568DC;
+    border: 1px solid #B40D14;
+    color: #B40D14;
 }
 
 .btn-outline-primary:hover {
-    background-color: rgba(69, 104, 220, 0.1);
-    color: #3A56BA;
+    background-color: rgba(180, 13, 20, 0.1);
+    color: #960a10;
 }
 
 .form-actions {
@@ -201,8 +201,8 @@ textarea.form-control {
 }
 
 .file-upload-wrapper.highlight {
-    border-color: #4568DC;
-    background-color: rgba(69, 104, 220, 0.05);
+    border-color: #B40D14;
+    background-color: rgba(180, 13, 20, 0.05);
 }
 
 .file-upload-input {
@@ -230,7 +230,7 @@ textarea.form-control {
 
 .upload-icon {
     font-size: 3rem;
-    color: #4568DC;
+    color: #B40D14;
     margin-bottom: 10px;
 }
 
@@ -247,14 +247,14 @@ textarea.form-control {
 #file-name-display {
     text-align: center;
     font-size: 0.9rem;
-    color: #4568DC;
+    color: #B40D14;
     font-weight: 500;
     min-height: 24px;
 }
 
 .file-selected {
     padding: 8px 12px;
-    background-color: rgba(69, 104, 220, 0.1);
+    background-color: rgba(180, 13, 20, 0.1);
     border-radius: 6px;
     display: inline-block;
 }
@@ -267,7 +267,7 @@ textarea.form-control {
 }
 
 .modal-header {
-    background: linear-gradient(135deg, #4568DC, #B06AB3);
+    background: linear-gradient(135deg, #B40D14, #d4363c);
     color: white;
     border-bottom: none;
     border-radius: 12px 12px 0 0;
@@ -291,21 +291,20 @@ textarea.form-control {
     .toggle-switch {
         width: 280px;
     }
-    
+
     .toggle-option {
         font-size: 14px;
     }
-    
+
     .card-header {
         padding: 0.75rem 1rem;
     }
-    
+
     .file-upload-wrapper {
         height: 120px;
     }
-    
+
     .upload-icon {
         font-size: 2.5rem;
     }
 }
-

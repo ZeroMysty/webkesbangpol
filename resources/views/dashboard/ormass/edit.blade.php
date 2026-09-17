@@ -9,6 +9,25 @@
 
                         <!-- Manual Input Form -->
                         <div id="manual-input-form">
+                            @if(session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                                    <i class="fas fa-exclamation-circle me-2"></i> {{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                                    <div class="fw-bold mb-1"><i class="fas fa-exclamation-triangle me-2"></i> Terdapat kesalahan pada pengisian form:</div>
+                                    <ul class="mb-0 ps-3">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <form action="{{ route('ormass.update', $ormas->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -20,21 +39,37 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label for="nama_organisasi" class="form-label">Nama Organisasi</label>
-                                                <input type="text" class="form-control" name="nama_organisasi" placeholder="Masukkan nama organisasi" required autocomplete="off" value="{{ $ormas->nama_organisasi }}">
+                                                <label for="nama_organisasi" class="form-label">Nama Organisasi <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('nama_organisasi') is-invalid @enderror" name="nama_organisasi" placeholder="Masukkan nama organisasi" required autocomplete="off" value="{{ old('nama_organisasi', $ormas->nama_organisasi) }}">
+                                                @error('nama_organisasi')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label for="bidang" class="form-label">Bidang</label>
-                                                <input type="text" class="form-control" name="bidang" placeholder="Masukkan bidang" required autocomplete="off" value="{{ $ormas->bidang }}">
+                                                <label for="bidang" class="form-label">Bidang <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" placeholder="Masukkan bidang" required autocomplete="off" value="{{ old('bidang', $ormas->bidang) }}">
+                                                @error('bidang')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="alamat" class="form-label">Alamat</label>
-                                            <textarea class="form-control" name="alamat" id='editor' rows="3" placeholder="Masukkan alamat lengkap" required autocomplete="off">{{ $ormas->alamat }}</textarea>
+                                            <label for="alamat" class="form-label">Alamat <span class="text-danger">*</span></label>
+                                            @php
+                                                $alamatValue = old('alamat', $ormas->alamat ?? '');
+                                                $alamatValue = preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', $alamatValue);
+                                            @endphp
+                                            <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="editor" rows="3" placeholder="Masukkan alamat lengkap" autocomplete="off">{!! $alamatValue !!}</textarea>
+                                            @error('alamat')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="sumber_data" class="form-label">Sumber Data</label>
-                                            <input type="text" class="form-control" name="sumber_data" placeholder="Masukkan sumber data" required autocomplete="off" value="{{ $ormas->sumber_data }}">
+                                            <label for="sumber_data" class="form-label">Sumber Data <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('sumber_data') is-invalid @enderror" name="sumber_data" id="sumber_data" placeholder="Masukkan sumber data" required autocomplete="off" value="{{ old('sumber_data', $ormas->sumber_data) }}">
+                                            @error('sumber_data')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -52,14 +87,20 @@
                                             <h6 class="border-bottom pb-2">Ketua</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="ketua_nama" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" name="pengurus[0][nama]" placeholder="Masukkan nama ketua"  autocomplete="off" value="{{ $pengurus->get('Ketua')->nama ?? '' }}">
+                                                    <label for="ketua_nama" class="form-label">Nama Ketua <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.0.nama') is-invalid @enderror" name="pengurus[0][nama]" placeholder="Masukkan nama ketua" required autocomplete="off" value="{{ old('pengurus.0.nama', $pengurus->get('Ketua')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[0][jabatan]" value="Ketua">
                                                     <input type="hidden" name="pengurus[0][id]" value="{{ $pengurus->get('Ketua')->id ?? '' }}">
+                                                    @error('pengurus.0.nama')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="ketua_no_telepon" class="form-label">No. Telepon</label>
-                                                    <input type="text" class="form-control" name="pengurus[0][no_telepon]" placeholder="Masukkan nomor telepon ketua"  autocomplete="off" value="{{ $pengurus->get('Ketua')->no_telepon ?? '' }}">
+                                                    <input type="text" class="form-control @error('pengurus.0.no_telepon') is-invalid @enderror" name="pengurus[0][no_telepon]" placeholder="Masukkan nomor telepon ketua" autocomplete="off" value="{{ old('pengurus.0.no_telepon', $pengurus->get('Ketua')->no_telepon ?? '') }}">
+                                                    @error('pengurus.0.no_telepon')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -68,14 +109,20 @@
                                             <h6 class="border-bottom pb-2">Sekretaris</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="sekretaris_nama" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris"  autocomplete="off" value="{{ $pengurus->get('Sekretaris')->nama ?? '' }}">
+                                                    <label for="sekretaris_nama" class="form-label">Nama Sekretaris <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.1.nama') is-invalid @enderror" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris" required autocomplete="off" value="{{ old('pengurus.1.nama', $pengurus->get('Sekretaris')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[1][jabatan]" value="Sekretaris">
                                                     <input type="hidden" name="pengurus[1][id]" value="{{ $pengurus->get('Sekretaris')->id ?? '' }}">
+                                                    @error('pengurus.1.nama')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="sekretaris_no_telepon" class="form-label">No. Telepon</label>
-                                                    <input type="text" class="form-control" name="pengurus[1][no_telepon]" placeholder="Masukkan nomor telepon sekretaris"  autocomplete="off" value="{{ $pengurus->get('Sekretaris')->no_telepon ?? '' }}">
+                                                    <input type="text" class="form-control @error('pengurus.1.no_telepon') is-invalid @enderror" name="pengurus[1][no_telepon]" placeholder="Masukkan nomor telepon sekretaris" autocomplete="off" value="{{ old('pengurus.1.no_telepon', $pengurus->get('Sekretaris')->no_telepon ?? '') }}">
+                                                    @error('pengurus.1.no_telepon')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -84,14 +131,20 @@
                                             <h6 class="border-bottom pb-2">Bendahara</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="bendahara_nama" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara"  autocomplete="off" value="{{ $pengurus->get('Bendahara')->nama ?? '' }}">
+                                                    <label for="bendahara_nama" class="form-label">Nama Bendahara <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.2.nama') is-invalid @enderror" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara" required autocomplete="off" value="{{ old('pengurus.2.nama', $pengurus->get('Bendahara')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[2][jabatan]" value="Bendahara">
                                                     <input type="hidden" name="pengurus[2][id]" value="{{ $pengurus->get('Bendahara')->id ?? '' }}">
+                                                    @error('pengurus.2.nama')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="bendahara_no_telepon" class="form-label">No. Telepon</label>
-                                                    <input type="text" class="form-control" name="pengurus[2][no_telepon]" placeholder="Masukkan nomor telepon bendahara"  autocomplete="off" value="{{ $pengurus->get('Bendahara')->no_telepon ?? '' }}">
+                                                    <input type="text" class="form-control @error('pengurus.2.no_telepon') is-invalid @enderror" name="pengurus[2][no_telepon]" placeholder="Masukkan nomor telepon bendahara" autocomplete="off" value="{{ old('pengurus.2.no_telepon', $pengurus->get('Bendahara')->no_telepon ?? '') }}">
+                                                    @error('pengurus.2.no_telepon')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -106,17 +159,25 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
-                                                <label for="akta_notaris" class="form-label">Akta Notaris</label>
-                                                <input type="text" class="form-control" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" autocomplete="off" value="{{ $ormas->dokumenedit->akta_notaris ?? '' }}">
+                                                <label for="akta_notaris" class="form-label">Akta Notaris <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('dokumen.akta_notaris') is-invalid @enderror" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" required autocomplete="off" value="{{ old('dokumen.akta_notaris', $ormas->dokumenedit->akta_notaris ?? '') }}">
+                                                @error('dokumen.akta_notaris')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="ahu_skt" class="form-label">AHU/SKT</label>
-                                                <input type="text" class="form-control" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" autocomplete="off" value="{{ $ormas->dokumenedit->ahu_skt ?? '' }}">
+                                                <label for="ahu_skt" class="form-label">AHU/SKT <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('dokumen.ahu_skt') is-invalid @enderror" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" required autocomplete="off" value="{{ old('dokumen.ahu_skt', $ormas->dokumenedit->ahu_skt ?? '') }}">
+                                                @error('dokumen.ahu_skt')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="npwp" class="form-label">NPWP</label>
-                                                <input type="text" class="form-control" name="dokumen[npwp]" placeholder="Masukkan nomor NPWP" autocomplete="off" value="{{ $ormas->dokumenedit->npwp ?? '' }}">
-                                            </div>
+                                                <label for="npwp" class="form-label">NPWP <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('dokumen.npwp') is-invalid @enderror" name="dokumen[npwp]" placeholder="Masukkan nomor NPWP (opsional)" autocomplete="off" value="{{ old('dokumen.npwp', $ormas->dokumenedit->npwp ?? '') }}">
+                                                @error('dokumen.npwp')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -219,7 +280,7 @@
 </script>
 @endsection
 @push('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormasform.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormasform.css') }}?v=3">
 @endpush
 
 

@@ -9,31 +9,49 @@
         <div class="col-md-12 mt-3">
             <div class="card border-0 shadow-sm rounded">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="ormas-header-actions">
                         <a href="{{ route('ormass.create') }}" class="btn-tambah-konten">
                             <i class="fas fa-plus"></i> <span>Tambah Organisasi</span>
                         </a>
                         
-                        <!-- Search Form -->
-                        <div class="search-container">
-                            <form method="GET" action="{{ route('ormass.index') }}" class="d-flex">
-                                <div class="input-group" style="width: 300px;">
-                                    <input type="text" 
-                                            class="form-control" 
-                                            name="search" 
-                                            value="{{ request('search') }}" 
-                                            placeholder="Cari nama organisasi..."
-                                            aria-label="Search" autocomplete="off">
-                                    <button class="btn btn-outline-secondary" type="submit" id="search-button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    @if(request('search'))
-                                        <a href="{{ route('ormass.index') }}" class="btn btn-outline-danger" title="Clear search">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    @endif
-                                </div>
-                            </form>
+                        <!-- Toolbar (Filter & Search) -->
+                        <div class="ormas-toolbar-container">
+                            <!-- Filter Dua Pilihan: Data Terbaru & Terlama -->
+                            <div class="btn-group ormas-filter-btn-group" role="group" aria-label="Filter Urutan Data">
+                                <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terbaru', 'page' => 1])) }}" 
+                                   class="btn {{ request('sort', 'terbaru') == 'terbaru' ? 'btn-danger active' : 'btn-outline-secondary' }}"
+                                   title="Urutkan dari data yang terbaru">
+                                    <i class="fas fa-clock me-1"></i> Data Terbaru
+                                </a>
+                                <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terlama', 'page' => 1])) }}" 
+                                   class="btn {{ request('sort') == 'terlama' ? 'btn-danger active' : 'btn-outline-secondary' }}"
+                                   title="Urutkan dari data yang terlama">
+                                    <i class="fas fa-history me-1"></i> Data Terlama
+                                </a>
+                            </div>
+
+                            <!-- Search Form -->
+                            <div class="ormas-search-container">
+                                <form method="GET" action="{{ route('ormass.index') }}" class="d-flex">
+                                    <input type="hidden" name="sort" value="{{ request('sort', 'terbaru') }}">
+                                    <div class="input-group">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                name="search" 
+                                                value="{{ request('search') }}" 
+                                                placeholder="Cari nama organisasi..."
+                                                aria-label="Search" autocomplete="off">
+                                        <button class="btn btn-outline-secondary" type="submit" id="search-button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                        @if(request('search'))
+                                            <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-outline-danger" title="Hapus pencarian">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -44,16 +62,22 @@
                     <!-- Search Results Info -->
                     @if(request('search'))
                         <div class="mb-3">
-                            <div class="alert alert-info mb-0">
-                                <i class="fas fa-info-circle"></i>
-                                Menampilkan hasil pencarian untuk: "<strong>{{ request('search') }}</strong>"
-                                ({{ $ormass->total() }} hasil ditemukan)
+                            <div class="alert alert-info mb-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div>
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Menampilkan hasil pencarian untuk: "<strong>{{ request('search') }}</strong>"
+                                    ({{ $ormass->total() }} hasil ditemukan) &bull;
+                                    Urutan: <strong>{{ request('sort') == 'terlama' ? 'Data Terlama' : 'Data Terbaru' }}</strong>
+                                </div>
+                                <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-times me-1"></i> Reset Pencarian
+                                </a>
                             </div>
                         </div>
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered program-table">
+                        <table class="table table-hover table-bordered ormas-table">
                             <thead class="table-light">
                                 <tr>
                                     <th class="kolom-nama"><div class="text-wrap">NAMA ORGANISASI</div></th>
@@ -118,7 +142,7 @@
                                             @if(request('search'))
                                                 Tidak ada organisasi yang ditemukan dengan kata kunci "{{ request('search') }}".
                                                 <br>
-                                                <a href="{{ route('ormass.index') }}" class="btn btn-sm btn-primary mt-2">
+                                                <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-sm btn-primary mt-2">
                                                     <i class="fas fa-arrow-left"></i> Kembali ke semua data
                                                 </a>
                                             @else
@@ -143,6 +167,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormas-index.css') }}?v=2">
 @endpush
 
 <script>

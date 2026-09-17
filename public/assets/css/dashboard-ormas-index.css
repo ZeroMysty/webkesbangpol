@@ -1,0 +1,216 @@
+/* =========================================
+   Ormas Index Page Styles
+   ========================================= */
+
+/* --- Header Actions (Tambah Organisasi + Search) --- */
+.ormas-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.ormas-header-actions .btn-tambah-konten {
+    margin-bottom: 0; /* Override default margin */
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.ormas-toolbar-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.ormas-filter-btn-group .btn {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.45rem 0.95rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ormas-filter-btn-group .btn-danger.active {
+    background-color: #B40D14;
+    border-color: #B40D14;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(180, 13, 20, 0.35);
+}
+
+.ormas-filter-btn-group .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #495057;
+    background-color: #fff;
+}
+
+.ormas-filter-btn-group .btn-outline-secondary:hover {
+    background-color: #fdf2f2;
+    border-color: #B40D14;
+    color: #B40D14;
+}
+
+.ormas-search-container {
+    flex-shrink: 0;
+}
+
+.ormas-search-container .input-group {
+    width: 280px;
+}
+
+.ormas-search-container .form-control:focus {
+    border-color: #B40D14;
+    box-shadow: 0 0 0 0.2rem rgba(180, 13, 20, 0.25);
+}
+
+.ormas-search-container .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.ormas-search-container .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.ormas-search-container .btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Responsive: stack button, filter, and search on small screens */
+@media (max-width: 576px) {
+    .ormas-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .ormas-toolbar-container {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .ormas-filter-btn-group {
+        width: 100%;
+        display: flex;
+    }
+    .ormas-filter-btn-group .btn {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+    .ormas-search-container {
+        width: 100%;
+    }
+    .ormas-search-container .input-group {
+        width: 100%;
+    }
+}
+
+/* --- Ormas Table Styling --- */
+.ormas-table {
+    width: 100% !important;
+    table-layout: auto !important;  /* Auto-fit column widths to content */
+}
+
+.ormas-table thead th {
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    padding: 12px 10px;
+    white-space: nowrap;
+}
+
+.ormas-table tbody td {
+    vertical-align: middle !important;
+    padding: 10px 12px !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Kolom Nama Organisasi */
+.ormas-table td.kolom-nama {
+    text-align: left !important;
+    font-weight: 600;
+    min-width: 180px;
+}
+
+/* Kolom Alamat */
+.ormas-table td.kolom-alamat {
+    text-align: left !important;
+    font-size: 0.9em;
+    line-height: 1.4;
+    min-width: 200px;
+}
+
+/* Kolom Ketua */
+.ormas-table td.kolom-ketua {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+/* Kolom Akta Notaris */
+.ormas-table td.kolom-akta {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+/* Kolom AHU/SKT */
+.ormas-table td.kolom-ahu {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+/* Kolom Bidang */
+.ormas-table td.kolom-bidang {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+/* Kolom Aksi */
+.ormas-table td.kolom-aksi {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+.ormas-table .kolom-aksi .btn {
+    margin: 0 2px;
+    padding: 4px 8px;
+}
+
+.ormas-table .kolom-aksi form {
+    display: inline-block;
+    margin: 0;
+}
+
+/* Row hover */
+.ormas-table tbody tr:hover {
+    background-color: rgba(180, 13, 20, 0.05);
+}
+
+/* Highlight search results */
+.ormas-table mark {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1px 2px;
+    border-radius: 2px;
+}
+
+/* Responsive table */
+@media (max-width: 992px) {
+    .ormas-table {
+        font-size: 0.85em;
+    }
+    .ormas-table .kolom-aksi .btn {
+        padding: 2px 6px;
+        font-size: 0.8em;
+    }
+}
