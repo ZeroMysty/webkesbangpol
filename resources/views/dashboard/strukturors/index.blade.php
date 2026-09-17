@@ -79,20 +79,152 @@
 .builder-empty i { font-size:2.8rem; display:block; margin-bottom:10px; opacity:0.4; }
 .builder-empty p { font-size:0.9rem; margin:0; }
 
-/* ---- Builder Node ---- */
-.builder-node { position:absolute; z-index:10; cursor:move; user-select:none; min-width:180px; max-width:220px; padding:0; border-radius:10px; background:#fff; border:2px solid #dde3ec; box-shadow:0 3px 12px rgba(0,0,0,0.08); transition:box-shadow 0.15s,border-color 0.15s; }
-.builder-node:hover { box-shadow:0 6px 20px rgba(0,0,0,0.12); }
-.builder-node.selected { border-color:#B40D1A; box-shadow:0 0 0 3px rgba(180,13,26,0.15),0 6px 20px rgba(0,0,0,0.12); }
-.builder-node.multi-selected { border-color:#3b82f6; box-shadow:0 0 0 2px rgba(59,130,246,0.2),0 4px 14px rgba(0,0,0,0.1); }
-.builder-node.multi-selected.selected { border-color:#B40D1A; box-shadow:0 0 0 3px rgba(180,13,26,0.15),0 6px 20px rgba(0,0,0,0.12); }
-.builder-node.dragging { opacity:0.85; z-index:100; box-shadow:0 12px 40px rgba(0,0,0,0.18); }
-.node-header { display:flex; align-items:center; gap:8px; padding:8px 12px 6px; border-bottom:1px solid #eee; }
-.node-color-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-.node-jabatan { font-size:0.72rem; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:0.04em; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.node-body { padding:6px 12px 10px; }
-.node-nama { font-size:0.88rem; font-weight:700; color:#1a1a2e; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.node-nama.empty { color:#b0b8c9; font-style:italic; font-weight:400; }
-.node-nip { font-size:0.7rem; color:#8892a8; margin-top:2px; font-family:'Roboto Mono',monospace; }
+/* ---- Builder Node (Card Design matching Reference) ---- */
+.builder-node {
+    position:absolute; z-index:10; cursor:move; user-select:none;
+    width:288px; height:96px; box-sizing:border-box;
+    padding:0; border-radius:4px; background:#fff;
+    border:1px solid #dde3ec;
+    box-shadow:0 3px 14px rgba(0,0,0,0.10);
+    transition:box-shadow 0.18s,border-color 0.15s;
+    overflow:visible;
+}
+.builder-node:hover { box-shadow:0 6px 20px rgba(0,0,0,0.15); }
+.builder-node.selected { border-color:var(--theme-color,#A91E23); box-shadow:0 0 0 3px rgba(169,30,35,0.18),0 8px 25px rgba(0,0,0,0.12); }
+.builder-node.multi-selected { border-color:#3b82f6; box-shadow:0 0 0 2px rgba(59,130,246,0.25),0 6px 20px rgba(0,0,0,0.1); }
+.builder-node.multi-selected.selected { border-color:var(--theme-color,#A91E23); box-shadow:0 0 0 3px rgba(169,30,35,0.18),0 8px 25px rgba(0,0,0,0.12); }
+.builder-node.dragging { opacity:0.88; z-index:100; box-shadow:0 16px 45px rgba(0,0,0,0.22); }
+
+/* Color themes */
+.builder-node, .builder-node.color-blue { --theme-color:#2563eb; --theme-dark:#1e3a8a; --theme-light:#eff6ff; }
+.builder-node.color-red   { --theme-color:#A91E23; --theme-dark:#58060a; --theme-light:#fff0f0; }
+.builder-node.color-green { --theme-color:#16a34a; --theme-dark:#14532d; --theme-light:#f0fdf4; }
+.builder-node.color-yellow{ --theme-color:#ca8a04; --theme-dark:#713f12; --theme-light:#fefce8; }
+.builder-node.color-purple{ --theme-color:#9333ea; --theme-dark:#581c87; --theme-light:#faf5ff; }
+.builder-node.color-orange{ --theme-color:#ea580c; --theme-dark:#9a3412; --theme-light:#fff7ed; }
+.builder-node.color-teal  { --theme-color:#0d9488; --theme-dark:#115e59; --theme-light:#f0fdfa; }
+.builder-node.color-pink  { --theme-color:#db2777; --theme-dark:#831843; --theme-light:#fdf2f8; }
+.builder-node.color-gray  { --theme-color:#4b5563; --theme-dark:#1f2937; --theme-light:#f9fafb; }
+
+/* Banner Ribbon on top-right */
+.node-card-top {
+    position:absolute;
+    top:0;
+    left:97px;
+    right:-14px;
+    height:30px;
+    z-index:5;
+}
+.node-header-banner {
+    width:100%;
+    height:100%;
+    background:var(--theme-color);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 14px 0 22px;
+    box-sizing:border-box;
+    clip-path:polygon(19px 100%, 0 0, 100% 0, 100% 100%);
+    overflow:hidden;
+}
+.node-header-title {
+    font-size:0.67rem;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.25);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height:1.2;
+    text-align:center;
+}
+/* 3D fold underneath the protruding ribbon */
+.node-header-tail {
+    position:absolute;
+    right:0;
+    top:30px;
+    width:14px;
+    height:13px;
+    background:var(--theme-dark);
+    clip-path:polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Card body: photo on left, details on right */
+.node-main-body {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding:10px;
+    box-sizing:border-box;
+    width:100%;
+    height:100%;
+}
+.node-photo-box {
+    width:76px; min-width:76px; height:76px;
+    border:2px solid var(--theme-color);
+    background:#f8fafc;
+    border-radius:2px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.node-photo-img {
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:top center;
+    display:block;
+}
+.node-photo-placeholder { font-size:1.9rem; color:#cbd5e1; }
+
+/* Text details below the banner */
+.node-details {
+    flex:1; min-width:0;
+    padding-left:11px;
+    padding-top:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:2px;
+    box-sizing:border-box;
+}
+.node-name {
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--theme-color);
+    line-height:1.2;
+    margin-bottom:1px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.node-name.empty { color:#94a3b8; font-style:italic; font-weight:500; }
+.node-meta-row {
+    font-size:0.58rem;
+    line-height:1.35;
+    color:#111827;
+    display:flex;
+    gap:3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.node-meta-lbl { font-weight:800; color:#111827; flex-shrink:0; }
+.node-meta-val { font-weight:700; color:#111827; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* Unit only */
+.node-unit-center { display:flex; align-items:center; justify-content:center; text-align:center; padding:10px; width:100%; height:100%; box-sizing:border-box; }
+.node-unit-title { font-size:0.74rem; font-weight:800; color:var(--theme-color); letter-spacing:0.02em; line-height:1.25; }
+
+/* ---- Panel Photo Upload ---- */
+.panel-photo-preview-wrap { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.panel-photo-preview { width:52px; height:52px; border-radius:8px; border:1.5px solid #dde3ec; background:#f8fafd; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
+.panel-photo-img { width:100%; height:100%; object-fit:cover; object-position:top center; display:none; }
+.panel-photo-placeholder { font-size:1.4rem; color:#b0b8c9; }
 
 .node-delete-btn { position:absolute; top:-10px; right:-10px; width:22px; height:22px; background:#dc3545; color:#fff; border:2px solid #fff; border-radius:50%; cursor:pointer; font-size:0.65rem; display:none; align-items:center; justify-content:center; z-index:20; box-shadow:0 2px 6px rgba(0,0,0,0.15); transition:all 0.15s; line-height:1; }
 .builder-node:hover .node-delete-btn { display:flex; }
@@ -146,8 +278,9 @@
 .port-highlight-oval { animation:port-pulse 0.8s ease-in-out infinite alternate; }
 .port-highlight-oval.magnetized { animation:magnet-pulse 0.6s ease-in-out 2; fill:rgba(37,99,235,0.3); stroke:#2563eb; stroke-width:2.5; }
 
-/* Draw.io style: alignment guide lines when dragging nodes */
-.align-guide { stroke:#3b82f6; stroke-width:1.5; fill:none; pointer-events:none; stroke-dasharray:4,3; opacity:0.85; }
+/* Draw.io / Figma style: alignment guide lines when dragging nodes & waypoints */
+.align-guide { stroke:#ef4444; stroke-width:1.5; fill:none; pointer-events:none; stroke-dasharray:4,3; opacity:0.9; filter:drop-shadow(0 0 2px rgba(239,68,68,0.4)); }
+.wp-align-guide { stroke:#3b82f6; stroke-width:1.5; fill:none; pointer-events:none; stroke-dasharray:4,3; opacity:0.9; filter:drop-shadow(0 0 2px rgba(59,130,246,0.4)); }
 
 /* ---- Edit Panel ---- */
 .builder-page-wrapper { padding-right:0; transition:none; }
@@ -363,6 +496,14 @@
                         <input class="panel-input" id="edit-nip-inline" placeholder="18 digit" maxlength="22">
                     </div>
                     <div class="panel-group">
+                        <label class="panel-label">Pangkat</label>
+                        <input class="panel-input" id="edit-pangkat-inline" placeholder="Contoh: Pembina Utama Muda">
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Golongan</label>
+                        <input class="panel-input" id="edit-golongan-inline" placeholder="Contoh: IV c">
+                    </div>
+                    <div class="panel-group">
                         <label class="panel-label">Jabatan</label>
                         <input class="panel-input" id="edit-jabatan-inline" placeholder="Nama jabatan">
                     </div>
@@ -374,6 +515,27 @@
                                 <option value="{{ $s->id }}">{{ $s->jabatan }} {{ $s->nama !== '-' ? '- '.$s->nama : '' }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="panel-group">
+                        <label class="panel-label">Foto Pejabat / Pegawai</label>
+                        <div class="panel-photo-preview-wrap">
+                            <div class="panel-photo-preview" id="panel-photo-preview">
+                                <i class="fas fa-user panel-photo-placeholder" id="panel-photo-placeholder"></i>
+                                <img id="panel-photo-img" class="panel-photo-img" src="" alt="Preview">
+                            </div>
+                            <div style="flex:1;min-width:0;">
+                                <input type="file" id="edit-image-inline" accept="image/jpeg,image/png,image/jpg,image/webp" style="display:none;">
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                    <button type="button" class="btn-outline" id="btn-upload-photo" style="padding:4px 9px;font-size:0.72rem;">
+                                        <i class="fas fa-camera"></i> Pilih Foto
+                                    </button>
+                                    <button type="button" class="btn-outline" id="btn-remove-photo" style="padding:4px 9px;font-size:0.72rem;color:#dc3545;border-color:#f8d7da;display:none;">
+                                        <i class="fas fa-trash-alt"></i> Hapus
+                                    </button>
+                                </div>
+                                <div style="font-size:0.65rem;color:#8892a8;margin-top:3px;">JPG, PNG, WEBP (Maks. 5MB)</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-group">
                         <label class="panel-label">Warna Kotak</label>
@@ -599,18 +761,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let endpointDragOrigFixedX = 0; // fixed point (the OTHER end of the connector)
     let endpointDragOrigFixedY = 0;
 
-    // Alignment snap state (draw.io style — node-to-node magnetic alignment)
+    // Alignment snap state (draw.io / Figma style — node-to-node magnetic alignment)
     let alignSnapX = null, alignSnapY = null; // snap offset to apply
     let alignGuides = []; // [{orient:'h'|'v', pos:number, start:number, end:number}]
-    const ALIGN_SNAP = 10; // px threshold for magnetic alignment
+    const ALIGN_SNAP = 18; // px threshold for magnetic alignment
 
     // Waypoint snap & smart guide state (draw.io style)
     let wpAlignSnapX = null, wpAlignSnapY = null;
     let wpAlignGuides = []; // same format as alignGuides
-    const WP_ALIGN_SNAP = 10; // px threshold for waypoint alignment
+    const WP_ALIGN_SNAP = 18; // px threshold for waypoint alignment
 
     let tempIdCounter = -1;
-    const SNAP = 40;
+    const SNAP = 20;
     const snapV = v => Math.round(v / SNAP) * SNAP;
 
     const COLOR_MAP = {
@@ -682,9 +844,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let mnX = 0, mxX = 1500, mnY = 0, mxY = 1000;
         if (nodes.length > 0) {
             mnX = Math.min(...nodes.map(n => n.x || 0));
-            mxX = Math.max(...nodes.map(n => (n.x || 0) + 220));
+            mxX = Math.max(...nodes.map(n => (n.x || 0) + 288));
             mnY = Math.min(...nodes.map(n => n.y || 0));
-            mxY = Math.max(...nodes.map(n => (n.y || 0) + 80));
+            mxY = Math.max(...nodes.map(n => (n.y || 0) + 96));
         }
         // Clamp X
         const cWpx = (mxX - mnX) * z;
@@ -719,9 +881,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (nodes.length === 0) { zoomLevel = 1; panX = 0; panY = 0; applyTransform(); return; }
         const r = body.getBoundingClientRect();
         const mnX = Math.min(...nodes.map(n => n.x || 0));
-        const mxX = Math.max(...nodes.map(n => (n.x || 0) + 220));
+        mxX = Math.max(...nodes.map(n => (n.x || 0) + 288));
         const mnY = Math.min(...nodes.map(n => n.y || 0));
-        const mxY = Math.max(...nodes.map(n => (n.y || 0) + 80));
+        const mxY = Math.max(...nodes.map(n => (n.y || 0) + 96));
         const pad = 60;
         const s = Math.max(0.3, Math.min(1.5, Math.min(
             (r.width - pad * 2) / (mxX - mnX || 1),
@@ -879,45 +1041,84 @@ document.addEventListener('DOMContentLoaded', function() {
         closeWaypointEditor();
     }
 
-    // Compute snap offset for a waypoint based on alignment to nodes and other waypoints
+    // Compute snap offset for a waypoint based on alignment to nodes, ports, sibling buses, and other waypoints
     function computeWaypointSnap(wx, wy, excludeKey) {
         var snapX = null, snapY = null;
+        var minDiffX = WP_ALIGN_SNAP, minDiffY = WP_ALIGN_SNAP;
         var guides = [];
-        var allWps = [];
-        connectorWaypoints.forEach(function(wps, key) {
-            if (key === excludeKey) return;
-            wps.forEach(function(wp) { allWps.push({ x: wp.x, y: wp.y }); });
-        });
 
+        // 1. Check all nodes (center X/Y, edges, and ports)
         nodes.forEach(function(node) {
             var r = getNodeRect(node);
             var cx = r.x + r.w / 2, cy = r.y + r.h / 2;
-            // Horizontal alignment candidates
-            [r.x, cx, r.x + r.w].forEach(function(nx) {
-                if (Math.abs(wx - nx) < WP_ALIGN_SNAP) {
-                    snapX = nx - wx;
-                    guides.push({ orient: 'v', pos: nx, start: Math.min(wy, r.y), end: Math.max(wy, r.y + r.h) });
+            var ports = getNodePorts(node);
+
+            var xCands = [
+                { pos: cx, start: Math.min(wy, r.y) - 30, end: Math.max(wy, r.y + r.h) + 30 },
+                { pos: r.x, start: Math.min(wy, r.y) - 20, end: Math.max(wy, r.y + r.h) + 20 },
+                { pos: r.x + r.w, start: Math.min(wy, r.y) - 20, end: Math.max(wy, r.y + r.h) + 20 }
+            ];
+            xCands.forEach(function(c) {
+                var d = Math.abs(wx - c.pos);
+                if (d < minDiffX) {
+                    minDiffX = d;
+                    snapX = c.pos - wx;
+                    guides = guides.filter(function(g) { return g.orient !== 'v'; });
+                    guides.push({ orient: 'v', pos: c.pos, start: c.start, end: c.end });
                 }
             });
-            // Vertical alignment candidates
-            [r.y, cy, r.y + r.h].forEach(function(ny) {
-                if (Math.abs(wy - ny) < WP_ALIGN_SNAP) {
-                    snapY = ny - wy;
-                    guides.push({ orient: 'h', pos: ny, start: Math.min(wx, r.x), end: Math.max(wx, r.x + r.w) });
+
+            var yCands = [
+                { pos: cy, start: Math.min(wx, r.x) - 30, end: Math.max(wx, r.x + r.w) + 30 },
+                { pos: r.y, start: Math.min(wx, r.x) - 20, end: Math.max(wx, r.x + r.w) + 20 },
+                { pos: r.y + r.h, start: Math.min(wx, r.x) - 20, end: Math.max(wx, r.x + r.w) + 20 }
+            ];
+            yCands.forEach(function(c) {
+                var d = Math.abs(wy - c.pos);
+                if (d < minDiffY) {
+                    minDiffY = d;
+                    snapY = c.pos - wy;
+                    guides = guides.filter(function(g) { return g.orient !== 'h'; });
+                    guides.push({ orient: 'h', pos: c.pos, start: c.start, end: c.end });
                 }
             });
         });
 
-        // Alignment to other waypoints
-        allWps.forEach(function(op) {
-            if (Math.abs(wx - op.x) < WP_ALIGN_SNAP) {
-                snapX = op.x - wx;
-                guides.push({ orient: 'v', pos: op.x, start: Math.min(wy, op.y), end: Math.max(wy, op.y) });
+        // 2. Alignment to tree horizontal bus midY for all parent connectors
+        nodes.forEach(function(n) {
+            if (!n.parent_id) return;
+            var parent = getNodeById(n.parent_id);
+            if (!parent) return;
+            var pr = getNodeRect(parent), cr = getNodeRect(n);
+            var treeBusY = Math.round(((pr.y + pr.h) + cr.y) / 2);
+            var dy = Math.abs(wy - treeBusY);
+            if (dy < minDiffY) {
+                minDiffY = dy;
+                snapY = treeBusY - wy;
+                guides = guides.filter(function(g) { return g.orient !== 'h'; });
+                guides.push({ orient: 'h', pos: treeBusY, start: Math.min(wx, pr.x, cr.x) - 40, end: Math.max(wx, pr.x + pr.w, cr.x + cr.w) + 40 });
             }
-            if (Math.abs(wy - op.y) < WP_ALIGN_SNAP) {
-                snapY = op.y - wy;
-                guides.push({ orient: 'h', pos: op.y, start: Math.min(wx, op.x), end: Math.max(wx, op.x) });
-            }
+        });
+
+        // 3. Alignment to other waypoints
+        connectorWaypoints.forEach(function(wps, key) {
+            if (key === excludeKey) return;
+            wps.forEach(function(wp) {
+                var dx = Math.abs(wx - wp.x);
+                if (dx < minDiffX) {
+                    minDiffX = dx;
+                    snapX = wp.x - wx;
+                    guides = guides.filter(function(g) { return g.orient !== 'v'; });
+                    guides.push({ orient: 'v', pos: wp.x, start: Math.min(wy, wp.y) - 20, end: Math.max(wy, wp.y) + 20 });
+                }
+                var dy = Math.abs(wy - wp.y);
+                if (dy < minDiffY) {
+                    minDiffY = dy;
+                    snapY = wp.y - wy;
+                    guides = guides.filter(function(g) { return g.orient !== 'h'; });
+                    guides.push({ orient: 'h', pos: wp.y, start: Math.min(wx, wp.x) - 20, end: Math.max(wx, wp.x) + 20 });
+                }
+            });
         });
 
         return { snapX: snapX, snapY: snapY, guides: guides };
@@ -927,7 +1128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Read actual node dimensions from DOM (pixel perfect)
     function getNodeRect(node) {
         var el = getNodeEl(node.id);
-        var w = 200, h = 65;
+        var w = 288, h = 96;
         if (el) {
             var rect = el.getBoundingClientRect();
             if (rect.width > 0)  w = rect.width / zoomLevel;
@@ -947,21 +1148,26 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Auto-detect best port pair based on relative positions
+    // Auto-detect best port pair based on relative positions (Org Chart hierarchy)
     function getBestPorts(parentNode, childNode) {
         var pr = getNodeRect(parentNode), cr = getNodeRect(childNode);
         var pp = getNodePorts(parentNode), cp = getNodePorts(childNode);
-        var dx = (cr.x + cr.w / 2) - (pr.x + pr.w / 2);
-        var dy = (cr.y + cr.h / 2) - (pr.y + pr.h / 2);
-        if (Math.abs(dy) >= Math.abs(dx)) {
-            // Vertical: child below → bottom→top, child above → top→bottom
-            if (dy >= 0) return { from: pp.b, to: cp.t, fd: 'b', td: 't' };
-            else         return { from: pp.t, to: cp.b, fd: 't', td: 'b' };
-        } else {
-            // Horizontal: child right → right→left, child left → left→right
-            if (dx >= 0) return { from: pp.r, to: cp.l, fd: 'r', td: 'l' };
-            else         return { from: pp.l, to: cp.r, fd: 'l', td: 'r' };
+        var pCy = pr.y + pr.h / 2, cCy = cr.y + cr.h / 2;
+        var pCx = pr.x + pr.w / 2, cCx = cr.x + cr.w / 2;
+        var dx = cCx - pCx;
+
+        // In organizational charts:
+        // Subordinates below parent always connect bottom->top (b -> t)
+        if (cr.y >= pr.y + pr.h * 0.4) {
+            return { from: pp.b, to: cp.t, fd: 'b', td: 't' };
         }
+        // Nodes above parent connect top->bottom (t -> b)
+        if (cr.y + cr.h <= pr.y + pr.h * 0.6) {
+            return { from: pp.t, to: cp.b, fd: 't', td: 'b' };
+        }
+        // Same row / horizontal peers:
+        if (dx >= 0) return { from: pp.r, to: cp.l, fd: 'r', td: 'l' };
+        else         return { from: pp.l, to: cp.r, fd: 'l', td: 'r' };
     }
 
     function getConnectorStyle(key) {
@@ -1074,24 +1280,76 @@ document.addEventListener('DOMContentLoaded', function() {
         if (emptyState) emptyState.style.display = 'none';        var arrowSvg = '<svg viewBox="0 0 12 12"><path d="M6 1 L11 6 L6 11 L1 6 Z" fill="none" stroke-width="1.8" stroke-linejoin="round"/></svg>';
         nodes.forEach(node => {
             const el = document.createElement('div');
-            el.className = 'builder-node';
+            const colorName = node.color || 'blue';
+            el.className = 'builder-node color-' + colorName;
             if (node.id === selectedNodeId)      el.classList.add('selected');
             if (selectedNodeIds.has(node.id) && selectedNodeIds.size > 1) el.classList.add('multi-selected');
             el.dataset.id = node.id;
             el.style.left = (node.x || 0) + 'px';
             el.style.top  = (node.y || 0) + 'px';
-            const c = COLOR_MAP[node.color] || '#3b82f6';
-            el.innerHTML =
-                '<div class="node-header">' +
-                    '<span class="node-color-dot" style="background:' + c + '"></span>' +
-                    '<span class="node-jabatan">' + escHtml(node.jabatan) + '</span>' +
-                '</div>' +
-                '<div class="node-body">' +
-                    '<div class="node-nama' + ((!node.nama || node.nama === '-') ? ' empty' : '') + '">' +
-                        (node.nama && node.nama !== '-' ? escHtml(node.nama) : '[Kosong]') +
+
+            const hasPhoto = node.foto_profile && String(node.foto_profile).trim() !== '';
+            const photoUrl = hasPhoto ? ('{{ asset('images/struktur-organisasi') }}/' + encodeURIComponent(node.foto_profile)) : '';
+            const hasName = node.nama && node.nama !== '-';
+            const hasNip = node.nip && node.nip !== '-';
+            const isKelompokUnit = !hasPhoto && !hasName && !hasNip && String(node.jabatan || '').toUpperCase().includes('KELOMPOK');
+
+            let golText = '-';
+            if (node.pangkat && node.pangkat !== '-' && node.golongan && node.golongan !== '-') {
+                golText = escHtml(node.pangkat) + ' / ' + escHtml(node.golongan);
+            } else if (node.golongan && node.golongan !== '-') {
+                golText = escHtml(node.golongan);
+            } else if (node.pangkat && node.pangkat !== '-') {
+                golText = escHtml(node.pangkat);
+            }
+
+            let cardContent = '';
+            if (isKelompokUnit) {
+                cardContent =
+                    '<div class="node-card-top">' +
+                        '<div class="node-header-banner">' +
+                            '<div class="node-header-title" title="' + escHtml(node.jabatan) + '">' + escHtml(node.jabatan) + '</div>' +
+                        '</div>' +
+                        '<div class="node-header-tail"></div>' +
                     '</div>' +
-                    (node.nip && node.nip !== '-' ? '<div class="node-nip">' + escHtml(node.nip) + '</div>' : '') +
-                '</div>' +
+                    '<div class="node-main-body node-unit-center">' +
+                        '<div class="node-unit-title">' + escHtml(node.jabatan) + '</div>' +
+                    '</div>';
+            } else {
+                let photoHtml = '';
+                if (hasPhoto) {
+                    photoHtml = '<img src="' + photoUrl + '" class="node-photo-img" alt="Foto" onerror="this.onerror=null;this.parentElement.innerHTML=\'<i class=\\\'fas fa-user node-photo-placeholder\\\'></i>\';">';
+                } else {
+                    photoHtml = '<i class="fas fa-user node-photo-placeholder"></i>';
+                }
+
+                cardContent =
+                    '<div class="node-card-top">' +
+                        '<div class="node-header-banner">' +
+                            '<div class="node-header-title" title="' + escHtml(node.jabatan) + '">' + escHtml(node.jabatan) + '</div>' +
+                        '</div>' +
+                        '<div class="node-header-tail"></div>' +
+                    '</div>' +
+                    '<div class="node-main-body">' +
+                        '<div class="node-photo-box">' + photoHtml + '</div>' +
+                        '<div class="node-details">' +
+                            '<div class="node-name' + (!hasName ? ' empty' : '') + '">' +
+                                (hasName ? escHtml(node.nama) : '[Nama Belum Diisi]') +
+                            '</div>' +
+                            '<div class="node-meta-row">' +
+                                '<span class="node-meta-lbl">NIP &nbsp;:</span>' +
+                                '<span class="node-meta-val">' + (hasNip ? escHtml(node.nip) : '-') + '</span>' +
+                            '</div>' +
+                            '<div class="node-meta-row">' +
+                                '<span class="node-meta-lbl">Golongan :</span>' +
+                                '<span class="node-meta-val">' + golText + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            el.innerHTML =
+                cardContent +
                 '<div class="node-port-arrow node-port-arrow-t" data-id="' + node.id + '">' + arrowSvg + '</div>' +
                 '<div class="node-port-arrow node-port-arrow-b" data-id="' + node.id + '">' + arrowSvg + '</div>' +
                 '<div class="node-port-arrow node-port-arrow-l" data-id="' + node.id + '">' + arrowSvg + '</div>' +
@@ -1339,9 +1597,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return { x1: x1, y1: y1, x2: x2, y2: y2, fd: fd, td: td };
     }
 
-    // Draw.io-style axis-constrained orthogonal segment shift
-    // H segment → drag changes Y of controlling waypoint(s)
-    // V segment → drag changes X of controlling waypoint(s)
+    // Draw.io-style axis-constrained orthogonal segment shift with magnetic snapping
     function shiftOrthogonalSegment(key, segIdx, mouseStagePos) {
         var geom = getConnectorGeometry(key);
         if (!geom) return;
@@ -1359,7 +1615,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // The free coordinate of this segment (the one we want to change)
         var segCoord = isH ? pA.y : pA.x;
-        var newVal   = isH ? Math.round(mouseStagePos.y) : Math.round(mouseStagePos.x);
+        var newVal;
+        if (isH) {
+            var wpSnap = computeWaypointSnap(pA.x, mouseStagePos.y, key);
+            newVal = wpSnap.snapY !== null ? Math.round(mouseStagePos.y + wpSnap.snapY) : snapV(Math.round(mouseStagePos.y));
+            wpAlignGuides = wpSnap.guides;
+            renderWaypointGuides();
+        } else {
+            var wpSnap = computeWaypointSnap(mouseStagePos.x, pA.y, key);
+            newVal = wpSnap.snapX !== null ? Math.round(mouseStagePos.x + wpSnap.snapX) : snapV(Math.round(mouseStagePos.x));
+            wpAlignGuides = wpSnap.guides;
+            renderWaypointGuides();
+        }
 
         // Find ALL waypoints whose free-coordinate matches this segment → update them
         var changed = false;
@@ -1469,12 +1736,14 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedNodeId = null;
         selectedNodeIds.clear();
         refreshNodeClasses();
-        document.getElementById('edit-nama-inline').value    = '';
-        document.getElementById('edit-nip-inline').value     = '';
-        document.getElementById('edit-jabatan-inline').value = '';
-        document.getElementById('edit-parent-inline').value  = '';
-        document.getElementById('edit-x-inline').textContent = '0';
-        document.getElementById('edit-y-inline').textContent = '0';
+        document.getElementById('edit-nama-inline').value     = '';
+        document.getElementById('edit-nip-inline').value      = '';
+        document.getElementById('edit-pangkat-inline').value  = '';
+        document.getElementById('edit-golongan-inline').value = '';
+        document.getElementById('edit-jabatan-inline').value  = '';
+        document.getElementById('edit-parent-inline').value   = '';
+        document.getElementById('edit-x-inline').textContent  = '0';
+        document.getElementById('edit-y-inline').textContent  = '0';
         colorSwatches.forEach(s => s.classList.remove('active'));
         colorSwatches[0].classList.add('active');
         setPanelMode('idle');
@@ -1488,17 +1757,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    let pendingImageFile = null;
+    let removeImageFlag = false;
+
     function updatePanel(id) {
         const node = getNodeById(id); if (!node) return;
         document.getElementById('panel-multi-select-info').style.display = 'none';
         document.getElementById('panel-single-fields').style.display = '';
-        document.getElementById('edit-nama-inline').value    = (node.nama && node.nama !== '-')  ? node.nama : '';
-        document.getElementById('edit-nip-inline').value     = (node.nip  && node.nip  !== '-')  ? node.nip  : '';
-        document.getElementById('edit-jabatan-inline').value = node.jabatan || '';
-        document.getElementById('edit-parent-inline').value  = node.parent_id || '';
-        document.getElementById('edit-x-inline').textContent = node.x || 0;
-        document.getElementById('edit-y-inline').textContent = node.y || 0;
+        document.getElementById('edit-nama-inline').value     = (node.nama && node.nama !== '-')  ? node.nama : '';
+        document.getElementById('edit-nip-inline').value      = (node.nip  && node.nip  !== '-')  ? node.nip  : '';
+        document.getElementById('edit-pangkat-inline').value  = (node.pangkat  && node.pangkat  !== '-') ? node.pangkat : '';
+        document.getElementById('edit-golongan-inline').value = (node.golongan && node.golongan !== '-') ? node.golongan : '';
+        document.getElementById('edit-jabatan-inline').value  = node.jabatan || '';
+        document.getElementById('edit-parent-inline').value   = node.parent_id || '';
+        document.getElementById('edit-x-inline').textContent  = node.x || 0;
+        document.getElementById('edit-y-inline').textContent  = node.y || 0;
         colorSwatches.forEach(s => s.classList.toggle('active', s.dataset.color === (node.color || 'blue')));
+
+        // Photo preview reset & update
+        pendingImageFile = null;
+        removeImageFlag = false;
+        const fileInput = document.getElementById('edit-image-inline');
+        if (fileInput) fileInput.value = '';
+
+        const photoImg = document.getElementById('panel-photo-img');
+        const photoPlaceholder = document.getElementById('panel-photo-placeholder');
+        const btnRemove = document.getElementById('btn-remove-photo');
+        if (node.foto_profile && String(node.foto_profile).trim() !== '') {
+            if (photoImg) {
+                photoImg.src = '{{ asset('images/struktur-organisasi') }}/' + encodeURIComponent(node.foto_profile);
+                photoImg.style.display = 'block';
+            }
+            if (photoPlaceholder) photoPlaceholder.style.display = 'none';
+            if (btnRemove) btnRemove.style.display = 'inline-flex';
+        } else {
+            if (photoImg) {
+                photoImg.src = '';
+                photoImg.style.display = 'none';
+            }
+            if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
+            if (btnRemove) btnRemove.style.display = 'none';
+        }
     }
 
     function updateMultiSelectPanel() {
@@ -1514,20 +1813,32 @@ document.addEventListener('DOMContentLoaded', function() {
             sw.classList.add('active');
             if (selectedNodeId) {
                 const n = getNodeById(selectedNodeId);
-                if (n) { n.color = sw.dataset.color; renderNodes(); }
+                if (n) {
+                    n.color = sw.dataset.color;
+                    renderNodes();
+                    if (n.id > 0) {
+                        saveSingleNode(n).catch(function() {});
+                    }
+                }
             }
         });
     });
 
     // ===== DRAG =====
+    let dragHasMoved = false;
+    let dragStartClientX = 0, dragStartClientY = 0;
+
     function startDrag(e, id) {
         if (e.button !== 0) return;
         const el = getNodeEl(id); if (!el) return;
-        isDragging = true; dragNodeId = id;
+        dragNodeId = id;
+        dragHasMoved = false;
+        isDragging = false;
+        dragStartClientX = e.clientX;
+        dragStartClientY = e.clientY;
         const r = el.getBoundingClientRect();
         dragOffsetX = e.clientX - r.left;
         dragOffsetY = e.clientY - r.top;
-        el.classList.add('dragging');
         // Snapshot positions of ALL selected nodes + dragged node
         dragStartPositions = {};
         var dragSet = new Set(selectedNodeIds);
@@ -1578,63 +1889,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     }
 
-    // ===== AUTO-ROUTE: Smart port optimization after node drag =====
-    // Evaluates all connectors for a moved node and picks the optimal port pair
-    // Returns true if any connector was optimized
-    function autoRouteConnectors(draggedNodeId) {
-        var affectedKeys = [];
-        var draggedNode = getNodeById(draggedNodeId);
-        if (!draggedNode) return false;
 
-        // Find all connectors connected to the dragged node
-        nodes.forEach(function(n) {
-            if (n.parent_id === draggedNodeId) {
-                affectedKeys.push(draggedNodeId + '-' + n.id);
-            }
-        });
-        if (draggedNode.parent_id) {
-            affectedKeys.push(draggedNode.parent_id + '-' + draggedNodeId);
-        }
-
-        if (affectedKeys.length === 0) return false;
-
-        var changed = false;
-
-        affectedKeys.forEach(function(key) {
-            var parts = key.split('-');
-            if (parts.length !== 2) return;
-            var pId = parseInt(parts[0]), cId = parseInt(parts[1]);
-            var pNode = getNodeById(pId), cNode = getNodeById(cId);
-            if (!pNode || !cNode) return;
-
-            var currentPorts = connectorPorts.get(key);
-            if (!currentPorts) return; // No manual override, auto-route already active
-
-            var currentFd = currentPorts.fromPort;
-            var currentTd = currentPorts.toPort;
-
-            // Get the best auto-detected port pair
-            var best = getBestPorts(pNode, cNode);
-            var bestFd = best.fd, bestTd = best.td;
-
-            // Already optimal
-            if (currentFd === bestFd && currentTd === bestTd) return;
-
-            // Calculate path lengths using cached port positions
-            var pp = getNodePorts(pNode), cp = getNodePorts(cNode);
-            var curDist = Math.abs(cp[currentTd].x - pp[currentFd].x) + Math.abs(cp[currentTd].y - pp[currentFd].y);
-            var bestDist = Math.abs(cp[bestTd].x - pp[bestFd].x) + Math.abs(cp[bestTd].y - pp[bestFd].y);
-
-            // Auto-update if current path is 50%+ longer than optimal
-            if (bestDist > 0 && curDist > bestDist * 1.5) {
-                connectorPorts.set(key, { fromPort: bestFd, toPort: bestTd });
-                changed = true;
-            }
-        });
-
-        // Caller handles renderConnectors() + persistConnectorData() + toast
-        return changed;
-    }
 
     // ===== RUBBER-BAND =====
     function startRubberBand(e) {
@@ -1664,7 +1919,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const sb = st + rbR.height / zoomLevel;
         const inRect = nodes.filter(function(n) {
             const nx = n.x || 0, ny = n.y || 0;
-            return nx < sr && (nx + 220) > sl && ny < sb && (ny + 80) > st;
+            return nx < sr && (nx + 288) > sl && ny < sb && (ny + 96) > st;
         });
         if (inRect.length > 0) {
             selectedNodeIds.clear();
@@ -1779,74 +2034,89 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('mousemove', function(e) {
         // Node drag (single or multi) — with draw.io style alignment snap
-        if (isDragging && dragNodeId !== null) {
+        if (dragNodeId !== null) {
+            if (!isDragging) {
+                var dist = Math.hypot(e.clientX - dragStartClientX, e.clientY - dragStartClientY);
+                if (dist < 4) return; // Must move at least 4px to be considered a drag, not just a click!
+                isDragging = true;
+                dragHasMoved = true;
+                const el = getNodeEl(dragNodeId); if (el) el.classList.add('dragging');
+            }
             const el = getNodeEl(dragNodeId); if (!el) return;
             const br = body.getBoundingClientRect();
             var rawX = (e.clientX - panX - br.left - dragOffsetX) / zoomLevel;
             var rawY = (e.clientY - panY - br.top  - dragOffsetY) / zoomLevel;
 
-            // ===== ALIGNMENT SNAP: check edges against other nodes =====
+            // ===== ALIGNMENT SNAP: check edges and centers against other nodes =====
             var draggedNode = getNodeById(dragNodeId);
             alignSnapX = null; alignSnapY = null; alignGuides = [];
+            var bestDiffX = ALIGN_SNAP, bestDiffY = ALIGN_SNAP;
+
             if (draggedNode) {
-                // Get all dragged nodes dimensions from their start positions
                 var dragSet = Object.keys(dragStartPositions).map(Number);
                 var dRect = getNodeRect(draggedNode);
                 var dL = rawX, dR = rawX + dRect.w, dC = rawX + dRect.w / 2;
                 var dT = rawY, dB = rawY + dRect.h, dM = rawY + dRect.h / 2;
 
                 nodes.forEach(function(other) {
-                    if (dragSet.includes(other.id) || !other.x || !other.y) return;
+                    if (dragSet.includes(other.id) || other.x === undefined || other.y === undefined) return;
                     var oRect = getNodeRect(other);
                     var oL = other.x, oR = other.x + oRect.w, oC = other.x + oRect.w / 2;
                     var oT = other.y, oB = other.y + oRect.h, oM = other.y + oRect.h / 2;
 
-                    // Horizontal alignment candidates (left, center, right)
+                    // Horizontal alignments: Center-Center (highest priority), Left-Left, Right-Right
                     var hCands = [
-                        { val: oL, label: 'L' }, { val: oC, label: 'C' }, { val: oR, label: 'R' }
+                        { dPos: dC, oPos: oC }, // Center
+                        { dPos: dL, oPos: oL }, // Left-to-Left
+                        { dPos: dR, oPos: oR }, // Right-to-Right
+                        { dPos: dL, oPos: oR }, // Left-to-Right
+                        { dPos: dR, oPos: oL }  // Right-to-Left
                     ];
                     hCands.forEach(function(hc) {
-                        [dL, dC, dR].forEach(function(dEdge, ei) {
-                            var diff = hc.val - dEdge;
-                            if (Math.abs(diff) < ALIGN_SNAP) {
-                                var edgeLabels = ['kiri', 'tengah', 'kanan'];
-                                alignSnapX = diff;
-                                // Horizontal guide: line from top to bottom of both nodes
-                                var gStart = Math.min(dT, oT);
-                                var gEnd   = Math.max(dB, oB);
-                                // Only draw guide if nodes are vertically close (overlap threshold)
-                                if (dB >= oT - 60 && dT <= oB + 60) {
-                                    alignGuides.push({ orient: 'v', pos: hc.val, start: gStart, end: gEnd });
-                                }
-                            }
-                        });
+                        var diff = hc.oPos - hc.dPos;
+                        var absDiff = Math.abs(diff);
+                        if (absDiff < bestDiffX) {
+                            bestDiffX = absDiff;
+                            alignSnapX = diff;
+                            var gStart = Math.min(dT, oT) - 30;
+                            var gEnd   = Math.max(dB, oB) + 30;
+                            alignGuides = alignGuides.filter(function(g) { return g.orient !== 'v'; });
+                            alignGuides.push({ orient: 'v', pos: hc.oPos, start: gStart, end: gEnd });
+                        }
                     });
 
-                    // Vertical alignment candidates (top, middle, bottom)
+                    // Vertical alignments: Middle-Middle, Top-Top, Bottom-Bottom
                     var vCands = [
-                        { val: oT, label: 'T' }, { val: oM, label: 'M' }, { val: oB, label: 'B' }
+                        { dPos: dM, oPos: oM }, // Middle
+                        { dPos: dT, oPos: oT }, // Top-to-Top
+                        { dPos: dB, oPos: oB }, // Bottom-to-Bottom
+                        { dPos: dT, oPos: oB }, // Top-to-Bottom
+                        { dPos: dB, oPos: oT }  // Bottom-to-Top
                     ];
                     vCands.forEach(function(vc) {
-                        [dT, dM, dB].forEach(function(dEdge, ei) {
-                            var diff = vc.val - dEdge;
-                            if (Math.abs(diff) < ALIGN_SNAP) {
-                                alignSnapY = diff;
-                                // Vertical guide: line from left to right of both nodes
-                                var gStart = Math.min(dL, oL);
-                                var gEnd   = Math.max(dR, oR);
-                                // Only draw guide if nodes are horizontally close
-                                if (dR >= oL - 60 && dL <= oR + 60) {
-                                    alignGuides.push({ orient: 'h', pos: vc.val, start: gStart, end: gEnd });
-                                }
-                            }
-                        });
+                        var diff = vc.oPos - vc.dPos;
+                        var absDiff = Math.abs(diff);
+                        if (absDiff < bestDiffY) {
+                            bestDiffY = absDiff;
+                            alignSnapY = diff;
+                            var gStart = Math.min(dL, oL) - 30;
+                            var gEnd   = Math.max(dR, oR) + 30;
+                            alignGuides = alignGuides.filter(function(g) { return g.orient !== 'h'; });
+                            alignGuides.push({ orient: 'h', pos: vc.oPos, start: gStart, end: gEnd });
+                        }
                     });
                 });
             }
 
-            // Apply alignment snap to position
-            var alignedX = snapV(Math.max(0, Math.min(3000, rawX + (alignSnapX || 0))));
-            var alignedY = snapV(Math.max(0, Math.min(2500, rawY + (alignSnapY || 0))));
+            // Magnetic snap has PRIORITY! When magnetized, lock directly onto alignment coordinate.
+            // When free of magnetic snap, fallback to granular grid snap.
+            var alignedX = alignSnapX !== null 
+                ? Math.round(Math.max(0, Math.min(3000, rawX + alignSnapX)))
+                : snapV(Math.round(Math.max(0, Math.min(3000, rawX))));
+
+            var alignedY = alignSnapY !== null 
+                ? Math.round(Math.max(0, Math.min(2500, rawY + alignSnapY)))
+                : snapV(Math.round(Math.max(0, Math.min(2500, rawY))));
 
             const sp = dragStartPositions[dragNodeId];
             if (sp) {
@@ -1913,19 +2183,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Rubber-band
         if (isRubberBanding) { updateRubberBand(e); return; }
 
-        // ○ Waypoint drag — with grid snap + smart alignment guides (draw.io style)
+        // ○ Waypoint drag — with smart magnetic alignment guides (draw.io style)
         if (isDraggingWaypoint && draggingWpKey) {
             const wps = connectorWaypoints.get(draggingWpKey);
             if (wps && wps[draggingWpIdx] !== undefined) {
                 const s = clientToStage(e.clientX, e.clientY);
-                // Grid snap (kelipatan SNAP)
-                var gx = snapV(Math.round(s.x));
-                var gy = snapV(Math.round(s.y));
-                // Smart alignment guides to nodes + other waypoints
-                var wpSnap = computeWaypointSnap(gx, gy, draggingWpKey);
-                var alignedX = gx + (wpSnap.snapX || 0);
-                var alignedY = gy + (wpSnap.snapY || 0);
-                wps[draggingWpIdx] = { x: Math.round(alignedX), y: Math.round(alignedY) };
+                // Compute magnetic snap directly from stage cursor position
+                var wpSnap = computeWaypointSnap(s.x, s.y, draggingWpKey);
+                var alignedX = wpSnap.snapX !== null 
+                    ? Math.round(s.x + wpSnap.snapX) 
+                    : snapV(Math.round(s.x));
+                var alignedY = wpSnap.snapY !== null 
+                    ? Math.round(s.y + wpSnap.snapY) 
+                    : snapV(Math.round(s.y));
+                wps[draggingWpIdx] = { x: alignedX, y: alignedY };
                 wpAlignGuides = wpSnap.guides;
                 renderConnectors();
                 renderWaypointGuides();
@@ -2045,21 +2316,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (connectorHoldTimer) { clearTimeout(connectorHoldTimer); connectorHoldTimer = null; }
         holdConnectorKey = null;
 
-        if (isDragging && dragNodeId !== null) {
+        if (dragNodeId !== null) {
             const el = getNodeEl(dragNodeId); if (el) el.classList.remove('dragging');
-            pushUndo();
-            // Clear alignment guides
-            clearAlignGuides();
-            // Auto-route: after node drag, auto-optimize port connections for ALL moved nodes
-            var allDraggedIds = Object.keys(dragStartPositions).map(Number);
-            var anyOptimized = false;
-            allDraggedIds.forEach(function(nid) { if (autoRouteConnectors(nid)) anyOptimized = true; });
-            if (anyOptimized) {
-                renderConnectors();
-                persistConnectorData();
-                showToast('✓ Garis dioptimasi otomatis', 'success');
+            if (isDragging && dragHasMoved) {
+                pushUndo();
+                clearAlignGuides();
             }
-            isDragging = false; dragNodeId = null; dragStartPositions = {}; return;
+            isDragging = false; dragNodeId = null; dragStartPositions = {}; dragHasMoved = false;
+            return;
         }
         if (isPanning) { isPanning = false; body.style.cursor = 'default'; return; }
         if (isRubberBanding) { endRubberBand(); return; }
@@ -2153,7 +2417,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (isDraggingSegment) {
             isDraggingSegment = false; draggingSegKey = null; draggingSegInsertAt = null;
-            hideCoordTooltip(); return;
+            clearWaypointGuides();
+            hideCoordTooltip();
+            pushUndo();
+            persistConnectorData();
+            return;
         }
         if (isConnecting && connectFromId !== null) {
             const target = findNodeAt(e.clientX, e.clientY);
@@ -2511,22 +2779,56 @@ document.addEventListener('DOMContentLoaded', function() {
         renderNodes(); showToast(toDelete.length + ' kotak dihapus', 'info');
     }
 
-    function saveSingleNode(node) {
+    function saveSingleNode(node, imageFile = null, removeImage = false) {
         const isNew = node.id < 0;
         const url = isNew ? '{{ route('strukturors.store-box') }}' : '{{ url('/strukturors-builder/update') }}/' + node.id;
         const parentId = isNew && node.parent_id < 0 ? null : node.parent_id;
+
+        const formData = new FormData();
+        if (!isNew) {
+            formData.append('_method', 'PUT');
+        }
+        formData.append('jabatan', node.jabatan || '');
+        formData.append('nama', node.nama || '-');
+        if (node.nip && node.nip !== '-') {
+            formData.append('nip', node.nip);
+        }
+        formData.append('golongan', node.golongan || '-');
+        formData.append('pangkat', node.pangkat || '-');
+        formData.append('x', node.x || 0);
+        formData.append('y', node.y || 0);
+        if (parentId) formData.append('parent_id', parentId);
+        if (node.color) formData.append('color', node.color);
+
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        if (removeImage) {
+            formData.append('remove_image', '1');
+        }
+
         return fetch(url, {
-            method: isNew ? 'POST' : 'PUT',
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ jabatan: node.jabatan, nama: node.nama, nip: node.nip, golongan: node.golongan, pangkat: node.pangkat, x: node.x, y: node.y, parent_id: parentId, color: node.color })
-        }).then(function(r) { if (!r.ok) throw new Error(); return r.json(); }).then(function(d) {
-            if (d.node && d.node.id && d.node.id !== node.id) {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: formData
+        }).then(function(r) {
+            if (!r.ok) return r.json().then(err => { throw new Error(err.message || 'Gagal menyimpan'); });
+            return r.json();
+        }).then(function(d) {
+            if (d.node) {
                 const idx = nodes.findIndex(function(n) { return n.id === node.id; });
                 if (idx !== -1) {
                     const oid = node.id, origPid = nodes[idx].parent_id;
-                    nodes[idx] = d.node;
-                    if (origPid < 0) nodes[idx].parent_id = origPid;
-                    if (selectedNodeId === oid) { selectedNodeId = d.node.id; selectedNodeIds.delete(oid); selectedNodeIds.add(d.node.id); }
+                    nodes[idx] = Object.assign({}, nodes[idx], d.node);
+                    if (origPid < 0 && d.node.parent_id === null) nodes[idx].parent_id = origPid;
+                    if (selectedNodeId === oid && d.node.id !== oid) {
+                        selectedNodeId = d.node.id;
+                        selectedNodeIds.delete(oid);
+                        selectedNodeIds.add(d.node.id);
+                    }
                     renderNodes();
                     if (selectedNodeId === d.node.id) selectNode(d.node.id, false);
                     return { oldId: oid, newId: d.node.id };
@@ -2561,7 +2863,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const updatedNodes = nodes.map(function(n) {
                 let pid = n.parent_id;
                 if (pid && idMap[pid]) pid = idMap[pid];
-                return { id: n.id, x: n.x || 0, y: n.y || 0, parent_id: pid || null };
+                return {
+                    id: n.id,
+                    x: n.x || 0,
+                    y: n.y || 0,
+                    parent_id: pid || null,
+                    color: n.color || 'blue'
+                };
             });
             const lsData = {
                 waypoints: Object.fromEntries(connectorWaypoints),
@@ -2709,21 +3017,94 @@ document.addEventListener('DOMContentLoaded', function() {
         const r = body.getBoundingClientRect();
         addNode((r.width / 2 - panX) / zoomLevel - 100, (r.height / 2 - panY) / zoomLevel - 30, null);
     });
+    // Photo upload & remove handlers
+    document.getElementById('btn-upload-photo').addEventListener('click', function() {
+        document.getElementById('edit-image-inline').click();
+    });
+
+    document.getElementById('edit-image-inline').addEventListener('change', function(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            showToast('Ukuran foto maksimal 5MB', 'error');
+            this.value = '';
+            return;
+        }
+        pendingImageFile = file;
+        removeImageFlag = false;
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            const photoImg = document.getElementById('panel-photo-img');
+            const photoPlaceholder = document.getElementById('panel-photo-placeholder');
+            const btnRemove = document.getElementById('btn-remove-photo');
+            if (photoImg) {
+                photoImg.src = evt.target.result;
+                photoImg.style.display = 'block';
+            }
+            if (photoPlaceholder) photoPlaceholder.style.display = 'none';
+            if (btnRemove) btnRemove.style.display = 'inline-flex';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('btn-remove-photo').addEventListener('click', function() {
+        pendingImageFile = null;
+        removeImageFlag = true;
+        const fileInput = document.getElementById('edit-image-inline');
+        if (fileInput) fileInput.value = '';
+        const photoImg = document.getElementById('panel-photo-img');
+        const photoPlaceholder = document.getElementById('panel-photo-placeholder');
+        if (photoImg) {
+            photoImg.src = '';
+            photoImg.style.display = 'none';
+        }
+        if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
+        this.style.display = 'none';
+    });
+
     document.getElementById('btn-update-node-inline').addEventListener('click', function() {
         if (!selectedNodeId) return;
         const node = getNodeById(selectedNodeId); if (!node) return;
         const j = document.getElementById('edit-jabatan-inline').value.trim();
         if (!j) { showToast('Jabatan wajib diisi', 'error'); return; }
-        node.jabatan = j;
-        node.nama = document.getElementById('edit-nama-inline').value.trim() || '-';
-        node.nip  = document.getElementById('edit-nip-inline').value.trim()  || '-';
+        node.jabatan  = j;
+        node.nama     = document.getElementById('edit-nama-inline').value.trim()     || '-';
+        node.nip      = document.getElementById('edit-nip-inline').value.trim()      || '-';
+        node.pangkat  = document.getElementById('edit-pangkat-inline').value.trim()  || '-';
+        node.golongan = document.getElementById('edit-golongan-inline').value.trim() || '-';
         const p = document.getElementById('edit-parent-inline').value;
         const pid = p ? parseInt(p) : null;
         if (pid && !wouldCreateCycle(node.id, pid)) node.parent_id = pid;
         else if (pid) { showToast('Sirkular!', 'error'); document.getElementById('edit-parent-inline').value = node.parent_id || ''; }
         else node.parent_id = null;
-        pushUndo(); renderNodes(); selectNode(node.id, false); showToast('Node diperbarui', 'success');
-        saveSingleNode(node).catch(function() {});
+
+        const curImageFile = pendingImageFile;
+        const curRemoveFlag = removeImageFlag;
+
+        const btn = this;
+        const origText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+        pushUndo();
+        renderNodes();
+        selectNode(node.id, false);
+
+        saveSingleNode(node, curImageFile, curRemoveFlag)
+            .then(function() {
+                pendingImageFile = null;
+                removeImageFlag = false;
+                showToast('Kotak berhasil diperbarui', 'success');
+                updatePanel(node.id);
+            })
+            .catch(function(err) {
+                showToast('Gagal: ' + (err.message || 'Terjadi kesalahan'), 'error');
+            })
+            .finally(function() {
+                btn.disabled = false;
+                btn.innerHTML = origText;
+            });
     });
     document.getElementById('btn-delete-node-inline').addEventListener('click', function() {
         if (selectedNodeIds.size > 1) deleteSelectedNodes();
@@ -2773,31 +3154,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== INIT =====
     try {
-        const saved = localStorage.getItem('struktur_connector_data');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            if (parsed.waypoints) {
-                Object.entries(parsed.waypoints).forEach(function(e) {
+        const serverData = @json($connectorData ?? []);
+        if (serverData) {
+            if (serverData.waypoints) {
+                Object.entries(serverData.waypoints).forEach(function(e) {
                     if (Array.isArray(e[1]) && e[1].length > 0) connectorWaypoints.set(e[0], e[1]);
                 });
             }
-            if (parsed.colors) {
-                Object.entries(parsed.colors).forEach(function(e) { connectorColors.set(e[0], e[1]); });
+            if (serverData.colors) {
+                Object.entries(serverData.colors).forEach(function(e) { connectorColors.set(e[0], e[1]); });
             }
-            if (parsed.styles) {
-                Object.entries(parsed.styles).forEach(function(e) { connectorStyles.set(e[0], e[1]); });
+            if (serverData.styles) {
+                Object.entries(serverData.styles).forEach(function(e) { connectorStyles.set(e[0], e[1]); });
             }
-            if (parsed.ports) {
-                Object.entries(parsed.ports).forEach(function(e) { connectorPorts.set(e[0], e[1]); });
+            if (serverData.ports) {
+                Object.entries(serverData.ports).forEach(function(e) { connectorPorts.set(e[0], e[1]); });
             }
         }
+        // Keep localStorage updated with server data
+        const d = {
+            waypoints: Object.fromEntries(connectorWaypoints),
+            colors: Object.fromEntries(connectorColors),
+            styles: Object.fromEntries(connectorStyles),
+            ports: Object.fromEntries(connectorPorts)
+        };
+        try { localStorage.setItem('struktur_connector_data', JSON.stringify(d)); } catch (ex) {}
     } catch (ex) {}
 
     renderNodes();
     if (nodes.length > 0) {
         const mnX = Math.min(...nodes.map(n => n.x || 0));
         const mnY = Math.min(...nodes.map(n => n.y || 0));
-        const mxY = Math.max(...nodes.map(n => (n.y || 0) + 80));
+        const mxY = Math.max(...nodes.map(n => (n.y || 0) + 96));
         panX = 80 - mnX;
         panY = body.clientHeight / 2 - (mnY + mxY) / 2;
     }

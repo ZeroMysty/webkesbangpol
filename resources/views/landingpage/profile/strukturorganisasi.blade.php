@@ -4,16 +4,7 @@
 
 @push('styles')
 <style>
-/* ---- Builder Node Styles (sama persis dengan dashboard) ---- */
-.builder-node { position:absolute; z-index:10; cursor:default; user-select:none; min-width:180px; max-width:220px; padding:0; border-radius:10px; background:#fff; border:2px solid #dde3ec; box-shadow:0 3px 12px rgba(0,0,0,0.08); transition:box-shadow 0.15s; }
-.builder-node:hover { box-shadow:0 6px 20px rgba(0,0,0,0.12); }
-.node-header { display:flex; align-items:center; gap:8px; padding:8px 12px 6px; border-bottom:1px solid #eee; }
-.node-color-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-.node-jabatan { font-size:0.72rem; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:0.04em; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.node-body { padding:6px 12px 10px; }
-.node-nama { font-size:0.88rem; font-weight:700; color:#1a1a2e; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.node-nama.empty { color:#b0b8c9; font-style:italic; font-weight:400; }
-.node-nip { font-size:0.7rem; color:#8892a8; margin-top:2px; font-family:'Roboto Mono',monospace; }
+
 
 /* ---- Full-screen Struktur Page (seperti sebelumnya) ---- */
 :root {
