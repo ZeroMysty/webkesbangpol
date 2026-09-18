@@ -94,9 +94,11 @@
                         <a href="{{ url('/ormass') }}" class="nav-link {{ Request::is('ormass*') ? 'active' : '' }}">
                             <i class="fas fa-users me-2"></i> <span class="sidebar-text">Organisasi Masyarakat</span>
                         </a>
+                        {{-- Sembunyikan Potensi Konflik
                         <a href="{{ url('/potensi-konflik') }}" class="nav-link {{ Request::is('potensi-konflik*') ? 'active' : '' }}">
                             <i class="fas fa-magnifying-glass-chart me-2"></i> <span class="sidebar-text">Potensi Konflik</span>
                         </a>
+                        --}}
                         <a href="{{ route('admin.pemilu-raya.dashboard') }}" class="nav-link {{ Request::is('admin/pemilu-raya*') || Request::is('admin/pilpres*') ? 'active' : '' }}">
         <i class="fas fa-vote-yea me-2"></i> <span class="sidebar-text">Pemilu Raya</span>
     </a>

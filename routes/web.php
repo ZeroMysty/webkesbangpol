@@ -78,7 +78,10 @@ Route::prefix('sakip')->group(function () {
 
 // LANDING PAGE - INFORMASI
 Route::get('/data-organisasi-masyarakat', [LandingpageOrmasController::class, 'tampilDataOrmas'])->name('tampil-data-ormas');
-Route::get('/jumlah-potensi-konflik', [LandingpagePotensiKonflikController::class, 'tampilPotensiKonflik'])->name('tampil-jumlah-potensi-konflik');
+// Route::get('/jumlah-potensi-konflik', [LandingpagePotensiKonflikController::class, 'tampilPotensiKonflik'])->name('tampil-jumlah-potensi-konflik');
+Route::get('/jumlah-potensi-konflik', function () {
+    return redirect()->route('beranda');
+})->name('tampil-jumlah-potensi-konflik');
 
 // LANDING PAGE - MITRA
 Route::get('/mitra', [LandingpageMitraController::class, 'tampilMitra'])->name('tampilmitra');
@@ -130,10 +133,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/ormass', OrmasController::class);
     Route::post('/ormass/manual', [OrmasController::class, 'inputManualStore'])->name('ormass.inputmanualstore');
     
-    // -- Potensi Konflik Management
-    Route::get('/potensi-konflik/import', [PotensiKonflikController::class, 'showImportForm'])->name('potensi-konflik.import.form');
-    Route::post('/potensi-konflik/import', [PotensiKonflikController::class, 'import'])->name('potensi-konflik.import');
-    Route::resource('/potensi-konflik', PotensiKonflikController::class);
+    // -- Potensi Konflik Management (Dinonaktifkan sementara)
+    // Route::get('/potensi-konflik/import', [PotensiKonflikController::class, 'showImportForm'])->name('potensi-konflik.import.form');
+    // Route::post('/potensi-konflik/import', [PotensiKonflikController::class, 'import'])->name('potensi-konflik.import');
+    // Route::resource('/potensi-konflik', PotensiKonflikController::class);
+    Route::get('/potensi-konflik{any}', function () {
+        return redirect()->route('admin.home');
+    })->where('any', '.*');
 
     Route::prefix('admin')->name('admin.')->group(function () {
     

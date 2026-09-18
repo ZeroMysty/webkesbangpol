@@ -112,9 +112,14 @@
                             <a href="{{ route('tampil-data-ormas') }}">Direktori Data Ormas</a>
                         </div>
                         <div class="col-md-4">
+                            <div class="mega-menu-empty">Layanan informasi publik seputar kepemiluan dan organisasi kemasyarakatan Kota Bandung.</div>
+                        </div>
+                        {{-- Sembunyikan menu Potensi Konflik
+                        <div class="col-md-4">
                             <div class="mega-menu-title">Statistik</div>
                             <a href="{{ route('tampil-jumlah-potensi-konflik') }}">Potensi Konflik</a>
                         </div>
+                        --}}
                     </div></div>
                 </li>
             </ul>
