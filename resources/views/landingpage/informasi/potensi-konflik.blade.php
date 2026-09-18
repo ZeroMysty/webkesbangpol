@@ -1,132 +1,93 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Potensi Konflik di Kota Bandung')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/landingpage-potensikonflik.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 @section('content')
 
     <div class="dashboard-container">
-        <div class="container">
-            <!-- Header -->
-            <div class="dashboard-header text-center">
-                <h1 class="dashboard-title">Dashboard Potensi Konflik</h1>
-                <p class="dashboard-subtitle">Monitoring dan Analisis Potensi Konflik di Kota Bandung</p>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
-                        📋
+        <div class="container-fluid px-3 px-xl-4">
+            <!-- Command Bar (Header, Compact Stats & Controls in one sleek bar) -->
+            <div class="command-bar">
+                <!-- Brand / Title -->
+                <div class="command-bar-title">
+                    <div class="brand-icon-badge">
+                        <i class="fas fa-shield-halved"></i>
                     </div>
-                    <div class="stat-number" id="totalKonflik">{{ count($potensiKonfliks) }}</div>
-                    <div class="stat-label">Total Potensi Konflik</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
-                        🏘
+                    <div class="brand-text">
+                        <h1>Potensi Konflik Kota Bandung</h1>
+                        <span>Sistem Monitoring Kewaspadaan Dini Wilayah</span>
                     </div>
-                    <div class="stat-number" id="totalKecamatan">{{ count($statistikKecamatan) }}</div>
-                    <div class="stat-label">Kecamatan Terlibat</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #45b7d1, #2196f3);">
-                        📂
-                    </div>
-                    <div class="stat-number" id="totalKategori">{{ count($statistikKategori) }}</div>
-                    <div class="stat-label">Kategori Konflik</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #96ceb4, #85c1a7);">
-                        ⚠
-                    </div>
-                    <div class="stat-number" id="konflikAktif">
-                        {{ $potensiKonfliks->where('status', 'aktif')->count() }}
-                    </div>
-                    <div class="stat-label">Konflik Aktif</div>
-                </div>
-            </div>
-
-            <!-- Year Filter -->
-            <div class="top-control-bar">
-                <!-- Filter Tahun -->
-                <div class="year-filter-container">
-                    <label for="yearFilter" class="year-filter-label">🗓 Filter Tahun:</label>
-                    <select id="yearFilter" class="year-select">
-                        <option value="">Semua Tahun</option>
-                        <!-- Years will be populated by JavaScript -->
-                    </select>
                 </div>
 
-                <!-- Tombol Pilihan Tampilan -->
-                <div class="view-selector-container">
-                    <button type="button" id="btnShowMap"    class="view-btn px-4 py-2 mx-1 rounded" data-target="gis-container">Maps</button>
-                    <button type="button" id="btnShowChart"  class="view-btn px-4 py-2 mx-1 rounded" data-target="chart-grid">Grafik</button>
-                    <button type="button" id="btnShowTable"  class="view-btn px-4 py-2 mx-1 rounded" data-target="table-container">Tabel</button>
+                <!-- Compact Stats Chips -->
+                <div class="command-bar-stats">
+                    <div class="stat-chip chip-danger" title="Total Kejadian Terdata">
+                        <i class="fas fa-layer-group text-danger"></i>
+                        <span>Total:</span>
+                        <span class="stat-number" id="totalKonflik">{{ count($potensiKonfliks) }}</span>
+                    </div>
+                    <div class="stat-chip chip-blue" title="Kecamatan Terpetakan">
+                        <i class="fas fa-city text-primary"></i>
+                        <span>Kecamatan:</span>
+                        <span class="stat-number" id="totalKecamatan">{{ count($statistikKecamatan) }}</span>
+                    </div>
+                    <div class="stat-chip chip-amber" title="Kategori Kasus">
+                        <i class="fas fa-tags text-warning"></i>
+                        <span>Kategori:</span>
+                        <span class="stat-number" id="totalKategori">{{ count($statistikKategori) }}</span>
+                    </div>
+                    <div class="stat-chip chip-emerald" title="Kasus Aktif">
+                        <i class="fas fa-satellite-dish text-success"></i>
+                        <span>Aktif:</span>
+                        <span class="stat-number" id="konflikAktif">{{ $potensiKonfliks->where('status', 'aktif')->count() }}</span>
+                    </div>
+                </div>
+
+                <!-- Controls: Year Filter & Segmented View Switcher -->
+                <div class="command-bar-controls">
+                    <div class="year-filter-wrapper">
+                        <i class="fas fa-calendar-alt"></i>
+                        <select id="yearFilter" class="year-select">
+                            <option value="">Semua Tahun</option>
+                            <!-- Years will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="view-selector-container">
+                        <button type="button" id="btnShowMap" class="view-btn" data-target="gis-container">
+                            <i class="fas fa-map-location-dot"></i> Peta
+                        </button>
+                        <button type="button" id="btnShowTable" class="view-btn" data-target="table-container">
+                            <i class="fas fa-table-list"></i> Tabel
+                        </button>
+                    </div>
                 </div>
             </div>
 
-
-            <!-- GIS Visualization -->
+            <!-- GIS Map Container (Split View: Map Left, Info Right) -->
             <div class="gis-container">
-                <h3 class="chart-title gis-title"></h3>
-                <div id="map"></div>
-            </div>
-
-            <!-- Container untuk CHART -->
-            <div id="chart-grid" class="chart-grid">
-                
-                <!-- Dropdown chart-selector di dalam chart-grid -->
-                <div class="chart-selector text-center mb-3">
-                    <label for="chartPicker" class="d-block mb-1">Pilih Grafik:</label>
-                    <select id="chartPicker" onchange="showChart(this.value)" class="w-auto mx-auto" style="background: #fff">
-                        <option value="kategori">Kategori</option>
-                        <option value="kecamatan">Kecamatan</option>
-                        <option value="tingkat">Tingkat Potensi</option>
-                        <option value="timeline">Perkembangan</option>
-                    </select>
-                </div>
-                
-                <!-- Chart Containers -->
-                <div id="chart-kategori" class="chart-container">
-                        <h3 class="chart-title chart-title-kategori"></h3>
-                    <div class="chart-wrapper">
-                        <canvas id="kategoriChart"></canvas>
+                <div class="gis-split-layout">
+                    <!-- Left: Interactive Map -->
+                    <div class="gis-map-panel">
+                        <div id="map"></div>
                     </div>
-                    <p class="chart-desc" id="desc-kategori">Grafik ini menampilkan sebaran potensi konflik menurut kategori penyebabnya, seperti konflik sosial, ekonomi, budaya, dan agama. Dari grafik terlihat bahwa kategori konflik sosial mendominasi dengan persentase terbesar, diikuti oleh konflik ekonomi dan budaya. Hal ini menunjukkan bahwa masalah sosial menjadi penyebab utama potensi konflik di Kota Bandung. Informasi ini penting agar pemerintah dan masyarakat dapat fokus pada penanganan isu sosial untuk mengurangi risiko konflik.</p>
-                </div>
-                
-                <div id="chart-kecamatan" class="chart-container" style="display: none;">
-                    <h3 class="chart-title chart-title-kecamatan"></h3>
-                    <div class="chart-wrapper">
-                        <canvas id="kecamatanChart"></canvas>
-                    </div>
-                    <p class="chart-desc" id="desc-kecamatan">Grafik ini memperlihatkan tingkat potensi konflik di masing-masing kecamatan di Kota Bandung. Misalnya, Kecamatan A memiliki potensi konflik tinggi, sementara Kecamatan B relatif rendah. Grafik ini membantu mengidentifikasi wilayah yang rawan konflik sehingga upaya pencegahan dan pengawasan bisa lebih terfokus. Dengan melihat grafik ini, masyarakat dan pemangku kebijakan dapat memahami kondisi keamanan di lingkungan masing-masing secara lebih jelas.</p>
-                </div>
-                
-                <div id="chart-tingkat" class="chart-container" style="display: none;">
-                    <h3 class="chart-title chart-title-level"></h3>
-                    <div class="chart-wrapper">
-                        <canvas id="tingkatChart"></canvas>
-                    </div>
-                    <p class="chart-desc" id="desc-tingkat">Grafik ini mengelompokkan potensi konflik berdasarkan tingkatannya, seperti rendah, sedang, dan tinggi. Data menunjukkan bahwa sebagian besar wilayah memiliki tingkat potensi konflik sedang, dengan beberapa wilayah berpotensi tinggi. Grafik ini memberikan gambaran umum tentang risiko konflik di Kota Bandung secara keseluruhan, sehingga dapat menjadi dasar prioritas dalam pengambilan kebijakan dan tindakan preventif.</p>
-                </div>
-                
-                <div id="chart-timeline" class="chart-container" style="display: none;">
-                    <h3 class="chart-title chart-title-tahun"></h3>
-                    <div class="chart-wrapper">
-                        <canvas id="timelineChart"></canvas>
-                    </div>
-                    <p class="chart-desc" id="desc-timeline">Grafik ini menggambarkan perubahan potensi konflik dari waktu ke waktu, misalnya dari bulan ke bulan atau tahun ke tahun. Dari grafik terlihat adanya fluktuasi, dengan peningkatan potensi konflik pada beberapa bulan tertentu dan penurunan di bulan lainnya. Tren ini penting untuk memantau dinamika konflik agar langkah antisipatif dapat dilakukan tepat waktu. Dengan memahami pola ini, pemerintah dan masyarakat dapat lebih siap menghadapi potensi konflik yang muncul.</p>
+                    <!-- Right: Information Side Panel (No Map Popups) -->
+                    <div id="sideInfoPanel" class="gis-side-panel"></div>
                 </div>
             </div>
 
-
-            <!-- Data Table -->
+            <!-- Data Table Container -->
             <div class="table-container">
-                <h3 class="chart-title table-title">📋 Data Detail Potensi Konflik di Kota Bandung</h3>
+                <div class="table-header-bar">
+                    <h3 class="table-title">
+                        <i class="fas fa-table-list text-danger"></i> Data Detail Potensi Konflik
+                    </h3>
+                    <div class="table-search-wrapper">
+                        <i class="fas fa-search table-search-icon"></i>
+                        <input type="text" id="tableFilterInput" class="table-search-input" placeholder="Cari potensi, kecamatan, kelurahan..." onkeyup="filterTableLive(this.value)">
+                    </div>
+                </div>
                 <div style="overflow-x: auto;">
                     <table class="modern-table" id="dataTable">
                         <thead>
@@ -144,7 +105,7 @@
                             @foreach ($potensiKonfliks1 as $item)
                             <tr data-year="{{ \Carbon\Carbon::parse($item->tanggal)->format('Y') }}">
                                 <td><strong>{{ $item->nama_potensi }}</strong></td>
-                                <td>{{ $item->kategori }}</td>
+                                <td><span class="badge bg-light text-dark border">{{ $item->kategori }}</span></td>
                                 <td>{{ $item->lokasi_kecamatan }}</td>
                                 <td>{{ $item->lokasi_kelurahan }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
@@ -163,7 +124,7 @@
                         </tbody>
                     </table>
                 </div>
-                    <!-- Tambahkan ini untuk pagination -->
+                <!-- Pagination -->
                 <div class="pagination-section">
                     {{ $potensiKonfliks1->links('components.custom-pagination') }}
                 </div>
@@ -171,161 +132,53 @@
         </div>
     </div>
 
-    <!-- Bagian Share -->
-    <section class="share-section py-4">
-        <div class="container">
-            <div class="page-share p-3 rounded shadow-sm" style="background: #ffffff;">
-                <h3 class="share-title mb-3">
-                    <i class="fas fa-share-alt"></i>
-                    Bagikan Halaman Ini
-                </h3>
-                <div class="share-options d-flex gap-3">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" 
-                        target="_blank" class="share-icon facebook" title="Bagikan ke Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode('Data Potensi Konflik di Kota Bandung') }}" 
-                        target="_blank" class="share-icon twitter" title="Bagikan ke Twitter">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                    <a href="https://api.whatsapp.com/send?text={{ urlencode('Data Potensi Konflik di Kota Bandung') }}%20{{ urlencode(request()->fullUrl()) }}" 
-                        target="_blank" class="share-icon whatsapp" title="Bagikan ke WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:?subject={{ urlencode('Data Potensi Konflik di Kota Bandung') }}&body={{ urlencode('Saya ingin berbagi halaman menarik ini: ' . request()->fullUrl()) }}" 
-                        class="share-icon email" title="Bagikan via Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="javascript:void(0)" onclick="copyToClipboard()" 
-                        class="share-icon copy" title="Salin Link">
-                        <i class="fas fa-link"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Toast Notification -->
-            <div id="copyToast" class="copy-toast hidden">
-                <i class="fas fa-check-circle"></i>
-                Link berhasil disalin!
-            </div>
-        </div>
-    </section>
-    
-    <!-- Script Share -->
     <script>
-        function copyToClipboard() {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    showToast();
-                }).catch(() => {
-                    fallbackCopyToClipboard();
-                });
-            } else {
-                fallbackCopyToClipboard();
-            }
-        }
-
-        function fallbackCopyToClipboard() {
-            const tempInput = document.createElement('input');
-            tempInput.value = window.location.href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            tempInput.setSelectionRange(0, 99999); // For mobile devices
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            showToast();
-        }
-
-        function showToast() {
-            const toast = document.getElementById('copyToast');
-            toast.classList.remove('hidden');
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 300);
-            }, 3000);
-        }
-    </script>
-
-    <!-- Script Charts -->
-    <script>
-        function showChart(chartId) {
-            const allCharts = ['kategori', 'kecamatan', 'tingkat', 'timeline'];
-            
-            allCharts.forEach(id => {
-                const chartContainer = document.getElementById(`chart-${id}`);
-                if (chartContainer) {
-                    chartContainer.style.display = id === chartId ? 'block' : 'none';
-                }
+        // Live Table Search Filtering
+        function filterTableLive(keyword) {
+            const query = (keyword || '').toLowerCase().trim();
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(tr => {
+                const text = tr.innerText.toLowerCase();
+                tr.style.display = text.includes(query) ? '' : 'none';
             });
-
         }
     </script>
 
     <!-- Script Pilihan tampilan -->
     <script>
         // Tambahkan variabel untuk menyimpan currentView
-        let currentView = 'table-container'; // default view
+        let currentView = 'gis-container'; // default view
 
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.view-selector-container .view-btn');
             const containers = {
                 'gis-container'   : document.querySelector('.gis-container'),
-                'chart-grid'      : document.querySelector('.chart-grid'),
                 'table-container' : document.querySelector('.table-container')
             };
 
             function showOnly(targetClass) {
                 Object.keys(containers).forEach(key => {
-                    containers[key].style.display = (key === targetClass) ? '' : 'none';
+                    if (containers[key]) {
+                        containers[key].style.display = (key === targetClass) ? '' : 'none';
+                    }
                 });
 
                 buttons.forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-target') === targetClass);
                 });
 
-                const previousView = currentView;
-                
-                if (previousView !== targetClass) {
-                    document.getElementById('yearFilter').value = '';
-                    currentYear = '';
-                    
-                    if (targetClass === 'table-container') {
-                        updateTableStatistics();
-                        animateNumbers();
-                    } else {
-                        updateMapsChartStatistics();
-                        animateNumbers();
-                    }
-                }
-                
                 currentView = targetClass;
 
-                if (targetClass === 'gis-container' && map) {
+                if (targetClass === 'gis-container' && typeof map !== 'undefined' && map) {
                     setTimeout(() => {
                         map.invalidateSize();
-                    }, 0);
+                    }, 50);
                 }
 
-                if (targetClass === 'table-container') {
-                    localStorage.setItem('lastView', 'table-container');
-                } else {
-                    localStorage.removeItem('lastView');
-                }
-
-                if (targetClass !== 'table-container') {
-                    updateCurrentView();
-                }
+                localStorage.setItem('lastView', targetClass);
             }
+
             const lastView = localStorage.getItem('lastView') === 'table-container' ? 'table-container' : 'gis-container';
-            currentView = lastView;
-            
-            document.getElementById('yearFilter').value = '';
-            currentYear = '';
-            
             showOnly(lastView);
 
             buttons.forEach(btn => {
@@ -350,7 +203,6 @@
 
         let map;
         let markers = [];
-        let charts = {};
         let currentYear = '';
 
         let kecamatanLayer;
@@ -368,7 +220,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             initializeMap();
             initializeYearFilter();
-            initializeCharts();
+            renderSidePanelDefault();
             loadGeoJsonData();
             
             if (currentView === 'table-container') {
@@ -414,6 +266,9 @@
             }
         }
 
+        let selectedKelurahanName = null;
+        let selectedLayerRef = null;
+
         function onEachKelurahanCombined(feature, layer) {
             const kelurahanName = feature.properties.nama_kelurahan;
             const kecamatanName = feature.properties.nama_kecamatan;
@@ -428,96 +283,6 @@
             const filteredData = getFilteredData();
             const listConflict = filteredData.filter(item => item.lokasi_kelurahan === kelurahanName);
             const totalCount = listConflict.length;
-
-            const highCount = listConflict.filter(c => c.tingkat_potensi === 'tinggi').length;
-            const mediumCount = listConflict.filter(c => c.tingkat_potensi === 'sedang').length;
-            const lowCount = listConflict.filter(c => c.tingkat_potensi === 'rendah').length;
-
-            let popupContent = `
-                <div class="main-popup-container" style="min-width: 250px; font-family: Arial, sans-serif;">
-                    <div class="popup-left-panel" style="position: relative;">
-                        <h5 style="margin: 0 0 10px 0; color: #2d3748; border-bottom: 2px solid #3182ce; padding-bottom: 5px;">
-                            Kelurahan ${kelurahanName}
-                        </h5>
-                        <p style="margin: 0 0 5px 0; color: #666; font-size: 0.9em;">Kecamatan ${kecamatanName}</p>
-                        <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #2d3748;">
-                            Total Konflik: <span style="color: #e53e3e;">${totalCount}</span>
-                        </p>
-            `;
-
-            if (totalCount > 0) {
-                popupContent += `
-                    <div style="margin-bottom: 15px; padding: 10px; background: #f7fafc; border-radius: 6px;">
-                        <p style="margin: 0 0 5px 0; font-size: 0.95em;">🔴 Tinggi: <strong>${highCount}</strong></p>
-                        <p style="margin: 0 0 5px 0; font-size: 0.95em;">🟡 Sedang: <strong>${mediumCount}</strong></p>
-                        <p style="margin: 0 0 0 0; font-size: 0.95em;">🟢 Rendah: <strong>${lowCount}</strong></p>
-                    </div>
-                    
-                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 4px;">
-                        <h6 style="margin: 0; padding: 8px; background: #edf2f7; font-size: 0.9em; color: #4a5568; border-bottom: 1px solid #e2e8f0;">
-                            Daftar Konflik (Klik untuk detail)
-                        </h6>
-                `;
-                
-                listConflict.forEach((conflict, index) => {
-                    const priorityColor = getPriorityColor(conflict.tingkat_potensi);
-                    const statusBadge = getStatusBadge(conflict.status);
-
-                popupContent += `
-                        <div class="conflict-item" 
-                            data-conflict-id="${conflict.id || index}"
-                            style="padding: 8px; margin: 0; background: #fff; border-bottom: 1px solid #f1f5f9; 
-                                    cursor: pointer; transition: all 0.2s ease; font-size: 0.85em;
-                                    border-left: 4px solid ${priorityColor};">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div style="flex: 1;">
-                                    <strong style="color: #2d3748; display: block; margin-bottom: 2px;">
-                                        ${conflict.nama_potensi}
-                                    </strong>
-                                    <div style="color: #666; font-size: 0.8em;">
-                                        <span>📂 ${conflict.kategori}</span>
-                                    </div>
-                                </div>
-                                <div style="margin-left: 8px;">
-                                    ${statusBadge}
-                                </div>
-                            </div>
-                            <div style="margin-top: 4px; font-size: 0.75em; color: #718096;">
-                                <span>📍 ${conflict.alamat || 'Alamat tidak tersedia'}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                popupContent += `</div>`;
-            } else {
-                popupContent += `
-                    <div style="padding: 20px; text-align: center; color: #718096; font-style: italic;">
-                        Tidak ada data konflik di kelurahan ini
-                    </div>
-                `;
-            }
-
-            popupContent += `
-                    </div>
-                    <div class="popup-detail-panel" id="detail-panel-${kelurahanName.replace(/\s+/g, '-')}" 
-                        style="display: none; position: absolute; left: 100%; top: 0; 
-                                width: 300px; margin-left: 10px; background: white; 
-                                border: 1px solid #e2e8f0; border-radius: 6px; 
-                                box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1000;">
-                        <div class="detail-content" style="padding: 15px;">
-                            <div style="text-align: center; padding: 20px; color: #718096;">
-                                Klik item konflik untuk melihat detail
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            layer.bindPopup(popupContent, {
-                maxWidth: 800,
-                className: 'enhanced-popup'
-            });
 
             layer.on({
                 mouseover: function(e) {
@@ -536,18 +301,20 @@
 
                     hoverTimeout = setTimeout(() => {
                         if (currentHoveredFeature === kelurahanName) {
-                            e.target.setStyle({
-                                weight: 3,
-                                color: '#2563eb',
-                                fillOpacity: 0.9
-                            });
+                            if (selectedKelurahanName !== kelurahanName) {
+                                e.target.setStyle({
+                                    weight: 2.5,
+                                    color: '#2563eb',
+                                    fillOpacity: 0.88
+                                });
+                            }
 
                             if (!isMobileDevice() && centroid) {
                                 showKelurahanLabel(feature, centroid, totalCount);
                             }
                         }
                         isHovering = false;
-                    }, 100);
+                    }, 80);
                 },
 
                 mouseout: function(e) {
@@ -565,7 +332,7 @@
 
                     setTimeout(() => {
                         if (currentHoveredFeature !== kelurahanName) {
-                            if (kelurahanLayer) {
+                            if (kelurahanLayer && selectedKelurahanName !== kelurahanName) {
                                 kelurahanLayer.resetStyle(e.target);
                             }
 
@@ -578,178 +345,361 @@
 
                 click: function(e) {
                     e.originalEvent && e.originalEvent.stopPropagation();
+                    removeActiveLabel();
 
-                    if (isMobileDevice() && centroid) {
-                        removeActiveLabel();
-                        showKelurahanLabel(feature, centroid, totalCount);
-                        
-                        setTimeout(() => {
-                            removeActiveLabel();
-                        }, 3000);
-                    }
+                    const currentData = getFilteredData();
+                    const currentConflictList = currentData.filter(item => item.lokasi_kelurahan === kelurahanName);
+
+                    map.fitBounds(layer.getBounds(), { padding: [50, 50], maxZoom: 15, animate: true });
+                    selectKelurahanForSidePanel(feature, layer, currentConflictList);
+                }
+            });
+        }
+
+        function renderSidePanelDefault() {
+            const sidePanel = document.getElementById('sideInfoPanel');
+            if (!sidePanel) return;
+
+            const filteredData = getFilteredData();
+            const totalKonflik = filteredData.length;
+
+            const kelMap = {};
+            filteredData.forEach(item => {
+                const k = item.lokasi_kelurahan || 'Lainnya';
+                if (!kelMap[k]) {
+                    kelMap[k] = { name: k, kecamatan: item.lokasi_kecamatan || '', total: 0, tinggi: 0, sedang: 0, rendah: 0 };
+                }
+                kelMap[k].total++;
+                const tingkat = (item.tingkat_potensi || '').toLowerCase();
+                if (tingkat === 'tinggi') kelMap[k].tinggi++;
+                else if (tingkat === 'sedang') kelMap[k].sedang++;
+                else if (tingkat === 'rendah') kelMap[k].rendah++;
+            });
+
+            const affectedKelurahanCount = Object.keys(kelMap).length;
+            const highRiskCount = filteredData.filter(i => (i.tingkat_potensi || '').toLowerCase() === 'tinggi').length;
+
+            const topKelurahans = Object.values(kelMap)
+                .sort((a, b) => b.total - a.total || b.tinggi - a.tinggi)
+                .slice(0, 6);
+
+            let html = `
+                <div class="side-panel-header">
+                    <div class="side-panel-title-area">
+                        <h4 class="side-panel-title">
+                            <i class="fa-solid fa-layer-group text-danger"></i> Informasi Wilayah
+                        </h4>
+                        <p class="side-panel-subtitle">
+                            ${currentYear ? 'Tahun ' + currentYear : 'Semua Periode Data'}
+                        </p>
+                    </div>
+                    <span class="badge bg-light text-secondary border px-2 py-1" style="font-size: 0.72rem; font-weight: 700;">
+                        Kota Bandung
+                    </span>
+                </div>
+
+                <div class="side-panel-body">
+                    <div class="side-prompt-box">
+                        <i class="fa-solid fa-hand-pointer text-primary" style="font-size: 1rem; margin-top: 2px;"></i>
+                        <div>
+                            <strong>Pilih Kelurahan di Peta</strong>
+                            <div style="font-size: 0.76rem; color: #64748B; margin-top: 2px;">
+                                Klik salah satu wilayah kelurahan pada peta untuk melihat rincian potensi konflik di panel ini.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-stats-grid">
+                        <div class="side-stat-card">
+                            <div class="side-stat-val text-danger">${totalKonflik}</div>
+                            <div class="side-stat-lbl">Total Kasus</div>
+                        </div>
+                        <div class="side-stat-card">
+                            <div class="side-stat-val text-primary">${affectedKelurahanCount}</div>
+                            <div class="side-stat-lbl">Kel. Terdampak</div>
+                        </div>
+                        <div class="side-stat-card">
+                            <div class="side-stat-val text-warning">${highRiskCount}</div>
+                            <div class="side-stat-lbl">Prioritas Tinggi</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="side-section-heading">
+                            <span>Wilayah Rawan Tertinggi</span>
+                            <span style="font-size: 0.7rem; color: #94A3B8; font-weight: normal;">Klik untuk sorot</span>
+                        </div>
+                        <div class="side-rank-list" style="margin-top: 0.5rem;">
+            `;
+
+            if (topKelurahans.length === 0) {
+                html += `
+                    <div style="text-align: center; padding: 1.5rem; color: #94A3B8; font-size: 0.82rem;">
+                        Tidak ada data potensi konflik untuk periode ini
+                    </div>
+                `;
+            } else {
+                topKelurahans.forEach((k, idx) => {
+                    const escapedName = k.name.replace(/'/g, "\\'");
+                    html += `
+                        <div class="side-rank-item" onclick="focusKelurahanByName('${escapedName}')">
+                            <div class="side-rank-info">
+                                <div class="side-rank-name">${idx + 1}. ${k.name}</div>
+                                <div class="side-rank-sub">Kec. ${k.kecamatan || '-'}</div>
+                            </div>
+                            <div class="side-rank-badge">
+                                ${k.total} konflik
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.65rem; margin-left: 2px;"></i>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            sidePanel.innerHTML = html;
+        }
+
+        function selectKelurahanForSidePanel(feature, layer, conflictList) {
+            const sidePanel = document.getElementById('sideInfoPanel');
+            if (!sidePanel) return;
+
+            const kelurahanName = feature.properties.nama_kelurahan;
+            const kecamatanName = feature.properties.nama_kecamatan;
+            selectedKelurahanName = kelurahanName;
+
+            // Highlight polygon on map
+            if (selectedLayerRef && kelurahanLayer) {
+                kelurahanLayer.resetStyle(selectedLayerRef);
+            }
+            selectedLayerRef = layer;
+            if (layer) {
+                layer.setStyle({
+                    weight: 3.5,
+                    color: '#B40D14',
+                    fillColor: '#B40D14',
+                    fillOpacity: 0.45
+                });
+                layer.bringToFront();
+            }
+
+            const totalCount = conflictList.length;
+            const highCount = conflictList.filter(c => (c.tingkat_potensi || '').toLowerCase() === 'tinggi').length;
+            const mediumCount = conflictList.filter(c => (c.tingkat_potensi || '').toLowerCase() === 'sedang').length;
+            const lowCount = conflictList.filter(c => (c.tingkat_potensi || '').toLowerCase() === 'rendah').length;
+
+            let html = `
+                <div class="side-panel-header">
+                    <div class="side-panel-title-area">
+                        <h4 class="side-panel-title" title="${kelurahanName}">
+                            <i class="fa-solid fa-location-dot text-danger"></i> Kel. ${kelurahanName}
+                        </h4>
+                        <p class="side-panel-subtitle">Kecamatan ${kecamatanName}</p>
+                    </div>
+                    <button type="button" class="side-btn-back" onclick="resetSidePanelSelection()">
+                        <i class="fa-solid fa-arrow-left"></i> Ringkasan
+                    </button>
+                </div>
+
+                <div class="side-panel-body">
+                    <div class="side-risk-breakdown">
+                        <span class="side-risk-pill total"><strong>${totalCount}</strong> Total Kasus</span>
+                        ${highCount > 0 ? `<span class="side-risk-pill tinggi">🔴 ${highCount} Tinggi</span>` : ''}
+                        ${mediumCount > 0 ? `<span class="side-risk-pill sedang">🟡 ${mediumCount} Sedang</span>` : ''}
+                        ${lowCount > 0 ? `<span class="side-risk-pill rendah">🟢 ${lowCount} Rendah</span>` : ''}
+                    </div>
+            `;
+
+            if (totalCount === 0) {
+                html += `
+                    <div class="side-empty-state">
+                        <div class="side-empty-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <h5 class="side-empty-title">Wilayah Aman & Terkendali</h5>
+                        <p class="side-empty-desc">Tidak tercatat adanya potensi konflik di Kelurahan ${kelurahanName} pada periode yang dipilih.</p>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="side-section-heading">
+                        <span>Daftar Potensi Konflik</span>
+                        <span style="font-size: 0.7rem; color: #94A3B8; font-weight: normal;">Klik untuk detail</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                `;
+
+                conflictList.forEach((conflict, index) => {
+                    const priorityColor = getPriorityColor(conflict.tingkat_potensi);
+                    const statusBadge = getStatusBadge(conflict.status);
+                    const tanggalFormatted = conflict.tanggal ? formatDate(conflict.tanggal) : '-';
+
+                    html += `
+                        <div class="side-conflict-card" 
+                             id="side-card-${index}"
+                             style="border-left-color: ${priorityColor};" 
+                             onclick="renderConflictDetailInSidePanel(${index})">
+                            <div class="side-card-top">
+                                <h5 class="side-card-title">${conflict.nama_potensi}</h5>
+                                ${statusBadge}
+                            </div>
+                            <div class="side-card-meta">
+                                <div class="side-card-meta-row">
+                                    <i class="fa-solid fa-folder-open text-muted" style="width: 13px;"></i>
+                                    <span>${conflict.kategori || 'Umum'}</span>
+                                </div>
+                                <div class="side-card-meta-row">
+                                    <i class="fa-solid fa-location-dot text-muted" style="width: 13px;"></i>
+                                    <span>${conflict.alamat || 'Alamat tidak tersedia'}</span>
+                                </div>
+                            </div>
+                            <div class="side-card-footer">
+                                <span class="text-muted"><i class="fa-regular fa-calendar me-1"></i>${tanggalFormatted}</span>
+                                <span class="side-card-link">Detail <i class="fa-solid fa-chevron-right" style="font-size: 0.65rem;"></i></span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            }
+
+            html += `</div>`;
+            sidePanel.innerHTML = html;
+
+            window._currentSideConflictList = conflictList;
+            window._currentSelectedFeature = feature;
+            window._currentSelectedLayer = layer;
+        }
+
+        function renderConflictDetailInSidePanel(index) {
+            const sidePanel = document.getElementById('sideInfoPanel');
+            const conflictList = window._currentSideConflictList;
+            const feature = window._currentSelectedFeature;
+            const layer = window._currentSelectedLayer;
+            if (!sidePanel || !conflictList || !conflictList[index]) return;
+
+            const conflict = conflictList[index];
+            const priorityColor = getPriorityColor(conflict.tingkat_potensi);
+            const statusBadge = getStatusBadge(conflict.status);
+            const tanggalFormatted = conflict.tanggal ? formatDate(conflict.tanggal) : '-';
+
+            let html = `
+                <div class="side-panel-header">
+                    <div class="side-panel-title-area">
+                        <h4 class="side-panel-title">
+                            <i class="fa-solid fa-circle-info text-primary"></i> Rincian Kasus
+                        </h4>
+                        <p class="side-panel-subtitle">Kel. ${feature.properties.nama_kelurahan}</p>
+                    </div>
+                    <button type="button" class="side-btn-back" onclick="selectKelurahanForSidePanel(window._currentSelectedFeature, window._currentSelectedLayer, window._currentSideConflictList)">
+                        <i class="fa-solid fa-arrow-left"></i> Daftar
+                    </button>
+                </div>
+
+                <div class="side-panel-body side-detail-view">
+                    <div class="side-detail-header-card">
+                        <h4 class="side-detail-title">${conflict.nama_potensi}</h4>
+                        <div class="side-detail-badge-group">
+                            <span style="background: ${priorityColor}; color: white; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">
+                                Tingkat: ${conflict.tingkat_potensi || '-'}
+                            </span>
+                            ${statusBadge}
+                        </div>
+                    </div>
+
+                    <div class="side-detail-meta-list">
+                        <div class="side-detail-meta-item">
+                            <span class="side-detail-meta-lbl"><i class="fa-solid fa-folder me-1 text-muted"></i> Kategori Masalah</span>
+                            <span class="side-detail-meta-val">${conflict.kategori || '-'}</span>
+                        </div>
+                        <div class="side-detail-meta-item">
+                            <span class="side-detail-meta-lbl"><i class="fa-regular fa-calendar me-1 text-muted"></i> Tanggal Kejadian</span>
+                            <span class="side-detail-meta-val">${tanggalFormatted}</span>
+                        </div>
+                        <div class="side-detail-meta-item">
+                            <span class="side-detail-meta-lbl"><i class="fa-solid fa-location-dot me-1 text-muted"></i> Lokasi / Alamat</span>
+                            <span class="side-detail-meta-val">${conflict.alamat || '-'}</span>
+                        </div>
+                        ${conflict.pihak_terlibat ? `
+                            <div class="side-detail-meta-item">
+                                <span class="side-detail-meta-lbl"><i class="fa-solid fa-users me-1 text-muted"></i> Pihak Terlibat</span>
+                                <span class="side-detail-meta-val">${conflict.pihak_terlibat}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="side-detail-desc-box">
+                        <span class="side-detail-meta-lbl"><i class="fa-solid fa-align-left me-1 text-muted"></i> Deskripsi Potensi Konflik</span>
+                        <p class="side-detail-desc-val">${conflict.deskripsi || 'Tidak ada keterangan rincian deskripsi untuk potensi konflik ini.'}</p>
+                    </div>
+
+                    <button type="button" class="side-btn-back" style="justify-content: center; padding: 0.6rem; margin-top: 0.25rem;" 
+                            onclick="selectKelurahanForSidePanel(window._currentSelectedFeature, window._currentSelectedLayer, window._currentSideConflictList)">
+                        <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Daftar Konflik Kelurahan
+                    </button>
+                </div>
+            `;
+
+            sidePanel.innerHTML = html;
+        }
+
+        function resetSidePanelSelection() {
+            selectedKelurahanName = null;
+            if (selectedLayerRef && kelurahanLayer) {
+                kelurahanLayer.resetStyle(selectedLayerRef);
+                selectedLayerRef = null;
+            }
+            if (kecamatanLayer && map) {
+                map.fitBounds(kecamatanLayer.getBounds(), { padding: [15, 15], animate: true });
+            }
+            renderSidePanelDefault();
+        }
+
+        function focusKelurahanByName(kelurahanName) {
+            if (!kelurahanLayer) return;
+
+            let targetLayer = null;
+            let targetFeature = null;
+
+            kelurahanLayer.eachLayer(layer => {
+                if (layer.feature && layer.feature.properties && layer.feature.properties.nama_kelurahan === kelurahanName) {
+                    targetLayer = layer;
+                    targetFeature = layer.feature;
                 }
             });
 
-            layer.on('popupopen', function(e) {
-                setTimeout(() => {
-                    setupConflictItemHandlers(kelurahanName, listConflict);
-                }, 100);
-            });
+            if (targetLayer && targetFeature) {
+                const filteredData = getFilteredData();
+                const conflictList = filteredData.filter(item => item.lokasi_kelurahan === kelurahanName);
+                
+                map.fitBounds(targetLayer.getBounds(), { padding: [50, 50], maxZoom: 15, animate: true });
+                selectKelurahanForSidePanel(targetFeature, targetLayer, conflictList);
+            }
         }
 
         function getPriorityColor(tingkat) {
             switch(tingkat?.toLowerCase()) {
-                case 'tinggi': return '#FF0000';
-                case 'sedang': return '#FFC800';
-                case 'rendah': return '#00B400';
-                default: return '#a0aec0';
+                case 'tinggi': return '#dc2626';
+                case 'sedang': return '#d97706';
+                case 'rendah': return '#16a34a';
+                default: return '#94a3b8';
             }
         }
 
         function getStatusBadge(status) {
-            const statusColors = {
-                'aktif': '#e53e3e',
-                'monitoring': '#f6ad55',
-                'selesai': '#48bb78',
-                'pending': '#a0aec0'
+            const statusKey = (status || '').toLowerCase();
+            const statusClassMap = {
+                'aktif': 'status-aktif',
+                'monitoring': 'status-monitoring',
+                'selesai': 'status-selesai',
+                'pending': 'status-pending'
             };
-
-            const color = statusColors[status?.toLowerCase()] || '#a0aec0';
-            return `<span style="background: ${color}; color: white; padding: 2px 6px; 
-                                border-radius: 10px; font-size: 0.7em; font-weight: bold;">
-                        ${status || 'N/A'}
-                    </span>`;
-        }
-
-        function setupConflictItemHandlers(kelurahanName, listConflict) {
-            const conflictItems = document.querySelectorAll('.conflict-item');
-            const detailPanel = document.getElementById(`detail-panel-${kelurahanName.replace(/\s+/g, '-')}`);
-            
-            if (!detailPanel) return;
-
-            conflictItems.forEach((item, index) => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.background = '#f7fafc';
-                    this.style.transform = 'translateX(2px)';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.style.background = '#fff';
-                    this.style.transform = 'translateX(0)';
-                });
-
-                item.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    const conflictData = listConflict[index];
-                    if (!conflictData) return;
-
-                    conflictItems.forEach(i => i.classList.remove('active-conflict'));
-                    
-                    this.classList.add('active-conflict');
-                    
-                    showConflictDetail(detailPanel, conflictData);
-                });
-            });
-        }
-
-        function showConflictDetail(detailPanel, conflictData) {
-            const detailContent = detailPanel.querySelector('.detail-content');
-            
-            const priorityColor = getPriorityColor(conflictData.tingkat_potensi);
-            const statusBadge = getStatusBadge(conflictData.status);
-            
-            detailContent.innerHTML = `
-                <div style="border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
-                    <button onclick="hideConflictDetail('${detailPanel.id}')" 
-                            style="float: right; background: none; border: none; 
-                                    font-size: 16px; cursor: pointer; color: #a0aec0;">
-                        ✕
-                    </button>
-                    <h6 style="margin: 0; color: #2d3748; font-size: 1em;">Detail Konflik</h6>
-                </div>
-                
-                <div style="space-y: 10px;">
-                    <div style="margin-bottom: 12px;">
-                        <h5 style="margin: 0 0 5px 0; color: #2d3748; font-size: 0.95em; line-height: 1.3;">
-                            ${conflictData.nama_potensi}
-                        </h5>
-                        <div style="margin-bottom: 8px;">
-                            ${statusBadge}
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f7fafc; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
-                        <div style="margin-bottom: 8px;">
-                            <strong style="font-size: 0.8em; color: #4a5568;">Tingkat Potensi:</strong>
-                            <div style="margin-top: 2px;">
-                                <span style="background: ${priorityColor}; color: white; 
-                                            padding: 2px 8px; border-radius: 12px; 
-                                            font-size: 0.75em; font-weight: bold;">
-                                    ${conflictData.tingkat_potensi || 'N/A'}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 8px;">
-                            <strong style="font-size: 0.8em; color: #4a5568;">Kategori:</strong>
-                            <p style="margin: 2px 0 0 0; font-size: 0.85em; color: #2d3748;">
-                                ${conflictData.kategori || 'Tidak tersedia'}
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 10px;">
-                        <strong style="font-size: 0.8em; color: #4a5568;">📍 Alamat:</strong>
-                        <p style="margin: 2px 0 0 0; font-size: 0.85em; color: #2d3748; line-height: 1.3;">
-                            ${conflictData.alamat || 'Alamat tidak tersedia'}
-                        </p>
-                    </div>
-                    
-                    ${conflictData.deskripsi ? `
-                        <div style="margin-bottom: 10px;">
-                            <strong style="font-size: 0.8em; color: #4a5568;">📝 Deskripsi:</strong>
-                            <p style="margin: 2px 0 0 0; font-size: 0.85em; color: #2d3748; line-height: 1.3;">
-                                ${conflictData.deskripsi.length > 150 ? 
-                                    conflictData.deskripsi.substring(0, 150) + '...' : 
-                                    conflictData.deskripsi}
-                            </p>
-                        </div>
-                    ` : ''}
-                    
-                    ${conflictData.tanggal ? `
-                        <div style="margin-bottom: 10px;">
-                            <strong style="font-size: 0.8em; color: #4a5568;">📅 Tanggal Kejadian:</strong>
-                            <p style="margin: 2px 0 0 0; font-size: 0.85em; color: #2d3748;">
-                                ${formatDate(conflictData.tanggal)}
-                            </p>
-                        </div>
-                    ` : ''}
-                    
-                    ${conflictData.pihak_terlibat ? `
-                        <div style="margin-bottom: 10px;">
-                            <strong style="font-size: 0.8em; color: #4a5568;">👥 Pihak Terlibat:</strong>
-                            <p style="margin: 2px 0 0 0; font-size: 0.85em; color: #2d3748;">
-                                ${conflictData.pihak_terlibat}
-                            </p>
-                        </div>
-                    ` : ''}
-                </div>
-                
-            `;
-            
-            detailPanel.style.display = 'block';
-        }
-
-        function hideConflictDetail(panelId) {
-            const panel = document.getElementById(panelId);
-            if (panel) {
-                panel.style.display = 'none';
-            }
-            
-            document.querySelectorAll('.conflict-item').forEach(item => {
-                item.classList.remove('active-conflict');
-            });
+            const badgeClass = statusClassMap[statusKey] || 'status-pending';
+            return `<span class="status-badge ${badgeClass}">${status || 'N/A'}</span>`;
         }
 
         function formatDate(dateString) {
@@ -763,43 +713,6 @@
             } catch (e) {
                 return dateString;
             }
-        }
-
-
-        const additionalCSS = `
-            .enhanced-popup .leaflet-popup-content-wrapper {
-                overflow: visible !important;
-            }
-            
-            .conflict-item.active-conflict {
-                background: #ebf8ff !important;
-                border-left-color: #3182ce !important;
-            }
-            
-            .popup-detail-panel {
-                max-height: 400px;
-                overflow-y: auto;
-            }
-            
-            @media (max-width: 768px) {
-                .popup-detail-panel {
-                    position: fixed !important;
-                    left: 10px !important;
-                    right: 10px !important;
-                    top: 50% !important;
-                    transform: translateY(-50%) !important;
-                    width: auto !important;
-                    margin: 0 !important;
-                    z-index: 2000 !important;
-                }
-            }
-        `;
-
-        if (!document.getElementById('enhanced-popup-styles')) {
-            const style = document.createElement('style');
-            style.id = 'enhanced-popup-styles';
-            style.textContent = additionalCSS;
-            document.head.appendChild(style);
         }
 
         function showKelurahanLabel(feature, centroidCoords, conflictCount) {
@@ -916,9 +829,10 @@
         }
 
         function initializeMap() {
-            addMinimalInfoControlStyles();
+            addMinimalHomeButtonStyles();
             map = L.map('map', {
-                minZoom: 12
+                minZoom: 11,
+                maxZoom: 18
             }).setView([-6.9175, 107.6191], 12);
             
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
@@ -938,105 +852,36 @@
             const homeButton = L.control({ position: 'topleft' });
             homeButton.onAdd = function (map) {
                 const div = L.DomUtil.create('div', 'home-button-control');
-                div.innerHTML = '<button class="home-btn" title="Kembali ke posisi awal"><i class="fa-solid fa-location-dot"></i></button>';            
+                div.innerHTML = '<button class="home-btn" title="Fokuskan ke Kota Bandung & Reset Pilihan"><i class="fa-solid fa-location-dot"></i></button>';            
                 div.onclick = function(e) {
                     e.stopPropagation();
-                    map.setView([-6.9175, 107.6191], 12, {
-                        animate: true,
-                        duration: 0.8
-                    });
+                    resetSidePanelSelection();
                 };
-                
                 return div;
             };
             homeButton.addTo(map);
-            
-            const info = L.control({ position: 'topright' });
-            info.onAdd = function (map) {
-                this._div = L.DomUtil.create('div', 'info-control');
-                this.update();
-                return this._div;
-            };
-            info.update = function (props) {
-                const content = props ? 
-                    `<div class="info-header">
-                        <i class="info-icon">📍</i>
-                        <span class="info-title">Detail Lokasi</span>
-                    </div>
-                    <div class="info-content">
-                        <div class="location-name">${props.name}</div>
-                        <div class="conflict-count">
-                            <span class="count-number">${props.count}</span>
-                            <span class="count-label">konflik tercatat</span>
-                        </div>
-                    </div>` :
-                    `<div class="info-header">
-                        <i class="info-icon">ℹ</i>
-                        <span class="info-title">Info Lokasi</span>
-                    </div>
-                    <div class="info-placeholder">
-                        Arahkan kursor ke area untuk melihat detail
-                    </div>`;
-                
-                this._div.innerHTML = content;
-            };
-            info.addTo(map);
         }
 
-        function addMinimalInfoControlStyles() {
-            if (document.getElementById('minimal-info-control-styles')) {
+        function addMinimalHomeButtonStyles() {
+            if (document.getElementById('minimal-home-button-styles')) {
                 return;
             }
-            
             const style = document.createElement('style');
-            style.id = 'minimal-info-control-styles';
+            style.id = 'minimal-home-button-styles';
             style.textContent = `
-                .info-control {
-                    background: white;
-                    border: 2px solid #e2e8f0;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                    padding: 0;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    min-width: 240px;
-                    overflow: hidden;
-                    transition: all 0.2s ease;
-                }
-                .info-control:hover {
-                    border-color: #cbd5e0;
-                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-                }
-                .info-header {
-                    background: #f7fafc;
-                    color: #4a5568;
-                    padding: 10px 14px;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    border-bottom: 1px solid #e2e8f0;
-                }
-                .info-icon { font-size: 14px; }
-                .info-title { font-weight: 600; font-size: 13px; color: #2d3748; }
-                .info-content { padding: 14px; }
-                .location-name { font-size: 16px; font-weight: 600; color: #1a202c; margin-bottom: 6px; }
-                .conflict-count { display: flex; align-items: baseline; gap: 5px; }
-                .count-number { font-size: 20px; font-weight: 700; color: #dc2626; }
-                .count-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.3px; }
-                .info-placeholder { padding: 14px; color: #6b7280; font-size: 12px; text-align: center; }
                 .home-button-control { background: none; border: none; margin: 0; padding: 0; }
                 .home-btn {
-                    background: white; border: 2px solid #e2e8f0; border-radius: 6px;
-                    width: 40px; height: 40px; font-size: 16px; cursor: pointer;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: all 0.2s ease;
+                    background: white; border: 2px solid #e2e8f0; border-radius: 8px;
+                    width: 38px; height: 38px; font-size: 15px; cursor: pointer; color: #1E293B;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.2s ease;
                     display: flex; align-items: center; justify-content: center;
                 }
                 .home-btn:hover {
-                    background: #f7fafc; border-color: #cbd5e0; transform: translateY(-1px);
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    background: #f8fafc; border-color: #cbd5e0; transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); color: #B40D14;
                 }
-                .home-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
+                .home-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); }
             `;
-            
             document.head.appendChild(style);
         }
 
@@ -1086,17 +931,18 @@
                 const count = kelurahanData[namaKel] ? kelurahanData[namaKel].length : 0;
                 return {
                     fillColor: getColorForKonflik(count, maxKonflik),
-                    weight: 1, opacity: 0.8, color: '#ffffff', fillOpacity: 0.7
+                    weight: 1, opacity: 0.85, color: '#ffffff', fillOpacity: 0.75
                 };
             }
 
             function styleKecamatan(feature) {
                 return {
-                    fillColor: 'transparent', weight: 2, opacity: 1,
-                    color: '#2563eb', fillOpacity: 0, interactive: false
+                    fillColor: 'transparent', weight: 2.5, opacity: 1,
+                    color: '#B40D14', fillOpacity: 0, interactive: false
                 };
             }
 
+            // Layer Kelurahan & Kecamatan
             kelurahanLayer = L.geoJson(geoJsonKelurahan, {
                 style: styleKelurahan,
                 onEachFeature: onEachKelurahanCombined
@@ -1107,9 +953,26 @@
                 interactive: false
             }).addTo(map);
 
+            kelurahanLayer.bringToFront();
+            kecamatanLayer.bringToFront();
+
+            // Paskan dan kunci tampilan peta ke seluruh batas Kota Bandung
+            if (kecamatanLayer) {
+                const bandungBounds = kecamatanLayer.getBounds();
+                map.fitBounds(bandungBounds, { padding: [15, 15] });
+                map.setMaxBounds(bandungBounds.pad(0.08));
+            }
+
             if (!map.legend) {
                 map.legend = createColorLegend();
                 map.legend.addTo(map);
+            }
+
+            // Update side panel for current view
+            if (selectedKelurahanName) {
+                focusKelurahanByName(selectedKelurahanName);
+            } else {
+                renderSidePanelDefault();
             }
         }
 
@@ -1166,261 +1029,14 @@
             window.location.href = currentUrl.toString();
         }
 
-        function updateCharts() {
-            const filteredData = getFilteredData();
-            
-            const kategoriStats = {};
-            const kecamatanStats = {};
-            const tingkatStats = {};
-            
-            filteredData.forEach(item => {
-                kategoriStats[item.kategori] = (kategoriStats[item.kategori] || 0) + 1;
-                kecamatanStats[item.lokasi_kecamatan] = (kecamatanStats[item.lokasi_kecamatan] || 0) + 1;
-                tingkatStats[item.tingkat_potensi] = (tingkatStats[item.tingkat_potensi] || 0) + 1;
-            });
-            
-            updateKategoriChart(kategoriStats);
-            updateKecamatanChart(kecamatanStats);
-            updateTingkatChart(tingkatStats);
-            updateTimelineChart(filteredData);
-        }
-
-        function updateChartTitle(chartSelector, baseTitle) {
-            const chartTitle = document.querySelector(chartSelector);
-            const years = [...new Set(potensiKonfliks.map(item => new Date(item.tanggal).getFullYear()))];
-            const tahunTerlama = Math.min(...years);
-            const tahunTerbaru = Math.max(...years);
-
-            if (!currentYear) {
-                chartTitle.textContent = `${baseTitle} Tahun ${tahunTerlama} - ${tahunTerbaru}`;
-            } else {
-                chartTitle.textContent = `${baseTitle} Tahun ${currentYear}`;
-            }
-        }
-
-        function getMaxGroupInfo(data, key) {
-            const countMap = {};
-            data.forEach(item => {
-                const value = item[key] || 'Tidak Diketahui';
-                countMap[value] = (countMap[value] || 0) + 1;
-            });
-            const maxCount = Math.max(...Object.values(countMap));
-            const labels = Object.keys(countMap).filter(k => countMap[k] === maxCount);
-            return { labels, count: maxCount };
-        }
-
-        function getMinGroupInfo(data, key) {
-            const countMap = {};
-            data.forEach(item => {
-                const value = item[key] || 'Tidak Diketahui';
-                countMap[value] = (countMap[value] || 0) + 1;
-            });
-
-            const minCount = Math.min(...Object.values(countMap));
-            const labels = Object.keys(countMap).filter(k => countMap[k] === minCount);
-            return { labels, count: minCount };
-        }
-
-        function getAllGroupCounts(data, key) {
-            const countMap = {};
-            data.forEach(item => {
-                const value = item[key] || 'Tidak Diketahui';
-                countMap[value] = (countMap[value] || 0) + 1;
-            });
-            return countMap;
-        }
-
-        function formatYearLabel() {
-            const allYears = [...new Set(potensiKonfliks.map(i => new Date(i.tanggal).getFullYear()))].sort((a, b) => a - b);
-            if (!currentYear) {
-                return `${allYears[0]} - ${allYears[allYears.length - 1]}`;
-            }
-            return currentYear;
-        }
-
-        function getSelectedYear() {
-            const yearSelect = document.getElementById('yearFilter');
-            if (!yearSelect) return '';
-            return yearSelect.value || '';
-        }
-
-        function updateChartDescriptions() {
-            const data = getFilteredData();
-            const tahunLabel = formatYearLabel();
-            const kategoriInfo = getMaxGroupInfo(data, 'kategori');
-            const kecamatanInfo = getMaxGroupInfo(data, 'lokasi_kecamatan');
-            const kecamatanInfo1 = getMinGroupInfo(data, 'lokasi_kecamatan');
-            const tingkatInfo = getMaxGroupInfo(data, 'tingkat_potensi');
-            const tingkatCounts = getAllGroupCounts(data, 'tingkat_potensi');
-            const semuaKategori = [...new Set(data.map(item => item.kategori).filter(Boolean))].join(', ');
-
-            const urutanTingkat = ['rendah', 'sedang', 'tinggi'];
-            // PERBAIKAN: String harus diapit backtick ``
-            const tingkatDescriptions = urutanTingkat
-                .map(tingkat => {
-                    const count = tingkatCounts[tingkat] || 0;
-                    return `tingkat ${tingkat.toLowerCase()} sebanyak ${count} konflik`;
-                })
-                .join(', ');
-
-            document.querySelector('.chart-title-kategori').textContent = `📊 Kategori Konflik di Kota Bandung Tahun ${tahunLabel}`;
-            document.querySelector('.chart-title-kecamatan').textContent = `📍 Persebaran Konflik per Kecamatan Tahun ${tahunLabel}`;
-            document.querySelector('.chart-title-level').textContent = `🚦 Tingkat Potensi Konflik Tahun ${tahunLabel}`;
-            document.querySelector('.chart-title-tahun').textContent = `📈 Tren Konflik per Waktu Tahun ${tahunLabel}`;
-            document.querySelector('.gis-title').textContent = `🗺 Peta Sebaran Potensi Konflik Di Kota Bandung Tahun ${tahunLabel}`;
-
-            // PERBAIKAN: Penulisan string multi-baris yang salah dan titik koma (;) di dalam string
-            document.getElementById('desc-kategori').textContent = `Grafik ini menampilkan sebaran potensi konflik menurut kategori penyebabnya, seperti konflik ${semuaKategori}. Dari grafik terlihat bahwa kategori konflik "${kategoriInfo.labels.join('", "')}" mendominasi dengan jumlah total konflik terbesar, dengan total ${kategoriInfo.count} konflik pada tahun ${tahunLabel}. Hal ini menunjukkan bahwa masalah "${kategoriInfo.labels.join('", "')}" menjadi penyebab utama potensi konflik di Kota Bandung.`;
-            document.getElementById('desc-kecamatan').textContent = `Grafik ini memperlihatkan tingkat potensi konflik di masing-masing kecamatan di Kota Bandung. Misalnya, Kecamatan "${kecamatanInfo.labels.join('", "')}" memiliki potensi konflik yang tinggi dengan total ${kecamatanInfo.count} konflik, sementara Kecamatan "${kecamatanInfo1.labels.join('", "')}" memiliki potensi konflik yang rendah dengan total ${kecamatanInfo1.count} konflik pada tahun ${tahunLabel}. Grafik ini membantu mengidentifikasi wilayah yang rawan konflik sehingga upaya pencegahan dan pengawasan bisa lebih terfokus. Dengan melihat grafik ini, masyarakat dan pemangku kebijakan dapat memahami kondisi keamanan di lingkungan masing-masing secara lebih jelas.`;
-            document.getElementById('desc-tingkat').textContent = `Grafik ini mengelompokkan potensi konflik berdasarkan tingkatannya, seperti rendah, sedang, dan tinggi. Secara keseluruhan wilayah di Kota Bandung menunjukkan potensi konflik ${tingkatDescriptions} pada tahun ${tahunLabel}. Grafik ini memberikan gambaran umum tentang risiko konflik di Kota Bandung, yang dapat menjadi dasar prioritas kebijakan dan langkah preventif.`;
-            const totalTimeline = data.length;
-            document.getElementById('desc-timeline').textContent = `Grafik ini menggambarkan tren potensi konflik dari waktu ke waktu pada tahun ${tahunLabel}. Total konflik yang tercatat pada periode ini adalah ${totalTimeline} kasus. Dari grafik terlihat adanya fluktuasi, dengan peningkatan potensi konflik pada beberapa waktu tertentu dan penurunan di waktu lainnya. Tren ini penting untuk memantau dinamika konflik agar langkah antisipatif dapat dilakukan tepat waktu. Dengan memahami pola ini, pemerintah dan masyarakat dapat lebih siap menghadapi potensi konflik yang muncul.`;
-        }
-
-        function initializeCharts() {
-            const colorSchemes = {
-                primary: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'],
-                gradients: [
-                    'rgba(255, 107, 107, 0.8)', 'rgba(78, 205, 196, 0.8)', 'rgba(69, 183, 209, 0.8)',
-                    'rgba(150, 206, 180, 0.8)', 'rgba(254, 202, 87, 0.8)', 'rgba(255, 159, 243, 0.8)',
-                    'rgba(84, 160, 255, 0.8)', 'rgba(95, 39, 205, 0.8)'
-                ]
-            };
-
-            const kategoriCtx = document.getElementById('kategoriChart').getContext('2d');
-            charts.kategori = new Chart(kategoriCtx, {
-                type: 'doughnut', data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderColor: [], borderWidth: 2 }] },
-                options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, font: { size: 12 } } }, tooltip: { callbacks: { label: function(c) { const l = c.label||''; const v = c.parsed; const t = c.dataset.data.reduce((a,b)=>a+b,0); const p = t > 0 ? ((v/t)*100).toFixed(1) : 0; return `${l}: ${v} (${p}%)`; } } } } }
-            });
-
-            const kecamatanCtx = document.getElementById('kecamatanChart').getContext('2d');
-            charts.kecamatan = new Chart(kecamatanCtx, {
-                type: 'bar', data: { labels: [], datasets: [{ label: 'Jumlah Konflik', data: [], backgroundColor: colorSchemes.gradients[1], borderColor: colorSchemes.primary[1], borderWidth: 2, borderRadius: 8 }] },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#718096' }, grid: { color: 'rgba(113, 128, 150, 0.1)' } }, x: { ticks: { color: '#718096', autoSkip: false, maxRotation: 45, minRotation: 0 }, grid: { display: false } } } }
-            });
-
-            const tingkatCtx = document.getElementById('tingkatChart').getContext('2d');
-            charts.tingkat = new Chart(tingkatCtx, {
-                type: 'pie', data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderColor: [], borderWidth: 2 }] },
-                options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, font: { size: 12 } } }, tooltip: { callbacks: { label: function(c) { const l = c.label||''; const v = c.parsed; const t = c.dataset.data.reduce((a,b)=>a+b,0); const p = t > 0 ? ((v/t)*100).toFixed(1) : 0; return `${l}: ${v} (${p}%)`; } } } } }
-            });
-
-            const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-            charts.timeline = new Chart(timelineCtx, {
-                type: 'line', data: { labels: [], datasets: [{ label: 'Jumlah Konflik', data: [], borderColor: colorSchemes.primary[2], backgroundColor: colorSchemes.gradients[2], borderWidth: 3, fill: true, tension: 0.4 }] },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#718096' }, grid: { color: 'rgba(113, 128, 150, 0.1)' } }, x: { ticks: { color: '#718096' }, grid: { color: 'rgba(113, 128, 150, 0.1)' } } } }
-            });
-        }
-
-        function updateKategoriChart(data) {
-            const labels = Object.keys(data);
-            const values = Object.values(data);
-            const colorSchemes = {
-                primary: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'],
-                gradients: [
-                    'rgba(255, 107, 107, 0.8)', 'rgba(78, 205, 196, 0.8)', 'rgba(69, 183, 209, 0.8)',
-                    'rgba(150, 206, 180, 0.8)', 'rgba(254, 202, 87, 0.8)', 'rgba(255, 159, 243, 0.8)',
-                    'rgba(84, 160, 255, 0.8)', 'rgba(95, 39, 205, 0.8)'
-                ]
-            };
-
-            charts.kategori.data.labels = labels;
-            charts.kategori.data.datasets[0].data = values;
-            charts.kategori.data.datasets[0].backgroundColor = colorSchemes.gradients.slice(0, labels.length);
-            charts.kategori.data.datasets[0].borderColor = colorSchemes.primary.slice(0, labels.length);
-            charts.kategori.update();
-        }
-
-        function updateKecamatanChart(data) {
-            const sorted = Object.entries(data).sort((a, b) => a[0].localeCompare(b[0]));
-            const labels = sorted.map(entry => entry[0]);
-            const values = sorted.map(entry => entry[1]);
-
-            charts.kecamatan.data.labels = labels;
-            charts.kecamatan.data.datasets[0].data = values;
-
-            const max = Math.max(...values);
-            const barColors = values.map(val => {
-                const intensity = val / max;
-                if (intensity > 0.7) return '#e53e3e';
-                if (intensity > 0.4) return '#f6ad55';
-                return '#68d391';
-            });
-
-            charts.kecamatan.data.datasets[0].backgroundColor = barColors;
-            charts.kecamatan.data.datasets[0].borderColor = barColors;
-            charts.kecamatan.update();
-        }
-
-        function updateTingkatChart(data) {
-            const labels = Object.keys(data);
-            const values = Object.values(data);
-            
-            const colors = {
-                'rendah': ['rgba(150, 206, 180, 0.8)', '#96ceb4'],
-                'sedang': ['rgba(254, 202, 87, 0.8)', '#feca57'],
-                'tinggi': ['rgba(255, 107, 107, 0.8)', '#ff6b6b']
-            };
-
-            const backgrounds = labels.map(label => colors[label] ? colors[label][0] : 'rgba(200, 200, 200, 0.8)');
-            const borders = labels.map(label => colors[label] ? colors[label][1] : '#c8c8c8');
-
-            charts.tingkat.data.labels = labels;
-            charts.tingkat.data.datasets[0].data = values;
-            charts.tingkat.data.datasets[0].backgroundColor = backgrounds;
-            charts.tingkat.data.datasets[0].borderColor = borders;
-            charts.tingkat.update();
-        }
-
-        function updateTimelineChart(filteredData) {
-            const selectedYear = document.getElementById('yearFilter').value;
-            const timelineData = {};
-
-            filteredData.forEach(item => {
-                const date = new Date(item.tanggal);
-                const year = date.getFullYear();
-                const month = date.getMonth();
-
-                if (!selectedYear) {
-                    timelineData[year] = (timelineData[year] || 0) + 1;
-                } else if (String(year) === selectedYear) {
-                    timelineData[month] = (timelineData[month] || 0) + 1;
-                }
-            });
-
-            let labels = [], values = [];
-
-            if (!selectedYear) {
-                const sortedYears = Object.keys(timelineData).sort();
-                labels = sortedYears;
-                values = sortedYears.map(y => timelineData[y]);
-            } else {
-                labels = [...Array(12).keys()].map(m => new Date(0, m).toLocaleString('id-ID', { month: 'short' }));
-                values = [...Array(12).keys()].map(m => timelineData[m] || 0);
-            }
-
-            charts.timeline.data.labels = labels;
-            charts.timeline.data.datasets[0].data = values;
-            charts.timeline.update();
-        }
-
         function updateCurrentView() {
             switch(currentView) {
                 case 'gis-container':
                     updateMap();
                     updateMapsChartStatistics();
-                    animateNumbers();
-                    updateChartDescriptions();
-                    break;
-                case 'chart-grid':
-                    updateCharts();
-                    updateMapsChartStatistics();
-                    animateNumbers();
-                    updateChartDescriptions();
                     break;
                 case 'table-container':
                     updateTableStatistics();
-                    animateNumbers(); // Menggunakan animateNumbers yang sama
                     break;
             }
         }
@@ -1451,21 +1067,26 @@
             document.getElementById('konflikAktif').textContent = konflikAktif;
         }
 
+        let hasAnimated = false;
         function animateNumbers() {
+            if (hasAnimated) return;
+            hasAnimated = true;
+
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach(element => {
                 const target = parseInt(element.textContent);
+                if (isNaN(target) || target <= 0) return;
                 let current = 0;
-                const increment = target / 50;
+                const increment = Math.max(1, Math.ceil(target / 25));
                 const timer = setInterval(() => {
                     current += increment;
                     if (current >= target) {
                         element.textContent = target;
                         clearInterval(timer);
                     } else {
-                        element.textContent = Math.floor(current);
+                        element.textContent = current;
                     }
-                }, 30);
+                }, 20);
             });
         }
     </script>
