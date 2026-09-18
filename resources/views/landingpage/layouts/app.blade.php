@@ -47,6 +47,9 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    {{-- Floating CS WhatsApp Button --}}
+    @include('components.cs-button')
+
     {{-- Tempat tambahan JS dari blade lain --}}
     @stack('scripts')
 
