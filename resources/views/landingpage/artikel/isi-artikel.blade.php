@@ -48,13 +48,13 @@
                         Bagikan Artikel Ini
                     </h3>
                     <div class="share-options">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" 
-                            target="_blank" class="share-icon facebook" title="Bagikan ke Facebook">
-                            <i class="fab fa-facebook-f"></i>
+                        <a href="https://www.tiktok.com/" 
+                            target="_blank" class="share-icon tiktok" title="Bagikan ke TikTok">
+                            <i class="fab fa-tiktok"></i>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($post->title) }}" 
-                            target="_blank" class="share-icon twitter" title="Bagikan ke Twitter">
-                            <i class="fab fa-x-twitter"></i>
+                        <a href="https://www.instagram.com/" 
+                            target="_blank" class="share-icon instagram" title="Bagikan ke Instagram">
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->fullUrl()) }}" 
                             target="_blank" class="share-icon whatsapp" title="Bagikan ke WhatsApp">

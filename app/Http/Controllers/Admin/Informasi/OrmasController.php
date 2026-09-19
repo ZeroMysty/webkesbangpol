@@ -8,14 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Ormas;
 use App\Models\PengurusOrmas;
 use App\Models\DokumenOrmas;
+use App\Models\ImportBatch;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;   
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\MultiSheetOrmasImport;
+use App\Services\OrmasExcelImporter;
 use Mews\Purifier\Facades\Purifier;
 
 class OrmasController extends Controller
@@ -57,96 +57,61 @@ class OrmasController extends Controller
         $file = $request->file('file');
 
         try {
-            $import = new MultiSheetOrmasImport(false);
-            Excel::import($import, $file);
-            $data = $import->collectAllData();
+            $importer = new OrmasExcelImporter();
+            $result = $importer->import(
+                $file->getRealPath(),
+                $file->getClientOriginalName(),
+                auth()->user()->name ?? 'Admin'
+            );
 
-            $seenNames = [];
-            $sourceMap = [
-                'DATA VERIF ORMAS' => 'verif',
-                'OrmasLSM'         => 'lsm',
-                'Yayasan'          => 'yayasan',
-            ];
+            $imported = $result['imported_count'];
+            $skippedNames = $result['skipped_names'];
+            $skippedCount = count($skippedNames);
 
-            foreach (['DATA VERIF ORMAS', 'OrmasLSM', 'Yayasan'] as $sheet) {
-                Log::debug("Mulai memproses sheet: {$sheet}");
-                $enumValue = $sourceMap[$sheet] ?? null;
-
-                foreach (($data[$sheet] ?? []) as $index => $row) {
-                    $namaKey = trim(strtolower($row['nama_organisasi'] ?? ''));
-                    if (empty($namaKey)) {
-                        Log::debug("[{$sheet}][{$index}] Skip: Nama kosong");
-                        continue;
-                    }
-
-                    // 1) SKIP jika Ormas sudah ada
-                    if (Ormas::whereRaw('LOWER(nama_organisasi) = ?', [$namaKey])->exists()) {
-                        Log::debug("[{$sheet}][{$index}] Skip Ormas: '{$row['nama_organisasi']}' sudah ada");
-                        continue;
-                    }
-
-                    // 1a) SKIP jika alamat atau bidang kosong
-                    if (empty($row['alamat']) || empty($row['bidang'])) {
-                        Log::debug("[{$sheet}][{$index}] Skip Ormas: Alamat atau bidang kosong");
-                        continue;
-                    }
-
-                    $ormas = Ormas::create([
-                        'nama_organisasi' => $row['nama_organisasi'],
-                        'alamat'          => $row['alamat'],     // wajib ada
-                        'bidang'          => $row['bidang'],     // wajib ada
-                        'sumber_data'     => $enumValue,
-                    ]);
-                    Log::debug("[{$sheet}][{$index}] Ormas dibuat: ID {$ormas->id}");
-
-
-                    // Simpan dokumen jika ada, matching berdasarkan ormas_id
-                    if (!empty($row['akta']) || !empty($row['ahu_skt']) || !empty($row['npwp'])) {
-                        DokumenOrmas::create([
-                            'ormas_id'      => $ormas->id,
-                            'akta_notaris'  => $row['akta']  ?? null,
-                            'ahu_skt'       => $row['ahu_skt'] ?? null,
-                            'npwp'          => $row['npwp']   ?? null,
-                        ]);
-                    }
-
-                    // Simpan pengurus jika ada, matching berdasarkan kombinasi unik
-                    if (!empty($row['pengurus'])) {
-                        foreach ($row['pengurus'] as $pengurus) {
-                            PengurusOrmas::create([
-                                'ormas_id'    => $ormas->id,
-                                'jabatan'     => $pengurus['jabatan'],
-                                'nama'        => $pengurus['nama'],
-                                'no_telepon'  => $pengurus['telepon'] ?? null,
-                            ]);
-                        }
-                    }
+            if ($imported > 0 && $skippedCount === 0) {
+                return redirect()->route('ormass.index')
+                    ->with('success', "File Excel berhasil diimport! Total {$imported} data organisasi baru berhasil ditambahkan.");
+            } elseif ($imported > 0 && $skippedCount > 0) {
+                $skippedText = implode(', ', array_slice($skippedNames, 0, 8));
+                if ($skippedCount > 8) {
+                    $skippedText .= ' (dan ' . ($skippedCount - 8) . ' lainnya)';
                 }
-
-                Log::debug("Selesai memproses sheet: {$sheet}");
+                return redirect()->route('ormass.index')
+                    ->with('success', "Berhasil mengimpor {$imported} data organisasi baru.")
+                    ->with('warning', "Peringatan: Terdapat {$skippedCount} organisasi yang dilewati karena sudah ada di database: {$skippedText}");
+            } elseif ($imported === 0 && $skippedCount > 0) {
+                $skippedText = implode(', ', array_slice($skippedNames, 0, 8));
+                if ($skippedCount > 8) {
+                    $skippedText .= ' (dan ' . ($skippedCount - 8) . ' lainnya)';
+                }
+                return redirect()->route('ormass.index')
+                    ->with('warning', "Tidak ada data baru yang diimpor. Semua ({$skippedCount}) organisasi dalam file Excel sudah terdaftar di database: {$skippedText}");
+            } else {
+                return redirect()->route('ormass.index')
+                    ->with('warning', 'File Excel telah dibaca, namun tidak ditemukan baris data organisasi yang valid.');
             }
-
-            return redirect()->route('ormass.index')->with('success', 'File berhasil diimport');
         } catch (\Exception $e) {
-            Log::error("Gagal import file Excel: " . $e->getMessage());
-            return redirect()->route('ormass.index')->with('error', 'Error: ' . $e->getMessage());
+            Log::error("Gagal import file Excel: " . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect()->route('ormass.index')->with('error', 'Gagal memproses file Excel: ' . $e->getMessage());
         }
     }
 
     public function inputManualStore(Request $request): RedirectResponse
     {
-        // 1. Validasi input
+        // 1. Validasi input - Hanya nama_organisasi yang wajib, sisanya opsional
         $validated = $request->validate([
             'nama_organisasi'       => 'required|string|max:255',
-            'bidang'                => 'required|string|max:255',
-            'alamat'                => 'required|string',
-            'sumber_data'           => 'required|string|max:255',
-            'dokumen.akta_notaris'  => 'required|string|max:255',
-            'dokumen.ahu_skt'       => 'required|string|max:255',
+            'bidang'                => 'nullable|string|max:255',
+            'alamat'                => 'nullable|string',
+            'sumber_data'           => 'nullable|string|max:255',
+            'dokumen.akta_notaris'  => 'nullable|string|max:255',
+            'dokumen.ahu_skt'       => 'nullable|string|max:255',
             'dokumen.npwp'          => 'nullable|string|max:255',
-            'pengurus'              => 'required|array',
-            'pengurus.*.nama'       => 'required|string|max:255',
-            'pengurus.*.jabatan'    => 'required|string|in:Ketua,Sekretaris,Bendahara',
+            'pengurus'              => 'nullable|array',
+            'pengurus.*.nama'       => 'nullable|string|max:255',
+            'pengurus.*.jabatan'    => 'nullable|string|in:Ketua,Sekretaris,Bendahara',
             'pengurus.*.no_telepon' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s()]+$/'],
         ]);
 
@@ -155,12 +120,12 @@ class OrmasController extends Controller
                 // 2. Simpan data ormas
                 $ormas = Ormas::create([
                     'nama_organisasi' => $validated['nama_organisasi'],
-                    'bidang'          => $validated['bidang'],
-                    'alamat'          => preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])),
-                    'sumber_data'     => $validated['sumber_data'],
+                    'bidang'          => $validated['bidang'] ?? null,
+                    'alamat'          => !empty($validated['alamat']) ? preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])) : null,
+                    'sumber_data'     => $validated['sumber_data'] ?? 'manual',
                 ]);
 
-                // 3. Simpan dokumen ormas (akta dan ahu wajib, npwp opsional)
+                // 3. Simpan dokumen ormas (semua opsional)
                 DokumenOrmas::create([
                     'ormas_id'      => $ormas->id,
                     'akta_notaris'  => $validated['dokumen']['akta_notaris'] ?? null,
@@ -218,18 +183,18 @@ class OrmasController extends Controller
 
     public function update(Request $request, int $id): RedirectResponse
     {
-        // 1. Validasi input
+        // 1. Validasi input - Hanya nama_organisasi yang wajib, sisanya opsional
         $validated = $request->validate([
             'nama_organisasi'       => 'required|string|max:255',
-            'bidang'                => 'required|string|max:255',
-            'alamat'                => 'required|string',
-            'sumber_data'           => 'required|string|max:255',
-            'dokumen.akta_notaris'  => 'required|string|max:255',
-            'dokumen.ahu_skt'       => 'required|string|max:255',
+            'bidang'                => 'nullable|string|max:255',
+            'alamat'                => 'nullable|string',
+            'sumber_data'           => 'nullable|string|max:255',
+            'dokumen.akta_notaris'  => 'nullable|string|max:255',
+            'dokumen.ahu_skt'       => 'nullable|string|max:255',
             'dokumen.npwp'          => 'nullable|string|max:255',
-            'pengurus'              => 'required|array',
-            'pengurus.*.nama'       => 'required|string|max:255',
-            'pengurus.*.jabatan'    => 'required|string|in:Ketua,Sekretaris,Bendahara',
+            'pengurus'              => 'nullable|array',
+            'pengurus.*.nama'       => 'nullable|string|max:255',
+            'pengurus.*.jabatan'    => 'nullable|string|in:Ketua,Sekretaris,Bendahara',
             'pengurus.*.no_telepon' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s()]+$/'],
             'pengurus.*.id'         => 'nullable|exists:pengurus_ormas,id',
         ]);
@@ -242,61 +207,40 @@ class OrmasController extends Controller
                 // 2. Update data ormas
                 $ormas->update([
                     'nama_organisasi' => $validated['nama_organisasi'],
-                    'bidang'          => $validated['bidang'],
-                    'alamat'          => preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])),
-                    'sumber_data'     => $validated['sumber_data'],
+                    'bidang'          => $validated['bidang'] ?? null,
+                    'alamat'          => !empty($validated['alamat']) ? preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', Purifier::clean($validated['alamat'])) : null,
+                    'sumber_data'     => $validated['sumber_data'] ?? $ormas->sumber_data,
                 ]);
 
-                // 3. Update dokumen ormas (menangani nilai null/kosong)
+                // 3. Update dokumen ormas
                 if (isset($validated['dokumen']) && is_array($validated['dokumen'])) {
-                    $dokumenData = [
-                        'akta_notaris' => $validated['dokumen']['akta_notaris'] ?? null,
-                        'ahu_skt'      => $validated['dokumen']['ahu_skt'] ?? null,
-                        'npwp'         => $validated['dokumen']['npwp'] ?? null,
-                    ];
-                    
-                    // Filter nilai yang tidak null
-                    $dokumenData = array_filter($dokumenData, function($value) {
-                        return $value !== null && $value !== '';
-                    });
-                    
-                    if (!empty($dokumenData)) {
-                        DokumenOrmas::updateOrCreate(
-                            ['ormas_id' => $ormas->id],
-                            $dokumenData
-                        );
-                    }
+                    DokumenOrmas::updateOrCreate(
+                        ['ormas_id' => $ormas->id],
+                        [
+                            'akta_notaris' => $validated['dokumen']['akta_notaris'] ?? null,
+                            'ahu_skt'      => $validated['dokumen']['ahu_skt'] ?? null,
+                            'npwp'         => $validated['dokumen']['npwp'] ?? null,
+                        ]
+                    );
                 }
 
-                // 4. Update setiap pengurus (menangani nilai null/kosong)
+                // 4. Update pengurus
                 if (isset($validated['pengurus']) && is_array($validated['pengurus'])) {
                     foreach ($validated['pengurus'] as $p) {
-                        // Siapkan data untuk pengurus
-                        $pengurusData = [
-                            'nama'       => $p['nama'] ?? null,
-                            'no_telepon' => $p['no_telepon'] ?? null,
-                        ];
-                        
-                        // Filter nilai yang tidak null
-                        $pengurusData = array_filter($pengurusData, function($value) {
-                            return $value !== null && $value !== '';
-                        });
-                        
-                        // Hanya update/create jika ada data valid
-                        if (!empty($pengurusData)) {
-                            if (!empty($p['id'])) {
-                                // Update pengurus yang sudah ada
-                                PengurusOrmas::where('id', $p['id'])
-                                    ->where('ormas_id', $ormas->id)
-                                    ->update($pengurusData);
-                            } else if (!empty($p['jabatan'])) {
-                                // Tambahkan jabatan ke data pengurus untuk pembuatan baru
-                                $pengurusData['jabatan'] = $p['jabatan'];
-                                $pengurusData['ormas_id'] = $ormas->id;
-                                
-                                // Buat pengurus baru
-                                PengurusOrmas::create($pengurusData);
-                            }
+                        if (!empty($p['id'])) {
+                            PengurusOrmas::where('id', $p['id'])
+                                ->where('ormas_id', $ormas->id)
+                                ->update([
+                                    'nama'       => $p['nama'] ?? null,
+                                    'no_telepon' => $p['no_telepon'] ?? null,
+                                ]);
+                        } else if (!empty($p['jabatan']) && !empty($p['nama'])) {
+                            PengurusOrmas::create([
+                                'ormas_id'   => $ormas->id,
+                                'jabatan'    => $p['jabatan'],
+                                'nama'       => $p['nama'],
+                                'no_telepon' => $p['no_telepon'] ?? null,
+                            ]);
                         }
                     }
                 }
@@ -344,6 +288,46 @@ class OrmasController extends Controller
             return redirect()
                 ->route('ormass.index')
                 ->with('error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
+        }
+    }
+    /**
+     * Tampilkan riwayat semua sesi import Excel.
+     */
+    public function importHistory(): View
+    {
+        $batches = ImportBatch::withCount('ormass')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        return view('dashboard.ormass.import-history', compact('batches'));
+    }
+
+    /**
+     * Rollback (hapus) semua ormas yang masuk dari sesi import tertentu.
+     */
+    public function rollbackBatch(int $batchId): RedirectResponse
+    {
+        try {
+            $batch = ImportBatch::findOrFail($batchId);
+            $count = $batch->ormass()->count();
+
+            DB::transaction(function () use ($batch) {
+                // Hapus semua ormas milik batch ini (cascade akan hapus pengurus & dokumen)
+                $batch->ormass()->delete();
+                $batch->delete();
+            });
+
+            return redirect()
+                ->route('ormass.import-history')
+                ->with('success', "Berhasil mengembalikan data: {$count} organisasi dari import '{$batch->filename}' telah dihapus.");
+        } catch (\Throwable $e) {
+            Log::error('Gagal rollback import batch: ' . $e->getMessage(), [
+                'batch_id' => $batchId,
+                'trace'    => $e->getTraceAsString(),
+            ]);
+            return redirect()
+                ->route('ormass.import-history')
+                ->with('error', 'Gagal mengembalikan data: ' . $e->getMessage());
         }
     }
 }

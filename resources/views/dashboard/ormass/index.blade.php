@@ -13,6 +13,9 @@
                         <a href="{{ route('ormass.create') }}" class="btn-tambah-konten">
                             <i class="fas fa-plus"></i> <span>Tambah Organisasi</span>
                         </a>
+                        <a href="{{ route('ormass.import-history') }}" class="btn btn-sm text-white ms-2" style="background-color: #B40D14; border: 1px solid #B40D14;" title="Lihat riwayat import Excel">
+                            <i class="fas fa-history me-1"></i> Riwayat Import
+                        </a>
                         
                         <!-- Toolbar (Filter & Search) -->
                         <div class="ormas-toolbar-container">
@@ -41,7 +44,7 @@
                                                 value="{{ request('search') }}" 
                                                 placeholder="Cari nama organisasi..."
                                                 aria-label="Search" autocomplete="off">
-                                        <button class="btn btn-outline-secondary" type="submit" id="search-button">
+                                        <button class="btn btn-search-submit" type="submit" id="search-button" title="Cari">
                                             <i class="fas fa-search"></i>
                                         </button>
                                         @if(request('search'))
@@ -56,7 +59,17 @@
                     </div>
 
                     @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if(session('warning'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i> {{ session('warning') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     @endif
 
                     <!-- Search Results Info -->
@@ -172,9 +185,13 @@
 
 <script>
     @if(session()->has('success'))
-        toastr.success('{{ session('success') }}', 'BERHASIL!');
-    @elseif(session()->has('error'))
-        toastr.error('{{ session('error') }}', 'GAGAL!');
+        toastr.success(@json(session('success')), 'BERHASIL!');
+    @endif
+    @if(session()->has('warning'))
+        toastr.warning(@json(session('warning')), 'PERINGATAN!');
+    @endif
+    @if(session()->has('error'))
+        toastr.error(@json(session('error')), 'GAGAL!');
     @endif
 
     // Auto-focus search input when page loads if there's a search query

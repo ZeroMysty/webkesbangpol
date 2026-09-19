@@ -63,26 +63,43 @@
     width: 280px;
 }
 
+.ormas-search-container .form-control {
+    background-color: #ffffff !important;
+    border: 1.5px solid #ced4da;
+    color: #1f2937;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
 .ormas-search-container .form-control:focus {
+    background-color: #ffffff !important;
+    border-color: #B40D14 !important;
+    box-shadow: 0 0 0 0.2rem rgba(180, 13, 20, 0.2) !important;
+}
+
+.ormas-search-container .btn-search-submit {
+    background-color: #B40D14 !important;
+    border-color: #B40D14 !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease;
+}
+
+.ormas-search-container .btn-search-submit:hover {
+    background-color: #990B11 !important;
+    border-color: #990B11 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(180, 13, 20, 0.35);
+}
+
+.ormas-search-container .btn-outline-danger {
     border-color: #B40D14;
-    box-shadow: 0 0 0 0.2rem rgba(180, 13, 20, 0.25);
-}
-
-.ormas-search-container .btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
-}
-
-.ormas-search-container .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: #fff;
+    color: #B40D14;
 }
 
 .ormas-search-container .btn-outline-danger:hover {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: #fff;
+    background-color: #B40D14;
+    border-color: #B40D14;
+    color: #ffffff;
 }
 
 /* Responsive: stack button, filter, and search on small screens */

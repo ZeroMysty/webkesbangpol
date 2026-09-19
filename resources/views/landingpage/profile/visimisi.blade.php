@@ -107,13 +107,13 @@
                     Bagikan Halaman Ini
                 </h3>
                 <div class="share-options d-flex gap-3">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" 
-                        target="_blank" class="share-icon facebook" title="Bagikan ke Facebook">
-                        <i class="fab fa-facebook-f"></i>
+                    <a href="https://www.tiktok.com/" 
+                        target="_blank" class="share-icon tiktok" title="Bagikan ke TikTok">
+                        <i class="fab fa-tiktok"></i>
                     </a>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode('Visi Misi Badan Kesatuan Bangsa dan Politik Kota Bandung') }}" 
-                        target="_blank" class="share-icon twitter" title="Bagikan ke Twitter">
-                        <i class="fab fa-x-twitter"></i>
+                    <a href="https://www.instagram.com/" 
+                        target="_blank" class="share-icon instagram" title="Bagikan ke Instagram">
+                        <i class="fab fa-instagram"></i>
                     </a>
                     <a href="https://api.whatsapp.com/send?text={{ urlencode('Visi Misi Badan Kesatuan Bangsa dan Politik Kota Bandung') }}%20{{ urlencode(request()->fullUrl()) }}" 
                         target="_blank" class="share-icon whatsapp" title="Bagikan ke WhatsApp">

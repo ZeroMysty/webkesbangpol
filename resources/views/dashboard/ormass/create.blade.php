@@ -53,16 +53,16 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="bidang" class="form-label">Bidang <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" placeholder="Masukkan bidang" value="{{ old('bidang') }}" required autocomplete="off">
+                                             <div class="col-md-6 mb-3">
+                                                <label for="bidang" class="form-label">Bidang <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" placeholder="Masukkan bidang" value="{{ old('bidang') }}" autocomplete="off">
                                                 @error('bidang')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="alamat" class="form-label">Alamat <span class="text-danger">*</span></label>
+                                            <label for="alamat" class="form-label">Alamat <span class="text-muted small">(opsional)</span></label>
                                             @php
                                                 $alamatValue = old('alamat');
                                                 if ($alamatValue) {
@@ -75,8 +75,8 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="sumber_data" class="form-label">Sumber Data <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('sumber_data') is-invalid @enderror" name="sumber_data" id="sumber_data" placeholder="Masukkan sumber data" value="{{ old('sumber_data') }}" required autocomplete="off">
+                                            <label for="sumber_data" class="form-label">Sumber Data <span class="text-muted small">(opsional)</span></label>
+                                            <input type="text" class="form-control @error('sumber_data') is-invalid @enderror" name="sumber_data" id="sumber_data" placeholder="Masukkan sumber data (misal: verif, lsm, yayasan)" value="{{ old('sumber_data') }}" autocomplete="off">
                                             @error('sumber_data')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -93,8 +93,8 @@
                                             <h6 class="border-bottom pb-2">Ketua</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="ketua_nama" class="form-label">Nama Ketua <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.0.nama') is-invalid @enderror" name="pengurus[0][nama]" placeholder="Masukkan nama ketua" value="{{ old('pengurus.0.nama') }}" required autocomplete="off">
+                                                    <label for="ketua_nama" class="form-label">Nama Ketua <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.0.nama') is-invalid @enderror" name="pengurus[0][nama]" placeholder="Masukkan nama ketua" value="{{ old('pengurus.0.nama') }}" autocomplete="off">
                                                     <input type="hidden" name="pengurus[0][jabatan]" value="Ketua">
                                                     @error('pengurus.0.nama')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -114,8 +114,8 @@
                                             <h6 class="border-bottom pb-2">Sekretaris</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="sekretaris_nama" class="form-label">Nama Sekretaris <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.1.nama') is-invalid @enderror" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris" value="{{ old('pengurus.1.nama') }}" required autocomplete="off">
+                                                    <label for="sekretaris_nama" class="form-label">Nama Sekretaris <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.1.nama') is-invalid @enderror" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris" value="{{ old('pengurus.1.nama') }}" autocomplete="off">
                                                     <input type="hidden" name="pengurus[1][jabatan]" value="Sekretaris">
                                                     @error('pengurus.1.nama')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -135,8 +135,8 @@
                                             <h6 class="border-bottom pb-2">Bendahara</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="bendahara_nama" class="form-label">Nama Bendahara <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.2.nama') is-invalid @enderror" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara" value="{{ old('pengurus.2.nama') }}" required autocomplete="off">
+                                                    <label for="bendahara_nama" class="form-label">Nama Bendahara <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.2.nama') is-invalid @enderror" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara" value="{{ old('pengurus.2.nama') }}" autocomplete="off">
                                                     <input type="hidden" name="pengurus[2][jabatan]" value="Bendahara">
                                                     @error('pengurus.2.nama')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -161,15 +161,15 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
-                                                <label for="akta_notaris" class="form-label">Akta Notaris <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('dokumen.akta_notaris') is-invalid @enderror" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" value="{{ old('dokumen.akta_notaris') }}" required autocomplete="off">
+                                                <label for="akta_notaris" class="form-label">Akta Notaris <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('dokumen.akta_notaris') is-invalid @enderror" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" value="{{ old('dokumen.akta_notaris') }}" autocomplete="off">
                                                 @error('dokumen.akta_notaris')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="ahu_skt" class="form-label">AHU/SKT <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('dokumen.ahu_skt') is-invalid @enderror" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" value="{{ old('dokumen.ahu_skt') }}" required autocomplete="off">
+                                                <label for="ahu_skt" class="form-label">AHU/SKT <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('dokumen.ahu_skt') is-invalid @enderror" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" value="{{ old('dokumen.ahu_skt') }}" autocomplete="off">
                                                 @error('dokumen.ahu_skt')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -242,17 +242,87 @@
 
     <!-- Modal untuk Template Excel -->
     <div class="modal fade" id="excelTemplateModal" tabindex="-1" aria-labelledby="excelTemplateModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="excelTemplateModalLabel">Download Template Excel</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="excelTemplateModalLabel">
+                        <i class="fas fa-file-excel me-2"></i> Pilihan Template Excel Ormas
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Silakan download template Excel untuk mengisi data Ormas dengan format yang sesuai.</p>
-                    <a href="{{ asset('document/template-import/Template-Data-Ormas.xlsx') }}" class="btn btn-success">
-                        <i class="fas fa-file-excel me-1"></i> Download Template
-                    </a>
+                    <p class="text-muted mb-2">
+                        Sistem mendukung <strong>3 jenis template Excel</strong> untuk mengunggah atau memperbarui data Ormas. Semua kolom (seperti alamat, bidang, akta, atau telepon yang kosong) akan menyesuaikan apa adanya sesuai isi Excel.
+                    </p>
+                    <div class="alert alert-info py-2 px-3 small mb-3">
+                        <i class="fas fa-info-circle me-1"></i> <strong>Format Pengurus dalam Sel Excel:</strong><br>
+                        Tuliskan pengurus dalam 1 sel dengan format:<br>
+                        <code>K: Nama Ketua</code><br>
+                        <code>S: Nama Sekretaris</code><br>
+                        <code>B: Nama Bendahara</code>
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- Template 1 -->
+                        <div class="col-md-12">
+                            <div class="card h-100 border-primary shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                                        <h6 class="card-title text-primary fw-bold mb-0">
+                                            <i class="fas fa-table me-2"></i> Template 1: Format Standar Ormas
+                                        </h6>
+                                        <a href="{{ asset('document/template-import/Template_1_Standar_Ormas.xlsx') }}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-download me-1"></i> Download Template 1
+                                        </a>
+                                    </div>
+                                    <p class="card-text small text-secondary mb-2">
+                                        <strong>Kolom:</strong> No &bull; Hari/Tgl &bull; Nama Organisasi &bull; Alamat &bull; Nama Pengurus &bull; No. Tgl Akta Notaris &bull; No. AHU/SKT/Tgl &bull; Bidang &bull; No Telepon
+                                    </p>
+                                    <span class="badge bg-light text-dark border">Format Verifikasi Standar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Template 2 -->
+                        <div class="col-md-12">
+                            <div class="card h-100 border-success shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                                        <h6 class="card-title text-success fw-bold mb-0">
+                                            <i class="fas fa-list-alt me-2"></i> Template 2: Format Lengkap Ormas / LSM
+                                        </h6>
+                                        <a href="{{ asset('document/template-import/Template_2_Lengkap_Ormas.xlsx') }}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-download me-1"></i> Download Template 2
+                                        </a>
+                                    </div>
+                                    <p class="card-text small text-secondary mb-2">
+                                        <strong>Kolom:</strong> NO &bull; NO URUT &bull; NAMA ORGANISASI &bull; ALAMAT &bull; PENGURUS &bull; NO. TGL AKTA NOTARIS &bull; NO. AHU/SKT &bull; BIDANG &bull; HP/WA &bull; PENGURUS LAMA &bull; ALAMAT BARU
+                                    </p>
+                                    <span class="badge bg-light text-dark border">Format Ormas/LSM Lengkap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Template 3 -->
+                        <div class="col-md-12">
+                            <div class="card h-100 border-warning shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                                        <h6 class="card-title text-dark fw-bold mb-0">
+                                            <i class="fas fa-calendar-alt me-2"></i> Template 3: Format Rekapitulasi Per Tahun
+                                        </h6>
+                                        <a href="{{ asset('document/template-import/Template_3_Rekapitulasi_Ormas.xlsx') }}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-download me-1"></i> Download Template 3
+                                        </a>
+                                    </div>
+                                    <p class="card-text small text-secondary mb-2">
+                                        <strong>Kolom:</strong> NO &bull; NO URUT &bull; NAMA ORGANISASI &bull; ALAMAT &bull; PENGURUS &bull; NO. TGL AKTA NOTARIS &bull; NO. AHU/SKT &bull; BIDANG &bull; HP/WA
+                                    </p>
+                                    <span class="badge bg-light text-dark border">Format Per Tahun (Memiliki Header Judul Tahun)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

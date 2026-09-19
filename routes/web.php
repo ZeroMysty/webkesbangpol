@@ -132,6 +132,9 @@ Route::middleware(['auth'])->group(function () {
     // -- Ormas
     Route::resource('/ormass', OrmasController::class);
     Route::post('/ormass/manual', [OrmasController::class, 'inputManualStore'])->name('ormass.inputmanualstore');
+    Route::get('/ormass-import-history', [OrmasController::class, 'importHistory'])->name('ormass.import-history');
+    Route::delete('/ormass-import-history/{batchId}/rollback', [OrmasController::class, 'rollbackBatch'])->name('ormass.rollback-batch');
+
     
     // -- Potensi Konflik Management (Dinonaktifkan sementara)
     // Route::get('/potensi-konflik/import', [PotensiKonflikController::class, 'showImportForm'])->name('potensi-konflik.import.form');

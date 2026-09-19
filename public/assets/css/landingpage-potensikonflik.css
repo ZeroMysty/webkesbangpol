@@ -701,26 +701,30 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #94A3B8;
+    color: #B40D14;
     font-size: 0.85rem;
 }
 
 .table-search-input {
-    background: #F8FAFC;
-    border: 1px solid var(--border-slate);
+    background: #FFFFFF !important;
+    border: 1.5px solid #E2E8F0;
     border-radius: 10px;
     padding: 0.45rem 0.85rem 0.45rem 2.25rem;
     font-size: 0.88rem;
-    color: var(--secondary-slate);
+    color: #1F2937;
     width: 100%;
     outline: none;
     transition: all 0.2s ease;
 }
 
+.table-search-input:hover {
+    border-color: #F87171;
+}
+
 .table-search-input:focus {
-    background: #FFFFFF;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
+    background: #FFFFFF !important;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.12);
 }
 
 .modern-table {

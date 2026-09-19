@@ -45,16 +45,16 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="bidang" class="form-label">Bidang <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" placeholder="Masukkan bidang" required autocomplete="off" value="{{ old('bidang', $ormas->bidang) }}">
+                                             <div class="col-md-6 mb-3">
+                                                <label for="bidang" class="form-label">Bidang <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" placeholder="Masukkan bidang" autocomplete="off" value="{{ old('bidang', $ormas->bidang) }}">
                                                 @error('bidang')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="alamat" class="form-label">Alamat <span class="text-danger">*</span></label>
+                                            <label for="alamat" class="form-label">Alamat <span class="text-muted small">(opsional)</span></label>
                                             @php
                                                 $alamatValue = old('alamat', $ormas->alamat ?? '');
                                                 $alamatValue = preg_replace('/<\/?(?:table|tbody|thead|tfoot|tr|th|td)\b[^>]*>/i', '', $alamatValue);
@@ -65,8 +65,8 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="sumber_data" class="form-label">Sumber Data <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('sumber_data') is-invalid @enderror" name="sumber_data" id="sumber_data" placeholder="Masukkan sumber data" required autocomplete="off" value="{{ old('sumber_data', $ormas->sumber_data) }}">
+                                            <label for="sumber_data" class="form-label">Sumber Data <span class="text-muted small">(opsional)</span></label>
+                                            <input type="text" class="form-control @error('sumber_data') is-invalid @enderror" name="sumber_data" id="sumber_data" placeholder="Masukkan sumber data" autocomplete="off" value="{{ old('sumber_data', $ormas->sumber_data) }}">
                                             @error('sumber_data')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -87,8 +87,8 @@
                                             <h6 class="border-bottom pb-2">Ketua</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="ketua_nama" class="form-label">Nama Ketua <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.0.nama') is-invalid @enderror" name="pengurus[0][nama]" placeholder="Masukkan nama ketua" required autocomplete="off" value="{{ old('pengurus.0.nama', $pengurus->get('Ketua')->nama ?? '') }}">
+                                                    <label for="ketua_nama" class="form-label">Nama Ketua <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.0.nama') is-invalid @enderror" name="pengurus[0][nama]" placeholder="Masukkan nama ketua" autocomplete="off" value="{{ old('pengurus.0.nama', $pengurus->get('Ketua')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[0][jabatan]" value="Ketua">
                                                     <input type="hidden" name="pengurus[0][id]" value="{{ $pengurus->get('Ketua')->id ?? '' }}">
                                                     @error('pengurus.0.nama')
@@ -109,8 +109,8 @@
                                             <h6 class="border-bottom pb-2">Sekretaris</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="sekretaris_nama" class="form-label">Nama Sekretaris <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.1.nama') is-invalid @enderror" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris" required autocomplete="off" value="{{ old('pengurus.1.nama', $pengurus->get('Sekretaris')->nama ?? '') }}">
+                                                    <label for="sekretaris_nama" class="form-label">Nama Sekretaris <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.1.nama') is-invalid @enderror" name="pengurus[1][nama]" placeholder="Masukkan nama sekretaris" autocomplete="off" value="{{ old('pengurus.1.nama', $pengurus->get('Sekretaris')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[1][jabatan]" value="Sekretaris">
                                                     <input type="hidden" name="pengurus[1][id]" value="{{ $pengurus->get('Sekretaris')->id ?? '' }}">
                                                     @error('pengurus.1.nama')
@@ -131,8 +131,8 @@
                                             <h6 class="border-bottom pb-2">Bendahara</h6>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="bendahara_nama" class="form-label">Nama Bendahara <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('pengurus.2.nama') is-invalid @enderror" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara" required autocomplete="off" value="{{ old('pengurus.2.nama', $pengurus->get('Bendahara')->nama ?? '') }}">
+                                                    <label for="bendahara_nama" class="form-label">Nama Bendahara <span class="text-muted small">(opsional)</span></label>
+                                                    <input type="text" class="form-control @error('pengurus.2.nama') is-invalid @enderror" name="pengurus[2][nama]" placeholder="Masukkan nama bendahara" autocomplete="off" value="{{ old('pengurus.2.nama', $pengurus->get('Bendahara')->nama ?? '') }}">
                                                     <input type="hidden" name="pengurus[2][jabatan]" value="Bendahara">
                                                     <input type="hidden" name="pengurus[2][id]" value="{{ $pengurus->get('Bendahara')->id ?? '' }}">
                                                     @error('pengurus.2.nama')
@@ -159,15 +159,15 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
-                                                <label for="akta_notaris" class="form-label">Akta Notaris <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('dokumen.akta_notaris') is-invalid @enderror" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" required autocomplete="off" value="{{ old('dokumen.akta_notaris', $ormas->dokumenedit->akta_notaris ?? '') }}">
+                                                <label for="akta_notaris" class="form-label">Akta Notaris <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('dokumen.akta_notaris') is-invalid @enderror" name="dokumen[akta_notaris]" placeholder="Masukkan nomor akta notaris" autocomplete="off" value="{{ old('dokumen.akta_notaris', $ormas->dokumenedit->akta_notaris ?? '') }}">
                                                 @error('dokumen.akta_notaris')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-md-4 mb-3">
-                                                <label for="ahu_skt" class="form-label">AHU/SKT <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('dokumen.ahu_skt') is-invalid @enderror" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" required autocomplete="off" value="{{ old('dokumen.ahu_skt', $ormas->dokumenedit->ahu_skt ?? '') }}">
+                                                <label for="ahu_skt" class="form-label">AHU/SKT <span class="text-muted small">(opsional)</span></label>
+                                                <input type="text" class="form-control @error('dokumen.ahu_skt') is-invalid @enderror" name="dokumen[ahu_skt]" placeholder="Masukkan nomor AHU/SKT" autocomplete="off" value="{{ old('dokumen.ahu_skt', $ormas->dokumenedit->ahu_skt ?? '') }}">
                                                 @error('dokumen.ahu_skt')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

@@ -15,6 +15,7 @@ class Ormas extends Model
         'alamat',
         'bidang',
         'sumber_data',
+        'import_batch_id',
     ];
 
     public function pengurus()
@@ -32,8 +33,13 @@ class Ormas extends Model
         return $this->hasOne(PengurusOrmas::class);
     }
 
-        public function dokumenedit()
+    public function dokumenedit()
     {
         return $this->hasOne(DokumenOrmas::class);
+    }
+
+    public function importBatch()
+    {
+        return $this->belongsTo(\App\Models\ImportBatch::class, 'import_batch_id');
     }
 }

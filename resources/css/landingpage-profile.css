@@ -1983,14 +1983,14 @@
     padding: 14px 16px;
     padding-right: 45px;
     border-radius: 12px;
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     font-size: 0.95rem;
     font-weight: 500;
-    color: #334155;
+    color: #1f2937;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.3s ease;
     appearance: none;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23B40D14' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
     background-position: right 14px center;
@@ -2000,12 +2000,13 @@
 
 .form-select:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(180, 13, 20, 0.15);
-    border-color: rgba(180, 13, 20, 0.3);
+    box-shadow: 0 4px 16px rgba(180, 13, 20, 0.12);
+    border-color: #ef4444;
 }
 
 .form-select:focus {
     outline: none;
+    background-color: #ffffff;
     border-color: #B40D14;
     box-shadow: 0 4px 20px rgba(180, 13, 20, 0.2), 0 0 0 3px rgba(180, 13, 20, 0.1);
     transform: translateY(-1px);
@@ -2014,7 +2015,7 @@
 .form-select option {
     padding: 10px;
     background-color: #ffffff;
-    color: #334155;
+    color: #1f2937;
 }
 
 /* Modern Search Container */
@@ -2030,14 +2031,13 @@
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 20px;
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     font-size: 1rem;
     font-weight: 500;
-    color: #334155;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    backdrop-filter: blur(10px);
+    color: #1f2937;
+    transition: all 0.3s ease;
 }
 
 .search-input::placeholder {
@@ -2046,16 +2046,16 @@
 }
 
 .search-input:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(180, 13, 20, 0.12);
-    border-color: rgba(180, 13, 20, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(180, 13, 20, 0.1);
+    border-color: #ef4444;
 }
 
 .search-input:focus {
     outline: none;
     border-color: #B40D14;
-    box-shadow: 0 8px 30px rgba(180, 13, 20, 0.2), 0 0 0 3px rgba(180, 13, 20, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(180, 13, 20, 0.18), 0 0 0 3px rgba(180, 13, 20, 0.1);
+    transform: translateY(-1px);
     background: #ffffff;
 }
 
@@ -2604,27 +2604,34 @@
 }
 
 /* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .form-select,
-    .search-input {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        color: #f1f5f9;
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .combined-filter-search {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .search-input::placeholder {
-        color: #64748b;
-    }
-    
-    .form-select option {
-        background-color: #1e293b;
-        color: #f1f5f9;
-    }
+/* Force light styling for form controls even in dark mode */
+.form-select,
+.search-input {
+    background: #ffffff !important;
+    color: #1f2937 !important;
+    border: 1.5px solid #e2e8f0 !important;
+}
+
+.form-select:focus,
+.search-input:focus {
+    background: #ffffff !important;
+    border-color: #B40D14 !important;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.15) !important;
+}
+
+.combined-filter-search {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.search-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+.form-select option {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
 }
 
 /* Animation for smooth transitions */
