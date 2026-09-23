@@ -20,14 +20,14 @@ class PostController extends Controller
     {
         $count = Post::count();
         $posts = Post::latest()->paginate(5);
-        return view('dashboard.posts.index', compact('posts'));
+        return view('dashboard.artikel.index', compact('posts'));
     }
 
     public function create(): View
     {
         $programs = Program::all();
         $bidangs = Bidang::all();
-        return view('dashboard.posts.create', compact('bidangs', 'programs'));
+        return view('dashboard.artikel.create', compact('bidangs', 'programs'));
     }
 
 
@@ -40,6 +40,7 @@ class PostController extends Controller
             'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
             'title' => 'required|string|min:5|max:255',
             'content' => 'required|string|min:10',
+            'created_at' => 'nullable|date',
         ]);
 
             // Membuat slug dari judul
@@ -58,14 +59,20 @@ class PostController extends Controller
         $imageName = time() . '_' . $slug . '.' . $extension;
         $image->move(public_path('images/posts'), $imageName);
 
-        Post::create([
+        $postData = [
             'bidang_id' => $request->bidang_id,
             'program_id' => $request->program_id,
             'image' => $imageName,
             'title' => $request->title,
             'content' => Purifier::clean($request->content),
             'slug' => $slug,
-        ]);
+        ];
+
+        if ($request->filled('created_at')) {
+            $postData['created_at'] = \Carbon\Carbon::parse($request->created_at);
+        }
+
+        Post::create($postData);
 
         return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -73,7 +80,7 @@ class PostController extends Controller
     public function show(string $id): View
     {
         $post = Post::findOrFail($id);
-        return view('dashboard.posts.show', compact('post'));
+        return view('dashboard.artikel.show', compact('post'));
     }
 
     public function edit(string $id): View
@@ -81,7 +88,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $programs = Program::all();
         $bidangs = Bidang::all(); // Ambil semua bidang
-        return view('dashboard.posts.edit', compact('post', 'bidangs', 'programs'));
+        return view('dashboard.artikel.edit', compact('post', 'bidangs', 'programs'));
     }
 
     public function update(Request $request, $id): RedirectResponse
@@ -92,6 +99,7 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
             'title' => 'required|string|min:5|max:255',
             'content' => 'required|string|min:10',
+            'created_at' => 'nullable|date',
         ]);
 
 
@@ -108,7 +116,14 @@ class PostController extends Controller
             $counter++;
         }
     
-    
+        $updateData = [
+            'bidang_id' => $request->bidang_id,
+            'program_id' => $request->program_id,
+            'title' => $request->title,
+            'content' => Purifier::clean($request->content),
+            'slug' => $slug
+        ];
+
         if ($request->hasFile('image')) {
             // Upload file baru
             $image = $request->file('image');
@@ -124,25 +139,15 @@ class PostController extends Controller
                     unlink($oldImagePath);
                 }
             }
-            $post->update([
-                'bidang_id' => $request->bidang_id,
-                'program_id' => $request->program_id,
-                'image' => $imageName,
-                'title' => $request->title,
-                'content' => Purifier::clean($request->content),
-                'slug' => $slug 
-            ]);
-        } else {
-            // Jika tidak ada gambar baru
-            $post->update([
-                'bidang_id' => $request->bidang_id,
-                'program_id' => $request->program_id,
-                'title' => $request->title,
-                'content' => Purifier::clean($request->content),
-                'slug' => $slug // Menyimpan slug yang baru
-            ]);
+            $updateData['image'] = $imageName;
         }
-    
+
+        if ($request->filled('created_at')) {
+            $updateData['created_at'] = \Carbon\Carbon::parse($request->created_at);
+        }
+
+        $post->update($updateData);
+
         return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 

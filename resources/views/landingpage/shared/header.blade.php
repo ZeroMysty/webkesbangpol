@@ -61,18 +61,22 @@
                         SAKIP <i class="fas fa-chevron-down ms-1 chevron-icon"></i>
                     </a>
                     <div class="mega-menu"><div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mega-menu-title">Perencanaan</div>
                             <a href="{{ route('tampiliku') }}">IKU</a>
                             <a href="{{ route('tampilrenja') }}">RENJA</a>
                             <a href="{{ route('tampilrenstra') }}">RENSTRA</a>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mega-menu-title">Evaluasi</div>
                             <a href="{{ route('tampilukurkerja') }}">Pengukuran Kerja</a>
                             <a href="{{ route('tampillakip') }}">Laporan AKIP</a>
                         </div>
-                        <div class="col-md-4"><div class="mega-menu-empty">Dokumen akuntabilitas kinerja disusun sebagai transparansi publik.</div></div>
+                        <div class="col-md-3">
+                            <div class="mega-menu-title">Dokumen Kajian</div>
+                            <a href="{{ route('tampillaporankajian') }}">Laporan Kajian</a>
+                        </div>
+                        <div class="col-md-3"><div class="mega-menu-empty">Dokumen akuntabilitas kinerja disusun sebagai transparansi publik.</div></div>
                     </div></div>
                 </li>
 

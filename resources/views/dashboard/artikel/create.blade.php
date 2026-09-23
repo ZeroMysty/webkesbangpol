@@ -46,6 +46,17 @@
                                                     </div>
                                                 @enderror
                                             </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="created_at" class="font-weight-bold">Tanggal Artikel</label>
+                                                <input type="date" class="form-control @error('created_at') is-invalid @enderror" name="created_at" id="created_at" value="{{ old('created_at', date('Y-m-d')) }}">
+                                                <!-- error message untuk created_at -->
+                                                @error('created_at')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="font-weight-bold">Gambar</label>

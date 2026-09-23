@@ -104,6 +104,23 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Laporan Kajian -->
+                <div class="menu-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open fa-2x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Laporan Kajian</h3>
+                        <p class="card-description">Dokumen kajian dan riset sebagai rekomendasi kebijakan dan transparansi publik</p>
+                        <a href="{{ route('tampillaporankajian') }}" class="card-link">
+                            <span>Selengkapnya</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

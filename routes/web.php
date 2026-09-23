@@ -22,6 +22,7 @@ use App\Http\Controllers\LandingPage\ElectionController;
 use App\Http\Controllers\Admin\Content\GaleriController;
 use App\Http\Controllers\Admin\Sakip\IkuController;
 use App\Http\Controllers\Admin\Sakip\LaporanAkipController;
+use App\Http\Controllers\Admin\Sakip\LaporanKajianController;
 use App\Http\Controllers\Admin\Profile\LandasanHukumController;
 use App\Http\Controllers\Admin\Content\MitraController;
 use App\Http\Controllers\Admin\Informasi\OrmasController;
@@ -74,6 +75,7 @@ Route::prefix('sakip')->group(function () {
     Route::get('/indikator-kinerja', [LandingpageSakipController::class, 'tampilIku'])->name('tampiliku');
     Route::get('/pengukuran-kerja', [LandingpageSakipController::class, 'tampilUkurkerja'])->name('tampilukurkerja');
     Route::get('/laporan-akip', [LandingpageSakipController::class, 'tampillAkip'])->name('tampillakip');
+    Route::get('/laporan-kajian', [LandingpageSakipController::class, 'tampilLaporanKajian'])->name('tampillaporankajian');
 });
 
 // LANDING PAGE - INFORMASI
@@ -124,6 +126,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/iku', IkuController::class);
     Route::resource('/ukurkerja', UkurKerjaController::class);
     Route::resource('/lakip', LaporanAkipController::class);
+    Route::resource('/laporankajian', LaporanKajianController::class);
     
     // MITRA MANAGEMENT
     Route::resource('/mitras', MitraController::class);
@@ -199,3 +202,4 @@ Route::get('/file-content-renstra/{filename}', fn($filename) => serveDocument('r
 Route::get('/file-content-iku/{filename}', fn($filename) => serveDocument('iku', $filename));
 Route::get('/file-content-ukurkerja/{filename}', fn($filename) => serveDocument('ukurkerja', $filename));
 Route::get('/file-content-lakip/{filename}', fn($filename) => serveDocument('lakip', $filename));
+Route::get('/file-content-laporankajian/{filename}', fn($filename) => serveDocument('laporankajian', $filename));

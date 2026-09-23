@@ -76,6 +76,10 @@
                         <a href="{{ url('/lakip') }}" class="nav-link {{ Request::is('lakip*') ? 'active' : '' }}">
                             <i class="fas fa-file-alt me-2"></i> <span class="sidebar-text">Laporan AKIP</span>
                         </a>
+
+                        <a href="{{ url('/laporankajian') }}" class="nav-link {{ Request::is('laporankajian*') ? 'active' : '' }}">
+                            <i class="fas fa-book-open me-2"></i> <span class="sidebar-text">Laporan Kajian</span>
+                        </a>
                     </li>
                 </li>
 

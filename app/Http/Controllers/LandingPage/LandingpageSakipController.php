@@ -11,6 +11,7 @@ use App\Models\Renstra;
 use App\Models\Iku;
 use App\Models\UkurKerja;
 use App\Models\LaporanAkip;
+use App\Models\LaporanKajian;
 
 use App\Models\LandasanHukum;
 
@@ -47,6 +48,12 @@ class LandingpageSakipController extends Controller
     {
         $lakips =LaporanAkip::paginate(10);
         return view('landingpage.sakip.lakip', compact('lakips'));
+    }
+
+    public function tampilLaporanKajian(): View
+    {
+        $laporankajians = LaporanKajian::paginate(10);
+        return view('landingpage.sakip.laporankajian', compact('laporankajians'));
     }
 
     public function tampilMenuSakip(): View

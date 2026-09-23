@@ -21,6 +21,7 @@
                                         <th style="width: 50px;">Gambar</th>
                                         <th style="width: 50px;">Judul</th>
                                         <th style="width: 100px;">Konten</th>
+                                        <th style="width: 80px;">Tanggal</th>
                                         <th style="width: 50px;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -32,6 +33,7 @@
                                             </td>
                                             <td class="fw-semibold">{{ $post->title }}</td>
                                             <td class="text-start">{!! Str::limit(strip_tags($post->content), 100, '...') !!}</td>
+                                            <td>{{ $post->created_at ? \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') : '-' }}</td>
                                             <td class="kolom-aksi text-center">
                                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i>
@@ -48,7 +50,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center">
+                                            <td colspan="5" class="text-center">
                                                 <div class="alert alert-warning">Data Post belum tersedia.</div>
                                             </td>
                                         </tr>

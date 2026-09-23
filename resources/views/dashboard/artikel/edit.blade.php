@@ -50,12 +50,23 @@
                                 </div>
                             
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label class="font-weight-bold">JUDUL</label>
                                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $post->title) }}" placeholder="Masukkan Judul Post">
                                 
                                     <!-- error message untuk title -->
                                     @error('title')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="created_at" class="font-weight-bold">TANGGAL ARTIKEL</label>
+                                    <input type="date" class="form-control @error('created_at') is-invalid @enderror" name="created_at" id="created_at" value="{{ old('created_at', $post->created_at ? \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') : '') }}">
+                                    <!-- error message untuk created_at -->
+                                    @error('created_at')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
