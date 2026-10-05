@@ -179,4 +179,28 @@
             }
         });
     });
+
+    // 4. SMART SCROLL AUTOHIDE (Ringan & Hemat Kode, 60fps dengan requestAnimationFrame)
+    let lastScroll = 0;
+    let ticking = false;
+    const nav = document.getElementById('mainNav');
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                if (nav) {
+                    if (currentScroll > lastScroll && currentScroll > 80) {
+                        nav.classList.add('nav-hidden');
+                        document.querySelectorAll('.nav-item.dropdown').forEach(el => el.classList.remove('is-active'));
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                }
+                lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 </script>
