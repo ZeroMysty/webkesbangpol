@@ -4,11 +4,11 @@
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileMenu()"></div>
 
 <div class="nav-wrapper" id="mainNav">
-    <nav class="navbar navbar-expand-lg navbar-pill container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-pill">
         <a href="/" class="brand-logo d-flex align-items-center text-decoration-none">
             <img src="{{ asset('images/component/logo3.png') }}" alt="Logo">
             <img src="{{ asset('images/component/logo1-2.png') }}" alt="Logo" class="ms-2">
-            <div class="ms-3 text-white fw-bold brand-text" style="line-height: 1.1; font-size: 0.8rem;">
+            <div class="ms-3 text-white fw-bold brand-text" style="line-height: 1.15; font-size: 0.8rem; letter-spacing: 0.2px;">
                 BADAN KESATUAN BANGSA DAN POLITIK<br>KOTA BANDUNG
             </div>
         </a>
@@ -132,119 +132,51 @@
 </div>
 
 <script>
-    // 1. SMART SCROLL NAVBAR
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-        const nav = document.getElementById('mainNav');
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Efek Scrolled (Pill)
-        if (currentScroll > 50) { 
-            nav.classList.add('scrolled'); 
-        } else { 
-            nav.classList.remove('scrolled'); 
-        }
-        
-        // Smart Hide/Show Navbar
-        if (currentScroll > lastScrollTop && currentScroll > 200) {
-            // Scroll Down & sudah lewat header
-            nav.classList.add('nav-hidden');
-            // Tutup dropdown di desktop agar layar bersih
-            if (window.innerWidth >= 992) {
-                closeAllDropdowns();
-            }
-        } else {
-            // Scroll Up
-            nav.classList.remove('nav-hidden');
-        }
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
-
-    // 2. OFFCANVAS MOBILE MENU LOGIC
+    // 1. MOBILE OFFCANVAS TOGGLE
     const navbarContent = document.getElementById('navbarContent');
     const navBackdrop = document.getElementById('navBackdrop');
 
     function toggleMobileMenu() {
-        navbarContent.classList.toggle('show-offcanvas');
-        navBackdrop.classList.toggle('show');
-        document.body.classList.toggle('menu-open');
+        const isOpen = navbarContent.classList.toggle('show-offcanvas');
+        navBackdrop.classList.toggle('show', isOpen);
+        document.body.classList.toggle('menu-open', isOpen);
     }
 
     function closeMobileMenu() {
         navbarContent.classList.remove('show-offcanvas');
         navBackdrop.classList.remove('show');
         document.body.classList.remove('menu-open');
-        closeAllDropdowns();
-    }
-
-    // 3. DROPDOWN TOGGLE LOGIC
-    function toggleDropdown(event, element) {
-        event.preventDefault(); 
-        event.stopPropagation();
-        
-        if (window.innerWidth < 992) {
-            const parent = element.parentElement;
-            const isActive = parent.classList.contains('is-active');
-            closeAllDropdowns();
-            if (!isActive) parent.classList.add('is-active');
-        }
-    }
-
-    function closeAllDropdowns() {
         document.querySelectorAll('.nav-item.dropdown').forEach(el => el.classList.remove('is-active'));
     }
 
-    // 4. FOCUS MODE (BLUR BACKDROP ON HOVER) - KHUSUS DESKTOP
-    const navItemsDropdown = document.querySelectorAll('.nav-item.dropdown');
-    navItemsDropdown.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 992) {
-                navBackdrop.classList.add('show');
-            }
-        });
-        item.addEventListener('mouseleave', () => {
-            if (window.innerWidth >= 992) {
-                navBackdrop.classList.remove('show');
-            }
-        });
-    });
+    // 2. DROPDOWN TOGGLE (DESKTOP & MOBILE)
+    function toggleDropdown(event, element) {
+        event.preventDefault();
+        event.stopPropagation();
+        const parent = element.closest('.nav-item.dropdown');
+        if (!parent) return;
+        const wasActive = parent.classList.contains('is-active');
+        document.querySelectorAll('.nav-item.dropdown').forEach(el => el.classList.remove('is-active'));
+        if (!wasActive) {
+            parent.classList.add('is-active');
+        }
+    }
 
-    // Klik di luar menu untuk menutup
+    // Klik di luar dropdown untuk menutup menu
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-item.dropdown') && !e.target.closest('#navbarContent') && !e.target.closest('.navbar-toggler')) {
-            closeAllDropdowns();
+        if (!e.target.closest('.nav-item.dropdown')) {
+            document.querySelectorAll('.nav-item.dropdown').forEach(el => el.classList.remove('is-active'));
         }
     });
 
-    // 5. AUTO ACTIVE LINK HIGHLIGHT
+    // 3. AUTO ACTIVE LINK HIGHLIGHT
     document.addEventListener('DOMContentLoaded', () => {
-        const currentUrl = window.location.href;
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === '#' || link.getAttribute('href') === '') return;
-            
-            if (currentUrl === link.href || currentUrl.startsWith(link.href + '/') || currentUrl.startsWith(link.href + '?')) {
-                link.closest('.nav-item').classList.add('active');
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href !== '#' && (href === currentPath || (href !== '/' && currentPath.startsWith(href)))) {
+                link.closest('.nav-item')?.classList.add('active');
             }
         });
-        
-        const megaLinks = document.querySelectorAll('.mega-menu a');
-        megaLinks.forEach(link => {
-            if (currentUrl === link.href || currentUrl.startsWith(link.href + '/') || currentUrl.startsWith(link.href + '?')) {
-                link.style.color = '#b01015';
-                link.style.fontWeight = '600';
-                link.style.backgroundColor = '#fdf2f2';
-                const parentDropdown = link.closest('.nav-item.dropdown');
-                if (parentDropdown) parentDropdown.classList.add('active');
-            }
-        });
-        
-        // Aturan khusus: Homepage
-        if(currentUrl === window.location.origin + '/') {
-            navLinks.forEach(l => l.closest('.nav-item').classList.remove('active'));
-            const homeLink = document.querySelector('.nav-link[href="/"]');
-            if (homeLink) homeLink.closest('.nav-item').classList.add('active');
-        }
     });
 </script>

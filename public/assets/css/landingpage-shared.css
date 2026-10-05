@@ -69,49 +69,29 @@ img.responsive-photo {
 }
 
 /* ==========================================================================
-   HEADER NAVBAR CSS
+   HEADER NAVBAR CSS (LIGHTWEIGHT BUBBLE / PILL)
    ========================================================================== */
-/* Wrapper tetap stabil secara dimensi tinggi agar tidak jitter saat scroll */
 .nav-wrapper {
     position: sticky;
-    top: 0;
+    top: 14px;
     z-index: 9999;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
-    background-color: #b01015; /* Merah Kesbangpol */
+    background-color: transparent !important;
     width: 100%;
-    padding: 0;
+    pointer-events: none;
 }
 
-/* Smart Scroll Hide */
-.nav-wrapper.nav-hidden {
-    transform: translateY(-100%);
-}
-
-/* NORMAL STATE (ATAS) - Full Width */
+/* FLOATING BUBBLE / PILL NAVBAR */
 .navbar-pill {
-    background-color: #b01015;
-    width: 100%;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 15px 50px;
-    border-radius: 0;
-}
-
-/* SCROLLED STATE (JADI PILL MELAYANG) */
-.nav-wrapper.scrolled { 
-    background-color: transparent !important; 
-    padding: 15px 0;
-}
-.nav-wrapper.scrolled .navbar-pill {
-    background-color: rgba(176, 16, 21, 0.9) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 50px;
-    width: 90%; 
-    max-width: 1200px;
-    margin: 0 auto; 
-    padding: 10px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: auto;
+    background: #b01015;
+    background: linear-gradient(135deg, #b8141a 0%, #9e0c12 100%);
+    width: 92% !important;
+    max-width: 1300px !important;
+    margin: 0 auto !important;
+    padding: 10px 32px !important;
+    border-radius: 50px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 /* LOGO & RESPONSIVE BRANDING */
@@ -124,30 +104,32 @@ img.responsive-photo {
 
 /* INTERACTIVE HOVER UNDERLINE & ACTIVE STATE */
 .nav-link { 
-    color: rgba(255, 255, 255, 0.85) !important; 
+    color: rgba(255, 255, 255, 0.9) !important; 
     font-weight: 500; 
     cursor: pointer; 
     position: relative;
     padding: 8px 12px !important;
-    transition: color 0.3s ease;
+    transition: color 0.15s ease;
+    font-size: 0.93rem;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
-    bottom: 0;
+    height: 2.5px;
+    bottom: 0px;
     left: 50%;
     background-color: #ffffff;
-    transition: all 0.3s ease;
+    border-radius: 2px;
+    transition: width 0.15s ease;
     transform: translateX(-50%);
 }
 
 .nav-link:hover::after,
 .nav-item.is-active .nav-link::after,
 .nav-item.active .nav-link::after {
-    width: 80%;
+    width: 75%;
 }
 
 .nav-link:hover,
@@ -165,46 +147,89 @@ img.responsive-photo {
     .nav-item.active .nav-link::after { display: none; }
 }
 
-/* CHEVRON ICON */
+/* CHEVRON ICON - ROTASI & UMPAN BALIK VISUAL */
 .chevron-icon {
-    font-size: 0.75rem;
-    transition: transform 0.3s ease;
+    display: inline-block !important;
+    font-size: 0.72rem;
+    margin-left: 5px;
     vertical-align: middle;
-}
-.nav-item:hover .chevron-icon,
-.nav-item.is-active .chevron-icon {
-    transform: rotate(180deg);
+    transform-origin: center center;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
 }
 
-/* MEGA MENU (DESKTOP) */
+/* Rotasi panah 180 derajat ke atas saat menu terbuka / hover / aktif */
+.nav-item.dropdown:hover .chevron-icon,
+.nav-item.dropdown.is-active .chevron-icon,
+.nav-item.dropdown:focus-within .chevron-icon {
+    transform: rotate(180deg) !important;
+    color: #ffffff !important;
+}
+
+.nav-item.dropdown.is-active > .nav-link,
+.nav-item.dropdown:hover > .nav-link {
+    color: #ffffff !important;
+}
+
+.nav-item.dropdown.is-active > .nav-link::after,
+.nav-item.dropdown:hover > .nav-link::after {
+    width: 75% !important;
+}
+
+/* MEGA MENU & DESKTOP NAVBAR */
 @media all and (min-width: 992px) {
+    .navbar-toggler {
+        display: none !important;
+    }
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto !important;
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+    .navbar-nav {
+        flex-direction: row !important;
+        align-items: center;
+    }
+    .navbar-pill { position: relative !important; }
     .navbar-pill .nav-item { position: static !important; }
     
+    /* MEGA MENU MENEMPEL TANPA CELAH (ZERO FLOATING GAP) */
     .mega-menu {
         display: block; 
         position: absolute;
-        left: 5%; right: 5%; 
-        top: 100%;
-        padding: 30px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        left: 20px; 
+        right: 20px; 
+        top: calc(100% - 2px); /* Menempel langsung ke bibir bawah navbar pill tanpa celah tembus */
+        padding: 24px 28px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+        border: 1px solid rgba(0,0,0,0.08);
         z-index: 9998;
-        min-height: 220px;
+        min-height: 200px;
+        pointer-events: auto;
         
         opacity: 0;
         visibility: hidden;
-        transform: translateY(15px);
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(4px);
+        transition: opacity 0.15s ease, transform 0.15s ease;
     }
 
+    /* HOVER BRIDGE KOKOH - Jembatan interaksi agar kursor tidak memutus status hover */
     .mega-menu::before {
         content: '';
         position: absolute;
         top: -30px;
         left: 0;
         width: 100%;
-        height: 30px;
+        height: 35px;
+        background: transparent;
+        pointer-events: auto;
     }
 
     .nav-item:hover .mega-menu,
@@ -212,6 +237,7 @@ img.responsive-photo {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
+        pointer-events: auto;
     }
 }
 
@@ -242,9 +268,13 @@ img.responsive-photo {
 .mobile-menu-header { display: none; }
 
 @media (max-width: 991.98px) {
+    .nav-wrapper {
+        padding: 12px 0 6px 0;
+    }
     .navbar-pill {
         padding: 10px 20px !important;
-        width: 100%;
+        width: 94% !important;
+        border-radius: 40px !important;
     }
     
     .mobile-menu-header {
@@ -328,6 +358,19 @@ img.responsive-photo {
     .mega-menu-empty {
         color: rgba(255,255,255,0.5) !important;
     }
+}
+
+@media (max-width: 576px) {
+    .nav-wrapper {
+        padding: 10px 0 4px 0;
+    }
+    .navbar-pill {
+        padding: 8px 16px !important;
+        width: 95% !important;
+        border-radius: 35px !important;
+    }
+    .brand-text { display: none; }
+    .brand-logo img { height: 32px; }
 }
 
 /* BACKDROP FOCUS MODE & OFFCANVAS */
