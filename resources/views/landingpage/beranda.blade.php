@@ -1,8 +1,12 @@
     @extends('landingpage.layouts.app')
     @section('title', 'Halaman Beranda')
+
     @section('content')
         <!-- ========================== Hero Section ======================================================================================= -->
         <section class="hero">
+            {{-- Ilustrasi Eksklusif Kesbangpol Kota Bandung --}}
+            <div class="hero-skyline" style="background-image: url('{{ asset('images/component/BGKesbangpol.png') }}')"></div>
+            
             <div class="hero-container">
                 <!-- Hero Content -->
                 <div class="hero-content">
