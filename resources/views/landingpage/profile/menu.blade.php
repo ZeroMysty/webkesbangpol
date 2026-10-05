@@ -1,6 +1,10 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Profile')
 
+@push('styles')
+    @vite(['resources/css/landingpage-profile.css'])
+@endpush
+
 @section('content')
 
     <!-- Hero Section -->

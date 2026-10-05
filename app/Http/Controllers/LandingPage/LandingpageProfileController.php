@@ -13,17 +13,19 @@ use App\Models\Program;
 use App\Models\Bidang;
 use App\Models\LandasanHukum;
 
+use Illuminate\Support\Facades\Cache;
+
 class LandingpageProfileController extends Controller
 {
     public function tampilVisiMisi(): View
     {
-        $visimisis = VisiMisi::all();
+        $visimisis = Cache::remember('profile_visimisis', 3600, fn() => VisiMisi::all());
         return view('landingpage.profile.visimisi', compact('visimisis'));
     }
 
     public function tampilTugasFungsi(): View
     {
-        $visimisis = VisiMisi::first();
+        $visimisis = Cache::remember('profile_tupoksi', 3600, fn() => VisiMisi::first());
 
         return view('landingpage.profile.tugasfungsi', compact('visimisis'));
     }
@@ -42,8 +44,10 @@ class LandingpageProfileController extends Controller
 
     public function tampilDasarHukum(): View
     {
-        $groupedHukums = LandasanHukum::with('bidang')->get()->groupBy(function ($hukum) {
-            return $hukum->bidang->nama_bidang ?? 'Tanpa Bidang';
+        $groupedHukums = Cache::remember('profile_dasarhukum', 3600, function () {
+            return LandasanHukum::with('bidang')->get()->groupBy(function ($hukum) {
+                return $hukum->bidang->nama_bidang ?? 'Tanpa Bidang';
+            });
         });
     
         return view('landingpage.profile.dasarhukum', compact('groupedHukums'));
@@ -51,8 +55,10 @@ class LandingpageProfileController extends Controller
 
     public function tampilProgram(): View
     {
-        $groupedPrograms = Program::with('bidang')->get()->groupBy(function ($program) {
-            return $program->bidang->nama_bidang ?? 'Tanpa Bidang';
+        $groupedPrograms = Cache::remember('profile_programs', 3600, function () {
+            return Program::with('bidang')->get()->groupBy(function ($program) {
+                return $program->bidang->nama_bidang ?? 'Tanpa Bidang';
+            });
         });
     
         return view('landingpage.profile.program', compact('groupedPrograms'));
@@ -61,7 +67,7 @@ class LandingpageProfileController extends Controller
 
     public function tampilSejarah(): View
     {
-        $visimisis = VisiMisi::all();
+        $visimisis = Cache::remember('profile_sejarah', 3600, fn() => VisiMisi::all());
         return view('landingpage.profile.sejarah', compact('visimisis'));
     }
 

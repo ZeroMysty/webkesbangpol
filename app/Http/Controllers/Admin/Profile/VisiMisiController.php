@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Controller;
 
 use App\Models\VisiMisi;
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 
 class VisiMisiController extends Controller
@@ -35,8 +37,14 @@ class VisiMisiController extends Controller
         ]);
 
         $image = $request->file('image');
-        $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images/component'), $imageName);
+        $baseName = 'sejarah_' . time();
+        $imageName = ImageOptimizer::uploadAndOptimize(
+            $image,
+            public_path('images/component'),
+            $baseName,
+            1280,
+            80
+        );
 
         VisiMisi::create([
             'visi'    => Purifier::clean($request->visi),
@@ -69,8 +77,14 @@ class VisiMisiController extends Controller
         if ($request->hasFile('image')) {
             // Upload file baru
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/component'), $imageName);
+            $baseName = 'sejarah_' . time();
+            $imageName = ImageOptimizer::uploadAndOptimize(
+                $image,
+                public_path('images/component'),
+                $baseName,
+                1280,
+                80
+            );
             
             // Hapus gambar lama jika ada
             $oldImagePath = public_path('images/component/' . $visimisis->sejarah_image);

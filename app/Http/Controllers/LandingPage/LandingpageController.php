@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\View as ViewFacade;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class LandingpageController extends Controller
 {
@@ -22,10 +23,10 @@ class LandingpageController extends Controller
     //
     public function index(): View
     {
-        $banners = Banner::orderBy('created_at', 'desc')->get();
-        $galeris = Galeri::with('program')->orderBy('created_at', 'desc')->get();
-        $posts = Post::with('bidang')->orderBy('created_at', 'desc')->take(6)->get();
-        $bidangs = Bidang::all();
+        $banners = Cache::remember('landing_banners', 3600, fn() => Banner::orderBy('created_at', 'desc')->take(8)->get());
+        $galeris = Cache::remember('landing_galeris', 3600, fn() => Galeri::with('program')->orderBy('created_at', 'desc')->take(12)->get());
+        $posts = Cache::remember('landing_posts', 3600, fn() => Post::with('bidang')->orderBy('created_at', 'desc')->take(6)->get());
+        $bidangs = Cache::remember('all_bidangs', 86400, fn() => Bidang::all());
     
         return view('landingpage.beranda', compact('posts', 'bidangs', 'galeris', 'banners'));
     }

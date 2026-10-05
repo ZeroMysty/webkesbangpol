@@ -15,4 +15,14 @@ class Galeri extends Model
     {
         return $this->belongsTo(Program::class);
     }
+
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            cache()->forget('landing_galeris');
+        });
+        static::deleted(function () {
+            cache()->forget('landing_galeris');
+        });
+    }
 }

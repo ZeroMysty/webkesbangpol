@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Services\ImageOptimizer;
 
 class GaleriController extends Controller
 {
@@ -39,22 +40,13 @@ class GaleriController extends Controller
         $image = $request->file('image');
         $slugJudul = Str::slug($request->input('judul')); // misal: "upacara-hut-ri"
         $tanggal   = Carbon::now()->format('Ymd');        // misal: "20250523"
-        $ext       = $image->getClientOriginalExtension();// misal: "jpg"
+        $baseName  = "{$slugJudul}_{$tanggal}";
 
-        $baseName  = "{$slugJudul}_{$tanggal}";           // misal: "upacara-hut-ri_20250523"
-        $imageName = "{$baseName}.{$ext}";                // nama awal
-
-        $path = public_path('images/gallery');
-        $counter = 1;
-
-        // Cek jika file sudah ada, tambahkan angka
-        while (file_exists("{$path}/{$imageName}")) {
-            $imageName = "{$baseName}-{$counter}.{$ext}";
-            $counter++;
-        }
-
-        // Pindahkan file ke direktori
-        $image->move($path, $imageName);
+        $imageName = ImageOptimizer::uploadAndOptimize(
+            $image,
+            public_path('images/gallery'),
+            $baseName
+        );
         
         Galeri::create([
             'program_id' => $request->program_id,
@@ -86,18 +78,7 @@ class GaleriController extends Controller
 
             $slugJudul = Str::slug($request->judul);
             $tanggal = Carbon::now()->format('Ymd');
-            $ext = $image->getClientOriginalExtension();
-
             $baseName = "{$slugJudul}_{$tanggal}";
-            $imageName = "{$baseName}.{$ext}";
-            $path = public_path('images/gallery');
-            $counter = 1;
-
-            // Cek jika nama file sudah ada
-            while (file_exists("{$path}/{$imageName}")) {
-                $imageName = "{$baseName}-{$counter}.{$ext}";
-                $counter++;
-            }
 
             // Hapus gambar lama jika ada
             $oldImagePath = public_path('images/gallery/' . $galeris->gambar_upload);
@@ -105,8 +86,12 @@ class GaleriController extends Controller
                 unlink($oldImagePath);
             }
 
-            // Upload gambar baru
-            $image->move($path, $imageName);
+            // Upload & optimasi gambar baru ke WebP
+            $imageName = ImageOptimizer::uploadAndOptimize(
+                $image,
+                public_path('images/gallery'),
+                $baseName
+            );
 
             $galeris->update([
                 'program_id' => $request->program_id,

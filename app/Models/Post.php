@@ -30,6 +30,16 @@ class Post extends Model
     {
         return $this->belongsTo(program::class);
     }
+
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            cache()->forget('landing_posts');
+        });
+        static::deleted(function () {
+            cache()->forget('landing_posts');
+        });
+    }
 }
 
 

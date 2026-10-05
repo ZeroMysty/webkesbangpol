@@ -26,4 +26,13 @@ class Bidang extends Model
         return $this->hasMany(Program::class);
     }
 
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            cache()->forget('all_bidangs');
+        });
+        static::deleted(function () {
+            cache()->forget('all_bidangs');
+        });
+    }
 }

@@ -1,6 +1,13 @@
 @extends('landingpage.layouts.app')
-@section('title', 'Baca Artikel')
+@section('title', $post->title)
+@section('meta_description', Str::limit(strip_tags($post->content), 150))
+@section('meta_image', asset('images/posts/' . $post->image))
+@section('og_type', 'article')
+
+@push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
+@endpush
+
 @section('content')
 <div class="back-to-home">
     <a href="{{ route('beranda') }}" class="back-btn">

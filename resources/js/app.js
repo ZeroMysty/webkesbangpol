@@ -1,160 +1,27 @@
 import $ from 'jquery';
 import './bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../css/app.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+Swiper.use([Navigation, Pagination, Autoplay]);
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import * as pdfjsLib from 'pdfjs-dist';
-import toastr from 'toastr';
-import 'toastr/build/toastr.min.css';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import html2canvas from 'html2canvas';
-import Chart from 'chart.js/auto';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css'; // biar stylenya ikut
-
-window.L = L;
-window.Chart = Chart;
-
 window.$ = $;
 window.jQuery = $;
-window.toastr = toastr;
-window.html2canvas = html2canvas;
 
-// Set the worker path correctly for Vite
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.mjs',
-    import.meta.url
-).toString();
-
-// Make pdfjsLib available globally if needed
-window.pdfjsLib = pdfjsLib;
-
-// Inisialisasi AOS (animasi scroll)
-AOS.init();
-
-
+// Inisialisasi AOS (animasi scroll) - once: true agar tidak re-trigger memberatkan scroll
+AOS.init({
+    once: true,
+    duration: 800,
+});
 
 document.addEventListener('DOMContentLoaded', function () {
-
-
-    // ===== CKEDITOR5 CONFIG & PASTE FILTER =====
-    function stripTablesFromHtml(html) {
-        if (!html || !/<table/i.test(html)) return html;
-
-        try {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-
-            const tables = Array.from(doc.querySelectorAll('table'));
-            tables.forEach(table => {
-                const rows = Array.from(table.querySelectorAll('tr'));
-                const fragment = doc.createDocumentFragment();
-
-                rows.forEach(row => {
-                    const cells = Array.from(row.querySelectorAll('th, td'))
-                        .filter(cell => cell.textContent.trim().length > 0)
-                        .map(cell => cell.innerHTML.trim());
-
-                    if (cells.length > 0) {
-                        const p = doc.createElement('p');
-                        p.innerHTML = cells.join(' ');
-                        fragment.appendChild(p);
-                    }
-                });
-
-                if (fragment.childNodes.length > 0) {
-                    table.parentNode.replaceChild(fragment, table);
-                } else {
-                    table.remove();
-                }
-            });
-
-            return doc.body.innerHTML;
-        } catch (e) {
-            return html
-                .replace(/<table\b[^>]*>/gi, '')
-                .replace(/<\/table>/gi, '')
-                .replace(/<tbody\b[^>]*>/gi, '')
-                .replace(/<\/tbody>/gi, '')
-                .replace(/<thead\b[^>]*>/gi, '')
-                .replace(/<\/thead>/gi, '')
-                .replace(/<tfoot\b[^>]*>/gi, '')
-                .replace(/<\/tfoot>/gi, '')
-                .replace(/<tr\b[^>]*>/gi, '')
-                .replace(/<\/tr>/gi, '<br>')
-                .replace(/<td\b[^>]*>/gi, '')
-                .replace(/<\/td>/gi, ' ')
-                .replace(/<th\b[^>]*>/gi, '')
-                .replace(/<\/th>/gi, ' ');
-        }
-    }
-
-    function setupPasteFilter(editor) {
-        if (!editor || !editor.editing || !editor.editing.view) return;
-
-        editor.editing.view.document.on('clipboardInput', (evt, data) => {
-            const dataTransfer = data.dataTransfer;
-            if (!dataTransfer) return;
-
-            const html = dataTransfer.getData('text/html');
-            if (html && /<table/i.test(html)) {
-                const cleanHtml = stripTablesFromHtml(html);
-                const originalGetData = dataTransfer.getData.bind(dataTransfer);
-                dataTransfer.getData = function (type) {
-                    if (type === 'text/html') {
-                        return cleanHtml;
-                    }
-                    return originalGetData(type);
-                };
-            }
-        }, { priority: 'high' });
-    }
-
-    const editorConfig = {
-        toolbar: [
-            'undo', 'redo', '|',
-            'heading', '|',
-            'bold', 'italic', '|', 'link', 'blockQuote', '|',
-            'bulletedList', 'numberedList', '|',
-            'indent', 'outdent', '|',
-        ],
-        removePlugins: ['Table', 'TableToolbar']
-    };
-
-    const editorElement = document.querySelector('#editor');
-
-    if (editorElement) {
-        ClassicEditor
-            .create(editorElement, editorConfig)
-            .then(editor => {
-                setupPasteFilter(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
-    const editorIDs = ['editor1', 'editor2', 'editor3', 'editor4', 'tentang'];
-
-    editorIDs.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            ClassicEditor
-                .create(el, editorConfig)
-                .then(editor => {
-                    setupPasteFilter(editor);
-                })
-                .catch(error => {
-                    console.error(`Editor untuk ${id} gagal:`, error);
-                });
-        }
-    });
-
 
     // ===== SWIPER ARTIKEL =====
     const artikelSwiperElement = document.querySelector('.artikelSwiper');
@@ -170,11 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 disableOnInteraction: false,
             } : false,
             effect: 'slide',
-            speed: 1000,
+            speed: 800,
             allowTouchMove: document.querySelectorAll('.artikelSwiper .swiper-slide').length >= 2,
-            // Add spacing control options
-            spaceBetween: 0, // Remove space between slides
-            slidesPerView: 1, // Show exactly one slide at a time
+            spaceBetween: 0,
+            slidesPerView: 1,
             navigation: {
                 nextEl: '.swiper-next',
                 prevEl: '.swiper-prev',
@@ -190,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         });
 
-        // Make window.artikelSwiper available globally for external updates
         window.artikelSwiper = artikelSwiper;
 
         function updateArtikelPagination(swiperInstance) {
@@ -214,52 +79,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
-
     // ===== SWIPER CAROUSEL =====
-    const carouselSwiper = new Swiper('.mySwiperCarousel', {
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        effect: 'slide',
-        speed: 1000,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        on: {
-            init: function () {
-                updateCustomPagination(this);
-                // Show navigation on hover
-                document.querySelector('.mySwiperCarousel').addEventListener('mouseenter', function() {
-                    document.querySelectorAll('.custom-swiper-button').forEach(btn => {
-                        btn.style.display = 'flex';
-                    });
-                });
-                document.querySelector('.mySwiperCarousel').addEventListener('mouseleave', function() {
-                    document.querySelectorAll('.custom-swiper-button').forEach(btn => {
-                        btn.style.display = 'none';
-                    });
-                });
+    const carouselEl = document.querySelector('.mySwiperCarousel');
+    if (carouselEl) {
+        const carouselSwiper = new Swiper('.mySwiperCarousel', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
             },
-            slideChange: function () {
-                updateCustomPagination(this);
+            effect: 'slide',
+            speed: 800,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            on: {
+                init: function () {
+                    updateCustomPagination(this);
+                    carouselEl.addEventListener('mouseenter', function() {
+                        document.querySelectorAll('.custom-swiper-button').forEach(btn => {
+                            btn.style.display = 'flex';
+                        });
+                    });
+                    carouselEl.addEventListener('mouseleave', function() {
+                        document.querySelectorAll('.custom-swiper-button').forEach(btn => {
+                            btn.style.display = 'none';
+                        });
+                    });
+                },
+                slideChange: function () {
+                    updateCustomPagination(this);
+                }
             }
-        }
-    });
+        });
 
-    function updateCustomPagination(swiperInstance) {
-        const current = swiperInstance.realIndex + 1;
-        const total = swiperInstance.slides.length - swiperInstance.loopedSlides * 2;
-        const indicator = document.querySelector('.swiper-custom-indicator');
-        if (indicator) {
-            indicator.textContent = `${current} dari ${total}`;
+        function updateCustomPagination(swiperInstance) {
+            const current = swiperInstance.realIndex + 1;
+            const total = swiperInstance.slides.length - swiperInstance.loopedSlides * 2;
+            const indicator = document.querySelector('.swiper-custom-indicator');
+            if (indicator) {
+                indicator.textContent = `${current} dari ${total}`;
+            }
         }
     }
 
@@ -268,8 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
         Thumbs: false,
         Toolbar: true,
     });
-
-
 
     const items = document.querySelectorAll(".galeri-item.hidden");
     const loadMoreBtn = document.getElementById("lihat-lebih-btn");
@@ -286,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     requestAnimationFrame(() => {
                         item.classList.add("show");
                     });
-                }, i * 800); // Delay 100ms antar gambar (bisa diubah sesuai selera)
+                }, i * 150);
             }
         }
     
@@ -300,76 +163,155 @@ document.addEventListener('DOMContentLoaded', function () {
     // === SCROLL TO TOP BUTTON === //
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-        });
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
 
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
     
-    // ===== Article Page =====
-    $(document).ready(function () {
-        const route = '/filter-artikel';
-    
-        function showLoading() {
-            $('#artikel-list').hide().html(`
-                <div class="text-center py-5">
-                    <div class="spinner-border text-danger" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+    // ===== Article Page AJAX Filtering =====
+    const route = '/filter-artikel';
+
+    function showLoading() {
+        $('#artikel-list').hide().html(`
+            <div class="text-center py-5">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
-            `).fadeIn();
-        }
-    
-        function fetchFilteredData(page = 1) {
-            const search = $('#search-input').val();
-            const bidang = $('#filter-bidang').val();
-            const sort = $('#filter-sort').val();
-    
-            showLoading();
-    
-            $.ajax({
-                url: `${route}?page=${page}`,
-                method: 'GET',
-                data: {
-                    search: search,
-                    bidang_id: bidang,
-                    sort: sort,
-                },
-                success: function (response) {
-                    if (response.html) {
-                        $('#artikel-list').html(response.html);
-                    }
-                },
-                error: function (xhr) {
-                    console.error("AJAX Error:", xhr);
+            </div>
+        `).fadeIn();
+    }
+
+    function fetchFilteredData(page = 1) {
+        const search = $('#search-input').val();
+        const bidang = $('#filter-bidang').val();
+        const sort = $('#filter-sort').val();
+
+        showLoading();
+
+        $.ajax({
+            url: `${route}?page=${page}`,
+            method: 'GET',
+            data: {
+                search: search,
+                bidang_id: bidang,
+                sort: sort,
+            },
+            success: function (response) {
+                if (response.html) {
+                    $('#artikel-list').html(response.html);
                 }
-            });
-        }
-    
-        // Trigger saat filter atau search berubah
-        $('#filter-bidang, #filter-sort, #search-input').on('change keyup', function () {
-            fetchFilteredData(1);
+            },
+            error: function (xhr) {
+                console.error("AJAX Error:", xhr);
+            }
         });
-    
-        // Reset filter
-        $('#reset-filter').on('click', function () {
-            $('#search-input').val('');
-            $('#filter-bidang').val('');
-            $('#filter-sort').val('');
+    }
+
+    // Trigger saat filter atau search berubah (dengan debounce untuk search)
+    let searchTimer;
+    $('#search-input').on('keyup', function () {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
             fetchFilteredData(1);
-        });
-    
-        // Tangani klik pagination link
-        const ajaxPages = ['/articles', '/filter-artikel'];
-        if (ajaxPages.includes(window.location.pathname)) {
-            $(document).on('click', '.pagination a', function (e) {
-                e.preventDefault();
-                const page = $(this).attr('href').split('page=')[1];
-                fetchFilteredData(page);
-            });
-        }
+        }, 300);
     });
+
+    $('#filter-bidang, #filter-sort').on('change', function () {
+        fetchFilteredData(1);
+    });
+
+    // Reset filter
+    $('#reset-filter').on('click', function () {
+        $('#search-input').val('');
+        $('#filter-bidang').val('');
+        $('#filter-sort').val('');
+        fetchFilteredData(1);
+    });
+
+    // Tangani klik pagination link
+    const ajaxPages = ['/articles', '/filter-artikel'];
+    if (ajaxPages.includes(window.location.pathname)) {
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+            if (href && href.includes('page=')) {
+                const page = href.split('page=')[1];
+                fetchFilteredData(page);
+            }
+        });
+    }
+
+    // ===== INSTANT PAGE SPECULATIVE PREFETCHING (0ms Transitions) =====
+    const prefetchedUrls = new Set();
+    const isSaveData = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType));
+
+    if (!isSaveData) {
+        function prefetchUrl(url) {
+            if (!url || prefetchedUrls.has(url)) return;
+            prefetchedUrls.add(url);
+
+            const linkEl = document.createElement('link');
+            linkEl.rel = 'prefetch';
+            linkEl.href = url;
+            linkEl.as = 'document';
+            document.head.appendChild(linkEl);
+        }
+
+        function shouldPrefetch(anchor) {
+            if (!anchor || !anchor.href) return false;
+            if (anchor.target && anchor.target !== '_self') return false;
+            if (anchor.hasAttribute('download')) return false;
+
+            try {
+                const url = new URL(anchor.href, window.location.origin);
+                // Hanya prefetch domain yang sama
+                if (url.origin !== window.location.origin) return false;
+                // Jangan prefetch URL saat ini
+                if (url.pathname === window.location.pathname && url.search === window.location.search) return false;
+                // Jangan prefetch dashboard/admin/auth/logout/file statis
+                if (/^\/(dashboard|admin|login|logout|register|api)/i.test(url.pathname)) return false;
+                if (/\.(pdf|zip|rar|docx?|xlsx?|jpg|png|webp|svg)$/i.test(url.pathname)) return false;
+
+                return url.href;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Prefetch on mouse hover or touchstart with 65ms intent threshold
+        let prefetchTimer = null;
+        document.addEventListener('mouseover', function (e) {
+            const anchor = e.target.closest('a');
+            const validUrl = shouldPrefetch(anchor);
+            if (validUrl) {
+                prefetchTimer = setTimeout(() => prefetchUrl(validUrl), 65);
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseout', function (e) {
+            if (prefetchTimer) {
+                clearTimeout(prefetchTimer);
+                prefetchTimer = null;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchstart', function (e) {
+            const anchor = e.target.closest('a');
+            const validUrl = shouldPrefetch(anchor);
+            if (validUrl) {
+                prefetchUrl(validUrl);
+            }
+        }, { passive: true });
+    }
 });

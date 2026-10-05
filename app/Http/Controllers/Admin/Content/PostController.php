@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
+use App\Services\ImageOptimizer;
 
 class PostController extends Controller
 {
@@ -55,9 +56,11 @@ class PostController extends Controller
         }
 
         $image = $request->file('image');
-        $extension = $image->getClientOriginalExtension();
-        $imageName = time() . '_' . $slug . '.' . $extension;
-        $image->move(public_path('images/posts'), $imageName);
+        $imageName = ImageOptimizer::uploadAndOptimize(
+            $image,
+            public_path('images/posts'),
+            time() . '_' . $slug
+        );
 
         $postData = [
             'bidang_id' => $request->bidang_id,
@@ -125,11 +128,13 @@ class PostController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            // Upload file baru
+            // Upload & optimasi gambar baru
             $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $imageName = time() . '_' . $slug . '.' . $extension;
-            $image->move(public_path('images/posts'), $imageName);
+            $imageName = ImageOptimizer::uploadAndOptimize(
+                $image,
+                public_path('images/posts'),
+                time() . '_' . $slug
+            );
     
             // Hapus gambar lama jika ada
             if (!empty($post->image)) {

@@ -1,6 +1,10 @@
 @extends('landingpage.layouts.app')
 @section('title', 'Dasar Hukum')
+
+@push('styles')
+    @vite(['resources/css/landingpage-profile.css'])
     <link rel="stylesheet" href="{{ asset('assets/css/share-page.css') }}">
+@endpush
 
 @section('content')
     <!-- Hero Section -->

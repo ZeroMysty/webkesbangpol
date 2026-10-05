@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\AppSetting;
 use App\Models\Strukturor;
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -87,10 +88,14 @@ class StrukturController extends Controller
         $imageName = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $filenameBase = time() . '_' . Str::random(8);
-            $imageName = $filenameBase . '.' . $extension;
-            $image->move(public_path('images/struktur-organisasi'), $imageName);
+            $baseName = 'pegawai_' . Str::slug($request->nama ?? 'foto') . '_' . time();
+            $imageName = ImageOptimizer::uploadAndOptimize(
+                $image,
+                public_path('images/struktur-organisasi'),
+                $baseName,
+                600,
+                80
+            );
         }
 
         $nip = null;
@@ -182,10 +187,14 @@ class StrukturController extends Controller
                 }
             }
             $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $filenameBase = time() . '_' . Str::random(8);
-            $imageName = $filenameBase . '.' . $extension;
-            $image->move(public_path('images/struktur-organisasi'), $imageName);
+            $baseName = 'pegawai_' . Str::slug($request->nama ?? 'foto') . '_' . time();
+            $imageName = ImageOptimizer::uploadAndOptimize(
+                $image,
+                public_path('images/struktur-organisasi'),
+                $baseName,
+                600,
+                80
+            );
             $updateData['foto_profile'] = $imageName;
         }
 

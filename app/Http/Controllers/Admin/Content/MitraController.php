@@ -11,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use App\Services\ImageOptimizer;
+
 class MitraController extends Controller
 {
     public function index(): View
@@ -46,19 +48,27 @@ class MitraController extends Controller
         // Upload logo lembaga (jika ada)
         if ($request->hasFile('logo_lembaga')) {
             $logoFile = $request->file('logo_lembaga');
-            $logoName = time() . '_' . uniqid() . '.' . $logoFile->getClientOriginalExtension();
-            $logoPath = public_path('images/mitras/logo/');
-            if (!file_exists($logoPath)) mkdir($logoPath, 0775, true);
-            $logoFile->move($logoPath, $logoName);
+            $baseName = 'logo_' . Str::slug($request->nama_lembaga) . '_' . time();
+            $logoName = ImageOptimizer::uploadAndOptimize(
+                $logoFile,
+                public_path('images/mitras/logo'),
+                $baseName,
+                500,
+                85
+            );
         }
 
         // Upload foto ketua (jika ada)
         if ($request->hasFile('foto_ketua')) {
             $fotoFile = $request->file('foto_ketua');
-            $fotoName = time() . '_' . uniqid() . '.' . $fotoFile->getClientOriginalExtension();
-            $fotoPath = public_path('images/mitras/foto_ketua/');
-            if (!file_exists($fotoPath)) mkdir($fotoPath, 0775, true);
-            $fotoFile->move($fotoPath, $fotoName);
+            $baseName = 'ketua_' . Str::slug($request->ketua ?? 'ketua') . '_' . time();
+            $fotoName = ImageOptimizer::uploadAndOptimize(
+                $fotoFile,
+                public_path('images/mitras/foto_ketua'),
+                $baseName,
+                600,
+                80
+            );
         }
 
         // Simpan ke database
@@ -117,10 +127,14 @@ class MitraController extends Controller
             }
 
             $logoFile = $request->file('logo_lembaga');
-            $logoName = time() . '_' . uniqid() . '.' . $logoFile->getClientOriginalExtension();
-            $logoPath = public_path('images/mitras/logo/');
-            if (!file_exists($logoPath)) mkdir($logoPath, 0775, true);
-            $logoFile->move($logoPath, $logoName);
+            $baseName = 'logo_' . Str::slug($request->nama_lembaga) . '_' . time();
+            $logoName = ImageOptimizer::uploadAndOptimize(
+                $logoFile,
+                public_path('images/mitras/logo'),
+                $baseName,
+                500,
+                85
+            );
 
             $updateData['logo_lembaga'] = $logoName;
         }
@@ -133,10 +147,14 @@ class MitraController extends Controller
             }
 
             $fotoFile = $request->file('foto_ketua');
-            $fotoName = time() . '_' . uniqid() . '.' . $fotoFile->getClientOriginalExtension();
-            $fotoPath = public_path('images/mitras/foto_ketua/');
-            if (!file_exists($fotoPath)) mkdir($fotoPath, 0775, true);
-            $fotoFile->move($fotoPath, $fotoName);
+            $baseName = 'ketua_' . Str::slug($request->ketua ?? 'ketua') . '_' . time();
+            $fotoName = ImageOptimizer::uploadAndOptimize(
+                $fotoFile,
+                public_path('images/mitras/foto_ketua'),
+                $baseName,
+                600,
+                80
+            );
 
             $updateData['foto_ketua'] = $fotoName;
         }

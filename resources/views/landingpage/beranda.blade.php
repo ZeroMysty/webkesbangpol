@@ -1,5 +1,10 @@
     @extends('landingpage.layouts.app')
     @section('title', 'Halaman Beranda')
+
+    @push('styles')
+        @vite(['resources/css/home.css'])
+    @endpush
+
     @section('content')
         <!-- ========================== Hero Section ======================================================================================= -->
         <section class="hero">
@@ -164,7 +169,9 @@
                         <div class="galeri-card">
                             <div class="image-container">
                                 <img src="{{ asset('images/gallery/' . $item->gambar_upload) }}"
-                                    alt="{{ $item->judul }}">
+                                    alt="{{ $item->judul }}"
+                                    loading="lazy"
+                                    decoding="async">
                                 <div class="overlay">
                                     <i class="fas fa-search-plus"></i>
                                 </div>

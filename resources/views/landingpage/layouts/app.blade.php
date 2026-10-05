@@ -1,22 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    @php
+        $pageTitle = trim($__env->yieldContent('title')) ? trim($__env->yieldContent('title')) . ' - Badan Kesatuan Bangsa dan Politik Kota Bandung' : 'Bakesbangpol Kota Bandung';
+        $metaDesc = trim($__env->yieldContent('meta_description')) ?: 'Portal Resmi Badan Kesatuan Bangsa dan Politik (Bakesbangpol) Kota Bandung. Menyajikan informasi berita, program kerja, ormas, dan pelayanan publik.';
+        $metaImg = trim($__env->yieldContent('meta_image')) ?: asset('images/component/logoremovebg2.png');
+        $ogType = trim($__env->yieldContent('og_type')) ?: 'website';
+    @endphp
+
+    <title>{{ $pageTitle }}</title>
+
+    <meta name="description" content="{{ $metaDesc }}" />
+    <meta name="keywords" content="Bakesbangpol Bandung, Kesbangpol Kota Bandung, Kesatuan Bangsa, Politik Kota Bandung, Ormas Bandung" />
+    <meta name="author" content="Badan Kesatuan Bangsa dan Politik Kota Bandung" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    {{-- Open Graph / Facebook / WhatsApp --}}
+    <meta property="og:site_name" content="Bakesbangpol Kota Bandung" />
+    <meta property="og:type" content="{{ $ogType }}" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="{{ $pageTitle }}" />
+    <meta property="og:description" content="{{ $metaDesc }}" />
+    <meta property="og:image" content="{{ $metaImg }}" />
+
+    {{-- Twitter / X --}}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="{{ url()->current() }}" />
+    <meta name="twitter:title" content="{{ $pageTitle }}" />
+    <meta name="twitter:description" content="{{ $metaDesc }}" />
+    <meta name="twitter:image" content="{{ $metaImg }}" />
+
     {{-- Vite CSS & JS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('images/component/logoremovebg2.png') }}" type="image/png" />
 
-    <title>
-        @hasSection('title')
-            @yield('title') - Badan Kesatuan Bangsa dan Politik Kota Bandung
-        @else
-            Bakesbangpol Kota Bandung
-        @endif
-    </title>
+    {{-- FontAwesome 6 Free via Global CDN --}}
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ asset('assets/css/landingpage-shared.css') }}">
     
@@ -52,26 +78,5 @@
 
     {{-- Tempat tambahan JS dari blade lain --}}
     @stack('scripts')
-
-    {{-- Scroll to top button script --}}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const scrollBtn = document.getElementById('scrollTopBtn');
-
-        // Show button after scroll down 200px
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 200) {
-            scrollBtn.style.display = 'block';
-          } else {
-            scrollBtn.style.display = 'none';
-          }
-        });
-
-        // Scroll to top on click
-        scrollBtn.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      });
-    </script>
 </body>
 </html>

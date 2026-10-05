@@ -14,4 +14,14 @@ class Banner extends Model
         'deskripsi',
         'gambar',
     ];
+
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            cache()->forget('landing_banners');
+        });
+        static::deleted(function () {
+            cache()->forget('landing_banners');
+        });
+    }
 }

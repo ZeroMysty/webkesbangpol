@@ -3,6 +3,7 @@
 @section('title', 'Struktur Organisasi')
 
 @push('styles')
+@vite(['resources/css/landingpage-profile.css'])
 <style>
 
 
