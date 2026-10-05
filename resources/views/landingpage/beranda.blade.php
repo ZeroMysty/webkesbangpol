@@ -66,7 +66,7 @@
         </div>
 
         <!-- ========================== Layanan Section ===================================================================================================================== -->
-<section class="py-5 bg-white" id="layanan-section">
+<section class="py-5" id="layanan-section">
     <div class="container">
         <!-- Judul di atas, full width -->
         <div class="section-header text-center mb-5" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
