@@ -46,6 +46,8 @@
     </div>
 
 
+    @include('dashboard.layouts.partials.flash-messages')
+
     <!-- Letakkan paling bawah -->
     @stack('scripts')
 

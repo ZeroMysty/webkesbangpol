@@ -14,11 +14,12 @@ use App\Http\Controllers\LandingPage\LandingpagePotensiKonflikController;
 use App\Http\Controllers\LandingPage\LandingpageProfileController;
 use App\Http\Controllers\LandingPage\LandingpageSakipController;
 use App\Http\Controllers\LandingPage\LandingpageMitraController;
+use App\Http\Controllers\LandingPage\DocumentViewerController;
+use App\Http\Controllers\LandingPage\ElectionController;
 
 // Admin/Dashboard Controllers
 use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Profile\BidangController;
-use App\Http\Controllers\LandingPage\ElectionController;
 use App\Http\Controllers\Admin\Content\GaleriController;
 use App\Http\Controllers\Admin\Sakip\IkuController;
 use App\Http\Controllers\Admin\Sakip\LaporanAkipController;
@@ -37,15 +38,13 @@ use App\Http\Controllers\Admin\Profile\StrukturController;
 use App\Http\Controllers\Admin\Sakip\UkurKerjaController;
 use App\Http\Controllers\Admin\Profile\VisiMisiController;
 use App\Http\Controllers\Admin\Pemilu\WalikotaController;
-
-// Newly added controller for Legislatif
 use App\Http\Controllers\Admin\Pemilu\LegislatifController;
 
 //========================================================================
 // AUTHENTICATION ROUTES
 //========================================================================
 Route::get('/captcha', [LoginController::class, 'captcha'])->name('captcha');
-Auth::routes();
+Auth::routes(['register' => false]);
 
 
 //========================================================================
@@ -80,10 +79,7 @@ Route::prefix('sakip')->group(function () {
 
 // LANDING PAGE - INFORMASI
 Route::get('/data-organisasi-masyarakat', [LandingpageOrmasController::class, 'tampilDataOrmas'])->name('tampil-data-ormas');
-// Route::get('/jumlah-potensi-konflik', [LandingpagePotensiKonflikController::class, 'tampilPotensiKonflik'])->name('tampil-jumlah-potensi-konflik');
-Route::get('/jumlah-potensi-konflik', function () {
-    return redirect()->route('beranda');
-})->name('tampil-jumlah-potensi-konflik');
+Route::redirect('/jumlah-potensi-konflik', '/')->name('tampil-jumlah-potensi-konflik');
 
 // LANDING PAGE - MITRA
 Route::get('/mitra', [LandingpageMitraController::class, 'tampilMitra'])->name('tampilmitra');
@@ -138,68 +134,35 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ormass-import-history', [OrmasController::class, 'importHistory'])->name('ormass.import-history');
     Route::delete('/ormass-import-history/{batchId}/rollback', [OrmasController::class, 'rollbackBatch'])->name('ormass.rollback-batch');
 
-    
     // -- Potensi Konflik Management (Dinonaktifkan sementara)
-    // Route::get('/potensi-konflik/import', [PotensiKonflikController::class, 'showImportForm'])->name('potensi-konflik.import.form');
-    // Route::post('/potensi-konflik/import', [PotensiKonflikController::class, 'import'])->name('potensi-konflik.import');
-    // Route::resource('/potensi-konflik', PotensiKonflikController::class);
-    Route::get('/potensi-konflik{any}', function () {
-        return redirect()->route('admin.home');
-    })->where('any', '.*');
+    Route::redirect('/potensi-konflik{any}', '/admin/home')->where('any', '.*');
 
     Route::prefix('admin')->name('admin.')->group(function () {
-    
-    // Dashboard Admin
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/pemilu-raya', [PemiluRayaController::class, 'index'])->name('pemilu-raya.dashboard');
+        // Dashboard Admin
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/pemilu-raya', [PemiluRayaController::class, 'index'])->name('pemilu-raya.dashboard');
 
-    // Manajemen Pemilu
-    Route::prefix('pemilu')->name('pemilu.')->group(function () {
-        
-        Route::resource('pilpres', PilpresController::class);
-        Route::resource('walikota', WalikotaController::class);
-        
-        // Manajemen Legislatif
-        Route::delete('legislatif/destroy-all', [LegislatifController::class, 'destroyAll'])->name('legislatif.destroy.all');
-        Route::get('legislatif/import', [LegislatifController::class, 'showImportForm'])->name('legislatif.import.form');
-        Route::post('legislatif/import', [LegislatifController::class, 'import'])->name('legislatif.import');
-        Route::resource('legislatif', LegislatifController::class);
-    });
+        // Manajemen Pemilu
+        Route::prefix('pemilu')->name('pemilu.')->group(function () {
+            Route::resource('pilpres', PilpresController::class);
+            Route::resource('walikota', WalikotaController::class);
+            
+            // Manajemen Legislatif
+            Route::delete('legislatif/destroy-all', [LegislatifController::class, 'destroyAll'])->name('legislatif.destroy.all');
+            Route::get('legislatif/import', [LegislatifController::class, 'showImportForm'])->name('legislatif.import.form');
+            Route::post('legislatif/import', [LegislatifController::class, 'import'])->name('legislatif.import');
+            Route::resource('legislatif', LegislatifController::class);
+        });
     });
 });
 
 //========================================================================
-// FILE SERVING & DEBUGGING ROUTES
+// DOCUMENT VIEWER ROUTES (SECURE FILE STREAMING)
 //========================================================================
-function serveDocument($directory, $filename) {
-    // Sanitize filename to prevent directory traversal attack
-    $filename = basename($filename);
-    $path = public_path('document' . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . $filename);
+Route::get('/file-content-renja/{filename}', [DocumentViewerController::class, 'renja'])->name('file.renja');
+Route::get('/file-content-renstra/{filename}', [DocumentViewerController::class, 'renstra'])->name('file.renstra');
+Route::get('/file-content-iku/{filename}', [DocumentViewerController::class, 'iku'])->name('file.iku');
+Route::get('/file-content-ukurkerja/{filename}', [DocumentViewerController::class, 'ukurkerja'])->name('file.ukurkerja');
+Route::get('/file-content-lakip/{filename}', [DocumentViewerController::class, 'lakip'])->name('file.lakip');
+Route::get('/file-content-laporankajian/{filename}', [DocumentViewerController::class, 'laporankajian'])->name('file.laporankajian');
 
-    if (!file_exists($path)) {
-        return response()->json(['error' => 'File not found', 'path' => $path], 404);
-    }
-
-    $mime = mime_content_type($path) ?: 'application/octet-stream';
-
-    if (request()->has('encode')) {
-        $content = base64_encode(file_get_contents($path));
-        return response()->json([
-            'filename' => $filename,
-            'content' => $content,
-            'mime' => $mime
-        ]);
-    }
-
-    return response()->file($path, [
-        'Content-Type' => $mime,
-        'Content-Disposition' => 'inline; filename="' . basename($filename) . '"',
-    ]);
-}
-
-Route::get('/file-content-renja/{filename}', fn($filename) => serveDocument('renja', $filename));
-Route::get('/file-content-renstra/{filename}', fn($filename) => serveDocument('renstra', $filename));
-Route::get('/file-content-iku/{filename}', fn($filename) => serveDocument('iku', $filename));
-Route::get('/file-content-ukurkerja/{filename}', fn($filename) => serveDocument('ukurkerja', $filename));
-Route::get('/file-content-lakip/{filename}', fn($filename) => serveDocument('lakip', $filename));
-Route::get('/file-content-laporankajian/{filename}', fn($filename) => serveDocument('laporankajian', $filename));

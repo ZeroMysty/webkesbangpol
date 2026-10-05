@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\LandingPage;
 
 use App\Http\Controllers\Controller;
-use setasign\Fpdi\Fpdi;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Renja;
 use App\Models\Renstra;
@@ -13,9 +11,6 @@ use App\Models\UkurKerja;
 use App\Models\LaporanAkip;
 use App\Models\LaporanKajian;
 
-use App\Models\LandasanHukum;
-
-use Laravel\Ui\Presets\Vue;
 class LandingpageSakipController extends Controller
 {
     public function tampilRenja(): View
