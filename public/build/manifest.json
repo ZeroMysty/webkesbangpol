@@ -1,0 +1,173 @@
+{
+  "_bootstrap.bundle.min-Gy5DnSoA.js": {
+    "file": "assets/bootstrap.bundle.min-Gy5DnSoA.js",
+    "name": "bootstrap.bundle.min"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff": {
+    "file": "assets/dm-sans-latin-400-normal-DmRB7q_B.woff",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2": {
+    "file": "assets/dm-sans-latin-400-normal-COF6noiJ.woff2",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff": {
+    "file": "assets/dm-sans-latin-500-normal-DN3Amd4H.woff",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff2": {
+    "file": "assets/dm-sans-latin-500-normal-kGSpR5A9.woff2",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff2"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff": {
+    "file": "assets/dm-sans-latin-700-normal-ryGpXDOP.woff",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff2": {
+    "file": "assets/dm-sans-latin-700-normal-1DREuLwQ.woff2",
+    "src": "node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/inter/files/inter-latin-400-normal.woff": {
+    "file": "assets/inter-latin-400-normal-gitzw0hO.woff",
+    "src": "node_modules/@fontsource/inter/files/inter-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2": {
+    "file": "assets/inter-latin-400-normal-BOOGhInR.woff2",
+    "src": "node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/inter/files/inter-latin-600-normal.woff": {
+    "file": "assets/inter-latin-600-normal-B5cFAncS.woff",
+    "src": "node_modules/@fontsource/inter/files/inter-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2": {
+    "file": "assets/inter-latin-600-normal-D273HNI0.woff2",
+    "src": "node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-400-normal.woff": {
+    "file": "assets/mulish-latin-400-normal-Cc7D2LHJ.woff",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-400-normal.woff2": {
+    "file": "assets/mulish-latin-400-normal-M3OQmH06.woff2",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-600-normal.woff": {
+    "file": "assets/mulish-latin-600-normal-BjIWSeJh.woff",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-600-normal.woff2": {
+    "file": "assets/mulish-latin-600-normal-CCEpxY5j.woff2",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-600-normal.woff2"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-700-normal.woff": {
+    "file": "assets/mulish-latin-700-normal-DAv6DQOb.woff",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/mulish/files/mulish-latin-700-normal.woff2": {
+    "file": "assets/mulish-latin-700-normal-JhPVNM0j.woff2",
+    "src": "node_modules/@fontsource/mulish/files/mulish-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-400-normal.woff": {
+    "file": "assets/open-sans-latin-400-normal-Dxjvn725.woff",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-400-normal.woff2": {
+    "file": "assets/open-sans-latin-400-normal-Cjao0ETp.woff2",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-600-normal.woff": {
+    "file": "assets/open-sans-latin-600-normal-DewdQsHJ.woff",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-600-normal.woff2": {
+    "file": "assets/open-sans-latin-600-normal-Dhnuc7ye.woff2",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-600-normal.woff2"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-700-normal.woff": {
+    "file": "assets/open-sans-latin-700-normal-B572f0fn.woff",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/open-sans/files/open-sans-latin-700-normal.woff2": {
+    "file": "assets/open-sans-latin-700-normal-C2okHfb_.woff2",
+    "src": "node_modules/@fontsource/open-sans/files/open-sans-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-400-normal.woff": {
+    "file": "assets/raleway-latin-400-normal-CCdtiDxY.woff",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-400-normal.woff2": {
+    "file": "assets/raleway-latin-400-normal-2IY77EiR.woff2",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-600-normal.woff": {
+    "file": "assets/raleway-latin-600-normal-3disPBpa.woff",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-600-normal.woff2": {
+    "file": "assets/raleway-latin-600-normal-Biz5T38t.woff2",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-600-normal.woff2"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-700-normal.woff": {
+    "file": "assets/raleway-latin-700-normal-CagRdGif.woff",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/raleway/files/raleway-latin-700-normal.woff2": {
+    "file": "assets/raleway-latin-700-normal-DzV5IPCa.woff2",
+    "src": "node_modules/@fontsource/raleway/files/raleway-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/work-sans/files/work-sans-latin-400-normal.woff": {
+    "file": "assets/work-sans-latin-400-normal-C_QB87mg.woff",
+    "src": "node_modules/@fontsource/work-sans/files/work-sans-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/work-sans/files/work-sans-latin-400-normal.woff2": {
+    "file": "assets/work-sans-latin-400-normal-CO25iGFc.woff2",
+    "src": "node_modules/@fontsource/work-sans/files/work-sans-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/work-sans/files/work-sans-latin-600-normal.woff": {
+    "file": "assets/work-sans-latin-600-normal-kBjpjn6l.woff",
+    "src": "node_modules/@fontsource/work-sans/files/work-sans-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/work-sans/files/work-sans-latin-600-normal.woff2": {
+    "file": "assets/work-sans-latin-600-normal-EokiEufc.woff2",
+    "src": "node_modules/@fontsource/work-sans/files/work-sans-latin-600-normal.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-xU4bw1aD.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/home.css": {
+    "file": "assets/home-CVX4QDPl.css",
+    "src": "resources/css/home.css",
+    "isEntry": true
+  },
+  "resources/css/landingpage-profile.css": {
+    "file": "assets/landingpage-profile-BqoBYq-8.css",
+    "src": "resources/css/landingpage-profile.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-t6U3mzeV.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_bootstrap.bundle.min-Gy5DnSoA.js"
+    ],
+    "css": [
+      "assets/app-Dhip4cER.css"
+    ]
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-xDdka6IQ.js",
+    "name": "dashboard",
+    "src": "resources/js/dashboard.js",
+    "isEntry": true,
+    "imports": [
+      "_bootstrap.bundle.min-Gy5DnSoA.js"
+    ],
+    "css": [
+      "assets/dashboard-DPlFYqzU.css"
+    ]
+  }
+}
