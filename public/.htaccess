@@ -5,9 +5,9 @@
 
     RewriteEngine On
 
-    # Nonaktifkan subdomain portal.kesbangpol.bandung.go.id (Error 404 Not Found)
+    # Redirect permanen (301) subdomain portal ke domain utama (bagus untuk SEO Google)
     RewriteCond %{HTTP_HOST} ^portal\.kesbangpol\.bandung\.go\.id$ [NC]
-    RewriteRule ^ - [R=404,L]
+    RewriteRule ^(.*)$ https://kesbangpol.bandung.go.id/$1 [L,R=301]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
