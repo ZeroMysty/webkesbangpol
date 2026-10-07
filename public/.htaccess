@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Nonaktifkan subdomain portal.kesbangpol.bandung.go.id (Error 404 Not Found)
+    RewriteCond %{HTTP_HOST} ^portal\.kesbangpol\.bandung\.go\.id$ [NC]
+    RewriteRule ^ - [R=404,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
