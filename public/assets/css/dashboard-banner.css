@@ -1,0 +1,739 @@
+/* ==========================================================================
+   DASHBOARD BANNER - MODERN & ELEGANT DESIGN SYSTEM
+   Bakesbangpol Kota Bandung
+   ========================================================================== */
+
+.banner-page-wrapper {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0.5rem 0.75rem 2.5rem;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO HEADER
+   -------------------------------------------------------------------------- */
+.banner-hero-header {
+    background: #ffffff;
+    border: 1px solid rgba(180, 13, 20, 0.08);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.banner-hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
+}
+
+.banner-hero-header::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(180, 13, 20, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.banner-header-left {
+    max-width: 700px;
+}
+
+.banner-badge-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    background: #FEF2F2;
+    color: #B40D14;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 0.65rem;
+    border: 1px solid rgba(180, 13, 20, 0.12);
+}
+
+.banner-header-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+}
+
+.banner-header-subtitle {
+    font-size: 0.935rem;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.btn-tambah-banner-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.6rem;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 0.925rem;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(180, 13, 20, 0.28);
+    text-decoration: none;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.btn-tambah-banner-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
+    background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
+    color: #ffffff !important;
+}
+
+.btn-tambah-banner-modern:active {
+    transform: translateY(0);
+}
+
+.btn-tambah-banner-modern i {
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+}
+
+.btn-tambah-banner-modern:hover i {
+    transform: rotate(90deg);
+}
+
+/* --------------------------------------------------------------------------
+   2. STATS OVERVIEW CARDS
+   -------------------------------------------------------------------------- */
+.banner-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.banner-stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s ease;
+}
+
+.banner-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.15);
+}
+
+.banner-stat-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-red {
+    background: #FEF2F2;
+    color: #B40D14;
+}
+
+.stat-icon-indigo {
+    background: #EEF2FF;
+    color: #4F46E5;
+}
+
+.stat-icon-emerald {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.banner-stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.banner-stat-value {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.banner-stat-label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. TOOLBAR CONTROLS
+   -------------------------------------------------------------------------- */
+.banner-toolbar {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    flex-wrap: wrap;
+}
+
+.banner-search-box {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+    max-width: 460px;
+}
+
+.banner-search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.banner-search-input {
+    width: 100%;
+    height: 42px;
+    padding: 0.5rem 1rem 0.5rem 2.6rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.banner-search-input:focus {
+    background: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
+}
+
+.banner-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.banner-view-switch {
+    display: inline-flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 10px;
+    gap: 2px;
+}
+
+.btn-view-switch {
+    border: none;
+    background: transparent;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-view-switch:hover {
+    color: #1e293b;
+}
+
+.btn-view-switch.active {
+    background: #ffffff;
+    color: #B40D14;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   4. CARDS GRID VIEW (PANORAMIC BANNER CARDS)
+   -------------------------------------------------------------------------- */
+.banner-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+}
+
+.banner-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.banner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px -4px rgba(180, 13, 20, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    border-color: rgba(180, 13, 20, 0.25);
+}
+
+/* Panoramic Thumbnail */
+.banner-thumbnail-box {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #0f172a;
+    cursor: pointer;
+}
+
+.banner-thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.banner-card:hover .banner-thumbnail-img {
+    transform: scale(1.05);
+}
+
+.banner-overlay-top {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    right: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.banner-badge-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 0.725rem;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.banner-date-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    color: #334155;
+    font-size: 0.725rem;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.banner-preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.banner-thumbnail-box:hover .banner-preview-overlay {
+    opacity: 1;
+}
+
+/* Card Body */
+.banner-card-body {
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.banner-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.45;
+    margin-bottom: 0.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.9rem;
+}
+
+.banner-card-caption {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+    font-style: italic;
+    background: #f8fafc;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    border-left: 3px solid #B40D14;
+}
+
+/* Card Footer */
+.banner-card-footer {
+    padding: 1rem 1.4rem 1.25rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-banner-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-action-view {
+    background: #F0FDF4;
+    color: #16A34A;
+    border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.btn-action-view:hover {
+    background: #DCFCE7;
+    color: #15803D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2);
+}
+
+.btn-action-edit {
+    background: #FFFBEB;
+    color: #D97706;
+    border: 1px solid rgba(217, 119, 6, 0.15);
+}
+
+.btn-action-edit:hover {
+    background: #FDE68A;
+    color: #B45309;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+}
+
+.btn-action-delete {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+.btn-action-delete:hover {
+    background: #FEE2E2;
+    color: #991B1B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   5. LIST VIEW (FLOATING ROW ITEMS)
+   -------------------------------------------------------------------------- */
+.banner-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.banner-list-item {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 1.15rem 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.35rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #B40D14;
+    opacity: 0.75;
+    transition: width 0.2s ease;
+}
+
+.banner-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.2);
+}
+
+.banner-list-item:hover::before {
+    width: 6px;
+}
+
+.banner-list-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.banner-list-thumbnail-box {
+    width: 140px;
+    height: 85px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #1e293b;
+    position: relative;
+    cursor: pointer;
+}
+
+.banner-list-thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-list-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.banner-list-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+}
+
+.banner-list-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.banner-list-caption {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-style: italic;
+}
+
+.banner-list-right {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. EMPTY STATE & MODAL
+   -------------------------------------------------------------------------- */
+.banner-empty-state {
+    background: #ffffff;
+    border: 2px dashed #e2e8f0;
+    border-radius: 20px;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.banner-empty-icon {
+    width: 72px;
+    height: 72px;
+    background: #FEF2F2;
+    color: #B40D14;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+.banner-empty-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+}
+
+.banner-empty-desc {
+    color: #64748b;
+    font-size: 0.925rem;
+    max-width: 440px;
+    margin: 0 auto 1.5rem;
+}
+
+.modal-banner-delete .modal-content,
+.modal-banner-preview .modal-content {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+}
+
+.modal-banner-thumb-preview {
+    width: 100%;
+    max-height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0.75rem auto 1rem;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.modal-banner-title-highlight {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 1rem 0;
+    font-size: 0.925rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE DESIGN
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .banner-hero-header {
+        padding: 1.35rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-tambah-banner-modern {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .banner-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .banner-search-box {
+        max-width: 100%;
+    }
+
+    .banner-toolbar-actions {
+        justify-content: flex-end;
+    }
+
+    .banner-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .banner-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .banner-list-left {
+        width: 100%;
+    }
+
+    .banner-list-right {
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 0.75rem;
+        border-top: 1px solid #f1f5f9;
+    }
+}

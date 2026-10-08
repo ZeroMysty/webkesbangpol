@@ -16,10 +16,23 @@ use App\Services\ImageOptimizer;
 
 class GaleriController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $galeris = Galeri::latest()->paginate(5);
-        return view('dashboard.galeris.index', compact('galeris'));
+        $count = Galeri::count();
+        $query = Galeri::with('program')->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('judul', 'like', "%{$search}%");
+        }
+
+        if ($request->filled('program_id')) {
+            $query->where('program_id', $request->program_id);
+        }
+
+        $galeris = $query->paginate(9)->withQueryString();
+        $programs = Program::all();
+        return view('dashboard.galeris.index', compact('galeris', 'count', 'programs'));
     }
 
     public function create(): View 

@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-program.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormas.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bagan-strukturors.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-galeri.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-responsive.css') }}">
 
     @stack('styles')
@@ -49,6 +51,7 @@
 
     @include('dashboard.layouts.partials.flash-messages')
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Letakkan paling bawah -->
     @stack('scripts')
 

@@ -423,9 +423,35 @@
         }
     });
 
+    // Safe Modal Helpers
+    function showModal(modalEl) {
+        if (!modalEl) return;
+        if (window.bootstrap && bootstrap.Modal) {
+            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modalInstance.show();
+        } else {
+            modalEl.classList.add('show');
+            modalEl.style.display = 'block';
+            document.body.classList.add('modal-open');
+        }
+    }
+
+    function hideModal(modalEl) {
+        if (!modalEl) return;
+        if (window.bootstrap && bootstrap.Modal) {
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+        }
+        modalEl.classList.remove('show');
+        modalEl.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+    }
+
     // Delete Modal Trigger
     function openDeleteModal(id, name, programsCount) {
-        const modal = new bootstrap.Modal(document.getElementById('modalDeleteBidang'));
+        const modalEl = document.getElementById('modalDeleteBidang');
         const form = document.getElementById('formDeleteBidang');
         const nameBox = document.getElementById('deleteBidangName');
         const warningBox = document.getElementById('deleteWarningRelated');
@@ -441,7 +467,24 @@
             warningBox.classList.add('d-none');
         }
 
-        modal.show();
+        showModal(modalEl);
     }
+
+    document.addEventListener('click', function(e) {
+        const closeBtn = e.target.closest('[data-bs-dismiss="modal"]');
+        if (closeBtn) {
+            e.preventDefault();
+            const modalEl = closeBtn.closest('.modal');
+            hideModal(modalEl);
+        } else if (e.target.classList.contains('modal') && e.target.classList.contains('show')) {
+            hideModal(e.target);
+        }
+    });
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.show').forEach(m => hideModal(m));
+        }
+    });
 </script>
 @endpush

@@ -15,10 +15,21 @@ use App\Services\ImageOptimizer;
 
 class BannerController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $banners = Banner::latest()->paginate(5);
-        return view('dashboard.banners.index', compact('banners'));
+        $count = Banner::count();
+        $query = Banner::latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%{$search}%")
+                  ->orWhere('caption', 'like', "%{$search}%");
+            });
+        }
+
+        $banners = $query->paginate(9)->withQueryString();
+        return view('dashboard.banners.index', compact('banners', 'count'));
     }
 
     public function create(): View 
