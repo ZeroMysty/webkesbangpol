@@ -1,10 +1,11 @@
 /* ==========================================================================
-   DASHBOARD PROGRAM KERJA - MODERN & ELEGANT DESIGN SYSTEM
+   DASHBOARD SAKIP - MODERN & ELEGANT DESIGN SYSTEM
    Bakesbangpol Kota Bandung
+   (IKU, RENJA, RENSTRA, UKUR KERJA, LAKIP, LAPORAN KAJIAN)
    ========================================================================== */
 
 /* Page Wrapper */
-.program-page-wrapper {
+.sakip-page-wrapper {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0.5rem 0.75rem 2.5rem;
@@ -15,7 +16,7 @@
 /* --------------------------------------------------------------------------
    1. HERO HEADER
    -------------------------------------------------------------------------- */
-.program-hero-header {
+.sakip-hero-header {
     background: #ffffff;
     border: 1px solid rgba(180, 13, 20, 0.08);
     border-radius: 20px;
@@ -31,7 +32,7 @@
     flex-wrap: wrap;
 }
 
-.program-hero-header::before {
+.sakip-hero-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -41,7 +42,7 @@
     background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
 }
 
-.program-hero-header::after {
+.sakip-hero-header::after {
     content: '';
     position: absolute;
     top: -60px;
@@ -53,11 +54,11 @@
     pointer-events: none;
 }
 
-.program-header-left {
+.sakip-header-left {
     max-width: 760px;
 }
 
-.program-badge-category {
+.sakip-badge-category {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -73,7 +74,7 @@
     border: 1px solid rgba(180, 13, 20, 0.12);
 }
 
-.program-header-title {
+.sakip-header-title {
     font-family: 'Raleway', 'DM Sans', sans-serif;
     font-size: 1.85rem;
     font-weight: 800;
@@ -83,14 +84,14 @@
     letter-spacing: -0.02em;
 }
 
-.program-header-subtitle {
+.sakip-header-subtitle {
     font-size: 0.935rem;
     color: #64748b;
     margin-bottom: 0;
     line-height: 1.5;
 }
 
-.btn-tambah-program-modern {
+.btn-tambah-sakip-modern {
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
@@ -107,37 +108,37 @@
     white-space: nowrap;
 }
 
-.btn-tambah-program-modern:hover {
+.btn-tambah-sakip-modern:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
     background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
     color: #ffffff !important;
 }
 
-.btn-tambah-program-modern:active {
+.btn-tambah-sakip-modern:active {
     transform: translateY(0);
 }
 
-.btn-tambah-program-modern i {
+.btn-tambah-sakip-modern i {
     font-size: 0.95rem;
     transition: transform 0.25s ease;
 }
 
-.btn-tambah-program-modern:hover i {
+.btn-tambah-sakip-modern:hover i {
     transform: rotate(90deg);
 }
 
 /* --------------------------------------------------------------------------
    2. STATS OVERVIEW CARDS
    -------------------------------------------------------------------------- */
-.program-stats-grid {
+.sakip-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.25rem;
     margin-bottom: 1.5rem;
 }
 
-.program-stat-card {
+.sakip-stat-card {
     background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: 16px;
@@ -149,13 +150,13 @@
     transition: all 0.25s ease;
 }
 
-.program-stat-card:hover {
+.sakip-stat-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
     border-color: rgba(180, 13, 20, 0.18);
 }
 
-.program-stat-icon-wrapper {
+.sakip-stat-icon-wrapper {
     width: 52px;
     height: 52px;
     border-radius: 14px;
@@ -166,32 +167,12 @@
     flex-shrink: 0;
 }
 
-.stat-icon-red {
-    background: #FEF2F2;
-    color: #B40D14;
-}
-
-.stat-icon-indigo {
-    background: #EEF2FF;
-    color: #4F46E5;
-}
-
-.stat-icon-emerald {
-    background: #ECFDF5;
-    color: #059669;
-}
-
-.stat-icon-amber {
-    background: #FFFBEB;
-    color: #D97706;
-}
-
-.program-stat-info {
+.sakip-stat-info {
     display: flex;
     flex-direction: column;
 }
 
-.program-stat-value {
+.sakip-stat-value {
     font-size: 1.55rem;
     font-weight: 800;
     color: #0f172a;
@@ -199,7 +180,7 @@
     letter-spacing: -0.02em;
 }
 
-.program-stat-label {
+.sakip-stat-label {
     font-size: 0.825rem;
     font-weight: 600;
     color: #64748b;
@@ -207,9 +188,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. TOOLBAR (SEARCH, FILTERS & VIEW SWITCHER)
+   3. TOOLBAR CONTROLS
    -------------------------------------------------------------------------- */
-.program-toolbar {
+.sakip-toolbar {
     background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: 16px;
@@ -223,7 +204,7 @@
     flex-wrap: wrap;
 }
 
-.program-toolbar-left {
+.sakip-toolbar-left {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -232,14 +213,14 @@
     flex-wrap: wrap;
 }
 
-.program-search-box {
+.sakip-search-box {
     position: relative;
     flex: 1;
     min-width: 220px;
     max-width: 380px;
 }
 
-.program-search-box i {
+.sakip-search-box i {
     position: absolute;
     left: 1rem;
     top: 50%;
@@ -250,7 +231,7 @@
     transition: color 0.2s ease;
 }
 
-.program-search-input {
+.sakip-search-input {
     width: 100%;
     height: 42px;
     padding: 0.5rem 1rem 0.5rem 2.6rem;
@@ -263,17 +244,17 @@
     transition: all 0.2s ease;
 }
 
-.program-search-input:focus {
+.sakip-search-input:focus {
     background: #ffffff;
     border-color: #B40D14;
     box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
 }
 
-.program-search-input:focus + i {
+.sakip-search-input:focus + i {
     color: #B40D14;
 }
 
-.program-filter-select {
+.sakip-filter-select {
     height: 42px;
     padding: 0.5rem 2.2rem 0.5rem 1rem;
     background: #f8fafc;
@@ -290,23 +271,23 @@
     background-position: right 0.85rem center;
     background-size: 0.95rem;
     transition: all 0.2s ease;
-    min-width: 180px;
-    max-width: 260px;
+    min-width: 150px;
+    max-width: 220px;
 }
 
-.program-filter-select:focus {
+.sakip-filter-select:focus {
     background-color: #ffffff;
     border-color: #B40D14;
     box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
 }
 
-.program-toolbar-actions {
+.sakip-toolbar-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-.program-view-switch {
+.sakip-view-switch {
     display: inline-flex;
     background: #f1f5f9;
     padding: 3px;
@@ -340,113 +321,28 @@
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
 }
 
-/* --------------------------------------------------------------------------
-   4. CARDS GRID VIEW (MODERN PROGRAM CARDS - NO TABLE IN TABLE)
-   -------------------------------------------------------------------------- */
-.program-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.35rem;
-}
-
-.program-card {
-    background: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    border-radius: 18px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.program-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(180deg, #B40D14 0%, #E11D48 100%);
-    opacity: 0.85;
-    transition: width 0.25s ease;
-}
-
-/* Thematic colors based on Bidang */
-.program-card.theme-kewaspadaan::before {
-    background: linear-gradient(180deg, #DC2626 0%, #991B1B 100%);
-}
-.program-card.theme-ketahanan::before {
-    background: linear-gradient(180deg, #059669 0%, #047857 100%);
-}
-.program-card.theme-politik::before {
-    background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 100%);
-}
-.program-card.theme-ideologi::before {
-    background: linear-gradient(180deg, #D97706 0%, #B45309 100%);
-}
-
-.program-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -4px rgba(180, 13, 20, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
-    border-color: rgba(180, 13, 20, 0.25);
-}
-
-.program-card:hover::before {
-    width: 7px;
-}
-
-/* Card Top Section */
-.program-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.15rem;
-    gap: 0.5rem;
-}
-
-.program-avatar-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-}
-
-.program-avatar-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.15rem;
-    color: #ffffff;
-    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
-    box-shadow: 0 4px 10px rgba(180, 13, 20, 0.2);
-    flex-shrink: 0;
-}
-
-.program-number-chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.3rem 0.75rem;
-    background: #f8fafc;
+.btn-reset-filter {
+    height: 42px;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
     border: 1px solid #e2e8f0;
     border-radius: 50px;
-    font-size: 0.775rem;
-    font-weight: 700;
-    color: #475569;
-}
-
-/* Actions */
-.program-card-actions {
-    display: flex;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
     align-items: center;
     gap: 0.45rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
+.btn-reset-filter:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* Card Action Buttons */
 .btn-card-action {
     width: 34px;
     height: 34px;
@@ -455,10 +351,23 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s ease;
+}
+
+.btn-action-view {
+    background: #F0F9FF;
+    color: #0284C7;
+    border: 1px solid rgba(2, 132, 199, 0.15);
+}
+
+.btn-action-view:hover {
+    background: #E0F2FE;
+    color: #0369A1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
 }
 
 .btn-action-edit {
@@ -487,87 +396,171 @@
     box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
 }
 
-/* Card Body */
-.program-card-body {
-    flex: 1;
-    margin-bottom: 1.25rem;
+/* --------------------------------------------------------------------------
+   4. CARDS GRID VIEW (MODERN DOCUMENT CARDS)
+   -------------------------------------------------------------------------- */
+.sakip-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.35rem;
 }
 
-.program-card-bidang {
-    margin-bottom: 0.75rem;
-}
-
-.badge-bidang-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.75rem;
-    background: #F8FAFC;
-    color: #475569;
-    font-size: 0.775rem;
-    font-weight: 600;
-    border-radius: 8px;
-    border: 1px solid #E2E8F0;
-    max-width: 100%;
+.sakip-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.badge-bidang-chip i {
-    color: #B40D14;
-    font-size: 0.8rem;
-    flex-shrink: 0;
+.sakip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #B40D14 0%, #E11D48 100%);
+    opacity: 0.85;
+    transition: width 0.25s ease;
 }
 
-.program-card-title {
-    font-family: 'Raleway', 'DM Sans', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1.45;
-    margin-bottom: 0.85rem;
-    letter-spacing: -0.01em;
-    min-height: 52px;
+.sakip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -4px rgba(180, 13, 20, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    border-color: rgba(180, 13, 20, 0.25);
 }
 
-.program-card-tags {
+.sakip-card:hover::before {
+    width: 7px;
+}
+
+.sakip-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.15rem;
+    gap: 0.5rem;
+}
+
+.sakip-card-badges {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
 }
 
-.badge-status-program {
+.chip-sakip-year {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.35rem;
     padding: 0.3rem 0.75rem;
-    background: #ECFDF5;
-    border: 1px solid #A7F3D0;
+    background: #FEF2F2;
+    border: 1px solid rgba(180, 13, 20, 0.15);
     border-radius: 50px;
-    font-size: 0.75rem;
+    font-size: 0.775rem;
     font-weight: 700;
-    color: #065F46;
+    color: #B40D14;
 }
 
-.status-dot-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #10B981;
-    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
-    animation: statusPulse 2s infinite;
+.sakip-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
 }
 
-@keyframes statusPulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+/* Card Body */
+.sakip-card-body {
+    flex: 1;
+    margin-bottom: 1.25rem;
+}
+
+.sakip-card-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #B40D14;
+    margin-bottom: 0.85rem;
+}
+
+.sakip-card-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.45;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    min-height: 52px;
+    word-break: break-word;
+}
+
+/* Download Chips */
+.sakip-download-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.sakip-download-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sakip-download-chip.original {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #B40D14;
+}
+
+.sakip-download-chip.original:hover {
+    background: #FEE2E2;
+    color: #8B0000;
+    transform: translateX(2px);
+}
+
+.sakip-download-chip.watermark {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1D4ED8;
+}
+
+.sakip-download-chip.watermark:hover {
+    background: #DBEAFE;
+    color: #1E40AF;
+    transform: translateX(2px);
+}
+
+.sakip-download-chip-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Card Footer */
-.program-card-footer {
+.sakip-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -578,15 +571,15 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. LIST VIEW (FLOATING ROW ITEMS - NO TABLE IN TABLE)
+   5. LIST VIEW (FLOATING ROW ITEMS)
    -------------------------------------------------------------------------- */
-.program-list-container {
+.sakip-list-container {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
 }
 
-.program-list-item {
+.sakip-list-item {
     background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.9);
     border-radius: 16px;
@@ -601,7 +594,7 @@
     overflow: hidden;
 }
 
-.program-list-item::before {
+.sakip-list-item::before {
     content: '';
     position: absolute;
     top: 0;
@@ -613,17 +606,17 @@
     transition: width 0.2s ease;
 }
 
-.program-list-item:hover {
+.sakip-list-item:hover {
     transform: translateX(4px);
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
     border-color: rgba(180, 13, 20, 0.2);
 }
 
-.program-list-item:hover::before {
+.sakip-list-item:hover::before {
     width: 6px;
 }
 
-.program-list-left {
+.sakip-list-left {
     display: flex;
     align-items: center;
     gap: 1.15rem;
@@ -631,12 +624,26 @@
     min-width: 0;
 }
 
-.program-list-content {
+.sakip-list-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    box-shadow: 0 4px 10px rgba(180, 13, 20, 0.2);
+    flex-shrink: 0;
+}
+
+.sakip-list-content {
     flex: 1;
     min-width: 0;
 }
 
-.program-list-title {
+.sakip-list-title {
     font-family: 'Raleway', 'DM Sans', sans-serif;
     font-size: 1.05rem;
     font-weight: 800;
@@ -645,102 +652,24 @@
     line-height: 1.35;
 }
 
-.program-list-submeta {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-}
-
-.program-list-right {
+.sakip-list-submeta {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.sakip-list-right {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
     flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
-   6. GROUPED VIEW (PER BIDANG VIEW)
+   6. EMPTY STATE
    -------------------------------------------------------------------------- */
-.program-grouped-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-}
-
-.program-group-card {
-    background: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03);
-    overflow: hidden;
-}
-
-.program-group-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 1.75rem;
-    border-bottom: 1px solid #E2E8F0;
-    background: linear-gradient(135deg, #ffffff 0%, #FAFAFA 100%);
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.program-group-header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-}
-
-.program-group-title {
-    font-family: 'Raleway', 'DM Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #0F172A;
-    margin-bottom: 0.15rem;
-}
-
-.program-group-body {
-    padding: 1.5rem 1.75rem;
-}
-
-.program-group-items-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1rem;
-}
-
-.program-pill-item {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    padding: 1rem 1.15rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.85rem;
-    transition: all 0.2s ease;
-}
-
-.program-pill-item:hover {
-    background: #ffffff;
-    border-color: rgba(180, 13, 20, 0.25);
-    box-shadow: 0 4px 12px rgba(180, 13, 20, 0.05);
-    transform: translateY(-2px);
-}
-
-.program-pill-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #1E293B;
-    line-height: 1.4;
-}
-
-/* --------------------------------------------------------------------------
-   7. EMPTY STATE
-   -------------------------------------------------------------------------- */
-.program-empty-state {
+.sakip-empty-state {
     background: #ffffff;
     border: 2px dashed #E2E8F0;
     border-radius: 20px;
@@ -750,7 +679,7 @@
     margin: 2rem auto;
 }
 
-.program-empty-icon {
+.sakip-empty-icon {
     width: 76px;
     height: 76px;
     border-radius: 50%;
@@ -763,7 +692,7 @@
     margin: 0 auto 1.25rem;
 }
 
-.program-empty-title {
+.sakip-empty-title {
     font-family: 'Raleway', 'DM Sans', sans-serif;
     font-size: 1.35rem;
     font-weight: 800;
@@ -771,7 +700,7 @@
     margin-bottom: 0.5rem;
 }
 
-.program-empty-desc {
+.sakip-empty-desc {
     font-size: 0.9rem;
     color: #64748b;
     line-height: 1.55;
@@ -779,26 +708,26 @@
 }
 
 /* --------------------------------------------------------------------------
-   8. FORM CARD (CREATE & EDIT VIEWS)
+   7. FORM CARD (CREATE & EDIT VIEWS)
    -------------------------------------------------------------------------- */
-.program-form-card {
+.sakip-form-card {
     background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.9);
     border-radius: 20px;
     box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
     overflow: hidden;
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto;
 }
 
-.program-form-header {
+.sakip-form-header {
     background: #ffffff;
     border-bottom: 1px solid #E2E8F0;
     padding: 1.75rem 2rem;
     position: relative;
 }
 
-.program-form-header::before {
+.sakip-form-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -808,7 +737,7 @@
     background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
 }
 
-.program-form-title {
+.sakip-form-title {
     font-family: 'Raleway', 'DM Sans', sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
@@ -816,21 +745,21 @@
     margin-bottom: 0.25rem;
 }
 
-.program-form-subtitle {
+.sakip-form-subtitle {
     font-size: 0.9rem;
     color: #64748b;
     margin-bottom: 0;
 }
 
-.program-form-body {
+.sakip-form-body {
     padding: 2rem;
 }
 
-.program-form-group {
+.sakip-form-group {
     margin-bottom: 1.5rem;
 }
 
-.program-form-label {
+.sakip-form-label {
     display: flex;
     align-items: center;
     gap: 0.45rem;
@@ -840,7 +769,7 @@
     margin-bottom: 0.55rem;
 }
 
-.program-input-control {
+.sakip-input-control {
     width: 100%;
     padding: 0.75rem 1.15rem;
     background: #F8FAFC;
@@ -852,13 +781,24 @@
     transition: all 0.2s ease;
 }
 
-.program-input-control:focus {
+.sakip-input-control:focus {
     background: #ffffff;
     border-color: #B40D14;
     box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.12);
 }
 
-.program-form-actions {
+.sakip-file-status-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    margin-bottom: 0.65rem;
+}
+
+.sakip-form-actions {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -867,78 +807,125 @@
     border-top: 1px solid #E2E8F0;
 }
 
-.btn-form-save {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.75rem 1.85rem;
-    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.925rem;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(180, 13, 20, 0.28);
-    transition: all 0.25s ease;
+/* --------------------------------------------------------------------------
+   8. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+    .sakip-hero-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    .sakip-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sakip-toolbar-left {
+        width: 100%;
+    }
+
+    .sakip-search-box {
+        max-width: 100%;
+    }
+
+    .sakip-toolbar-actions {
+        justify-content: flex-end;
+        width: 100%;
+    }
 }
 
-.btn-form-save:hover {
-    background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
-}
+@media (max-width: 768px) {
+    .sakip-cards-grid {
+        grid-template-columns: 1fr;
+    }
 
-.btn-form-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.75rem 1.5rem;
-    background: #F1F5F9;
-    color: #475569;
-    border: 1px solid #E2E8F0;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.925rem;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
+    .sakip-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 
-.btn-form-back:hover {
-    background: #E2E8F0;
-    color: #0F172A;
+    .sakip-list-right {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px dashed #E2E8F0;
+        padding-top: 0.75rem;
+    }
 }
 
 /* --------------------------------------------------------------------------
-   9. MODAL DELETE CONFIRMATION
+   9. FEEDBACK ALERTS
    -------------------------------------------------------------------------- */
-.modal-program-delete .modal-content {
-    border-radius: 22px;
+.alert-modern-feedback {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.alert-modern-feedback.alert-success {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    color: #166534;
+}
+
+.alert-modern-feedback.alert-danger {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+}
+
+/* --------------------------------------------------------------------------
+   10. MODAL DELETE STYLES
+   -------------------------------------------------------------------------- */
+.modal-sakip-delete .modal-content {
+    border-radius: 20px;
     border: none;
-    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
     overflow: hidden;
 }
 
-.modal-program-delete .modal-body {
-    padding: 2.25rem 2rem 1.75rem;
+.modal-sakip-delete .modal-body {
+    padding: 2.25rem 2rem 1.5rem;
     text-align: center;
 }
 
-.modal-delete-icon-box {
-    width: 68px;
-    height: 68px;
+.modal-sakip-icon-danger {
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: #FEF2F2;
     color: #DC2626;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.85rem;
+    font-size: 2rem;
     margin: 0 auto 1.25rem;
-    border: 2px solid #FEE2E2;
+    box-shadow: 0 0 0 8px #FFF1F2;
 }
 
-.modal-program-name-highlight {
+.modal-sakip-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+}
+
+.modal-sakip-desc {
+    color: #64748B;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.modal-sakip-name-highlight {
     background: #F8FAFC;
     border: 1px dashed #CBD5E1;
     border-radius: 12px;
@@ -950,7 +937,7 @@
     word-break: break-word;
 }
 
-.modal-program-delete .modal-footer {
+.modal-sakip-delete .modal-footer {
     background: #F8FAFC;
     padding: 1.15rem 1.75rem;
     border-top: 1px solid #E2E8F0;
@@ -996,63 +983,3 @@
     transform: translateY(-1px);
 }
 
-/* --------------------------------------------------------------------------
-   10. RESPONSIVE ADJUSTMENTS
-   -------------------------------------------------------------------------- */
-@media (max-width: 991px) {
-    .program-hero-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1.5rem;
-    }
-
-    .program-header-title {
-        font-size: 1.6rem;
-    }
-
-    .program-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .program-toolbar-left {
-        width: 100%;
-    }
-
-    .program-search-box {
-        max-width: 100%;
-    }
-
-    .program-filter-select {
-        max-width: 100%;
-        flex: 1;
-    }
-
-    .program-toolbar-actions {
-        justify-content: flex-end;
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .program-cards-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .program-list-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .program-list-right {
-        width: 100%;
-        justify-content: flex-end;
-        border-top: 1px dashed #E2E8F0;
-        padding-top: 0.75rem;
-    }
-
-    .program-group-items-list {
-        grid-template-columns: 1fr;
-    }
-}

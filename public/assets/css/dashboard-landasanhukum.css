@@ -1,73 +1,1276 @@
-.landasan-hukum-table {
-    table-layout: fixed;
-    width: 100%;
+/* ==========================================================================
+   DASHBOARD LANDASAN HUKUM - MODERN & ELEGANT DESIGN SYSTEM
+   Bakesbangpol Kota Bandung
+   ========================================================================== */
+
+/* Page Wrapper */
+.hukum-page-wrapper {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0.5rem 0.75rem 2.5rem;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
 }
 
-.landasan-hukum-table th,
-.landasan-hukum-table td {
-    vertical-align: middle;
-    overflow-wrap: anywhere;
+/* --------------------------------------------------------------------------
+   1. HERO HEADER
+   -------------------------------------------------------------------------- */
+.hukum-hero-header {
+    background: #ffffff;
+    border: 1px solid rgba(180, 13, 20, 0.08);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.landasan-hukum-table th:nth-child(1),
-.landasan-hukum-table td:nth-child(1) {
-    width: 16%;
+.hukum-hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
 }
 
-.landasan-hukum-table th:nth-child(2),
-.landasan-hukum-table td:nth-child(2) {
-    width: 29%;
+.hukum-hero-header::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(180, 13, 20, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
-.landasan-hukum-table th:nth-child(3),
-.landasan-hukum-table td:nth-child(3) {
-    width: auto;
+.hukum-header-left {
+    max-width: 750px;
 }
 
-.landasan-hukum-table th.kolom-aksi,
-.landasan-hukum-table td.kolom-aksi {
-    width: 104px;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    text-align: center !important;
+.hukum-badge-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    background: #FEF2F2;
+    color: #B40D14;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 0.65rem;
+    border: 1px solid rgba(180, 13, 20, 0.12);
+}
+
+.hukum-header-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+}
+
+.hukum-header-subtitle {
+    font-size: 0.935rem;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.btn-tambah-hukum-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.6rem;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 0.925rem;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(180, 13, 20, 0.28);
+    text-decoration: none;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
 }
 
-.landasan-hukum-actions {
+.btn-tambah-hukum-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
+    background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
+    color: #ffffff !important;
+}
+
+.btn-tambah-hukum-modern:active {
+    transform: translateY(0);
+}
+
+.btn-tambah-hukum-modern i {
+    font-size: 0.95rem;
+    transition: transform 0.25s ease;
+}
+
+.btn-tambah-hukum-modern:hover i {
+    transform: rotate(90deg);
+}
+
+/* Feedback Alerts */
+.alert-modern-feedback {
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
     display: flex;
-    width: 100%;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.alert-modern-feedback.alert-success {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+    color: #166534;
+}
+
+.alert-modern-feedback.alert-danger {
+    background: #FEF2F2;
+    border-color: #FECACA;
+    color: #991B1B;
+}
+
+/* --------------------------------------------------------------------------
+   2. STATS OVERVIEW CARDS
+   -------------------------------------------------------------------------- */
+.hukum-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.hukum-stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s ease;
+}
+
+.hukum-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.18);
+}
+
+.hukum-stat-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-red {
+    background: #FEF2F2;
+    color: #B40D14;
+}
+
+.stat-icon-indigo {
+    background: #EEF2FF;
+    color: #4F46E5;
+}
+
+.stat-icon-emerald {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.stat-icon-amber {
+    background: #FFFBEB;
+    color: #D97706;
+}
+
+.hukum-stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.hukum-stat-value {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.hukum-stat-label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. TOOLBAR CONTROLS (SEARCH, FILTERS & VIEW SWITCHER)
+   -------------------------------------------------------------------------- */
+.hukum-toolbar {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    flex-wrap: wrap;
+}
+
+.hukum-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 300px;
+    flex-wrap: wrap;
+}
+
+.hukum-search-box {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+    max-width: 360px;
+}
+
+.hukum-search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.925rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.hukum-search-input {
+    width: 100%;
+    height: 42px;
+    padding: 0.5rem 1rem 0.5rem 2.6rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.hukum-search-input:focus {
+    background: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
+}
+
+.hukum-search-input:focus + i {
+    color: #B40D14;
+}
+
+.hukum-filter-select {
+    height: 42px;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #334155;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    transition: all 0.2s ease;
+    min-width: 150px;
+    max-width: 220px;
+}
+
+.hukum-filter-select:focus {
+    background-color: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
+}
+
+.hukum-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.hukum-view-switch {
+    display: inline-flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 10px;
+    gap: 2px;
+}
+
+.btn-view-switch {
+    border: none;
+    background: transparent;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-view-switch:hover {
+    color: #1e293b;
+}
+
+.btn-view-switch.active {
+    background: #ffffff;
+    color: #B40D14;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   4. CARDS GRID VIEW (MODERN LEGAL CARDS - NO TABLE IN TABLE)
+   -------------------------------------------------------------------------- */
+.hukum-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.35rem;
+}
+
+.hukum-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hukum-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #B40D14 0%, #E11D48 100%);
+    opacity: 0.85;
+    transition: width 0.25s ease;
+}
+
+/* Dynamic Left Accent by Theme */
+.hukum-card.theme-card-uu::before {
+    background: linear-gradient(180deg, #B40D14 0%, #DC2626 100%);
+}
+.hukum-card.theme-card-pp::before {
+    background: linear-gradient(180deg, #4F46E5 0%, #3B82F6 100%);
+}
+.hukum-card.theme-card-perpres::before {
+    background: linear-gradient(180deg, #7C3AED 0%, #9333EA 100%);
+}
+.hukum-card.theme-card-permendagri::before {
+    background: linear-gradient(180deg, #0284C7 0%, #06B6D4 100%);
+}
+.hukum-card.theme-card-daerah::before {
+    background: linear-gradient(180deg, #059669 0%, #10B981 100%);
+}
+.hukum-card.theme-card-kpu::before {
+    background: linear-gradient(180deg, #D97706 0%, #F59E0B 100%);
+}
+
+.hukum-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -4px rgba(180, 13, 20, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    border-color: rgba(180, 13, 20, 0.25);
+}
+
+.hukum-card:hover::before {
+    width: 7px;
+}
+
+/* Card Top Section */
+.hukum-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.15rem;
+    gap: 0.5rem;
+}
+
+.hukum-card-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Jenis Peraturan Badge */
+.badge-jenis-peraturan {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.badge-jenis-uu {
+    background: #FEF2F2;
+    color: #B40D14;
+    border: 1px solid rgba(180, 13, 20, 0.18);
+}
+
+.badge-jenis-pp {
+    background: #EEF2FF;
+    color: #4338CA;
+    border: 1px solid rgba(67, 56, 202, 0.18);
+}
+
+.badge-jenis-perpres {
+    background: #F5F3FF;
+    color: #6D28D9;
+    border: 1px solid rgba(109, 40, 217, 0.18);
+}
+
+.badge-jenis-permendagri {
+    background: #F0F9FF;
+    color: #0369A1;
+    border: 1px solid rgba(3, 105, 161, 0.18);
+}
+
+.badge-jenis-daerah {
+    background: #ECFDF5;
+    color: #047857;
+    border: 1px solid rgba(4, 120, 87, 0.18);
+}
+
+.badge-jenis-kpu {
+    background: #FFFBEB;
+    color: #B45309;
+    border: 1px solid rgba(180, 83, 9, 0.18);
+}
+
+.badge-jenis-default {
+    background: #F1F5F9;
+    color: #334155;
+    border: 1px solid rgba(51, 65, 85, 0.18);
+}
+
+.chip-nomor-tahun {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.65rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+/* Card Action Buttons */
+.hukum-card-actions {
+    display: flex;
+    align-items: center;
     gap: 0.4rem;
 }
 
-.landasan-hukum-actions form {
+.btn-card-action {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: none;
     display: inline-flex;
-    margin: 0;
-}
-
-.landasan-hukum-actions .btn {
-    display: inline-flex;
-    width: 32px;
-    height: 32px;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-action-view {
+    background: #F0F9FF;
+    color: #0284C7;
+    border: 1px solid rgba(2, 132, 199, 0.15);
+}
+
+.btn-action-view:hover {
+    background: #E0F2FE;
+    color: #0369A1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
+}
+
+.btn-action-edit {
+    background: #FFFBEB;
+    color: #D97706;
+    border: 1px solid rgba(217, 119, 6, 0.15);
+}
+
+.btn-action-edit:hover {
+    background: #FDE68A;
+    color: #B45309;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+}
+
+.btn-action-delete {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+.btn-action-delete:hover {
+    background: #FEE2E2;
+    color: #991B1B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+
+/* Card Body */
+.hukum-card-body {
+    flex: 1;
+    margin-bottom: 1.25rem;
+}
+
+.hukum-card-bidang {
+    margin-bottom: 0.65rem;
+}
+
+.badge-bidang-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    background: #F8FAFC;
+    color: #475569;
+    font-size: 0.775rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge-bidang-chip i {
+    color: #B40D14;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.hukum-card-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.hukum-card-subtitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 0.85rem;
+    display: block;
+}
+
+/* Tentang Content Box */
+.hukum-tentang-container {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 3px solid #CBD5E1;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hukum-tentang-container:hover {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+}
+
+.hukum-tentang-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.725rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-bottom: 0.4rem;
+}
+
+.hukum-tentang-label i {
+    color: #B40D14;
+}
+
+.hukum-tentang-excerpt {
+    font-size: 0.865rem;
+    line-height: 1.55;
+    color: #334155;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+    word-break: break-word;
+}
+
+.hukum-tentang-excerpt p {
+    margin-bottom: 0.25rem;
+}
+
+.hukum-tentang-excerpt p:last-child {
+    margin-bottom: 0;
+}
+
+.hukum-read-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.775rem;
+    font-weight: 700;
+    color: #B40D14;
+    margin-top: 0.45rem;
+    text-decoration: none;
+    transition: gap 0.2s ease;
+}
+
+.hukum-read-more-link:hover {
+    gap: 0.5rem;
+    color: #8B0000;
+}
+
+/* Card Footer */
+.hukum-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px dashed #E2E8F0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.btn-card-read-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
+    background: #F8FAFC;
+    color: #334155;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-card-read-detail:hover {
+    background: #B40D14;
+    color: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 4px 12px rgba(180, 13, 20, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   5. LIST VIEW (FLOATING ROW ITEMS - NO TABLE IN TABLE)
+   -------------------------------------------------------------------------- */
+.hukum-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.hukum-list-item {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 16px;
+    padding: 1.15rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hukum-list-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #B40D14;
+    opacity: 0.8;
+    transition: width 0.2s ease;
+}
+
+.hukum-list-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.2);
+}
+
+.hukum-list-item:hover::before {
+    width: 6px;
+}
+
+.hukum-list-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.15rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.hukum-list-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    box-shadow: 0 4px 10px rgba(180, 13, 20, 0.2);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.hukum-list-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.hukum-list-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.hukum-list-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0;
+}
+
+.hukum-list-excerpt {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.45rem;
+    word-break: break-word;
+}
+
+.hukum-list-excerpt p {
+    margin-bottom: 0;
+    display: inline;
+}
+
+.hukum-list-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.hukum-list-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. EMPTY STATE & NO SEARCH MATCH
+   -------------------------------------------------------------------------- */
+.hukum-empty-state {
+    background: #ffffff;
+    border: 2px dashed #E2E8F0;
+    border-radius: 20px;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    max-width: 540px;
+    margin: 2rem auto;
+}
+
+.hukum-empty-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #FEF2F2;
+    color: #B40D14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.25rem;
+}
+
+.hukum-empty-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.hukum-empty-desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. MODAL DETAIL REGULASI
+   -------------------------------------------------------------------------- */
+.modal-hukum-detail .modal-content {
+    border-radius: 24px;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    overflow: hidden;
+}
+
+.modal-hukum-header {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: #ffffff;
+    padding: 1.5rem 1.85rem;
+    position: relative;
+    border-bottom: 3px solid #B40D14;
+}
+
+.modal-hukum-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+.modal-hukum-header .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-hukum-title-box {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.modal-hukum-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(180, 13, 20, 0.3);
+    color: #F87171;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.modal-hukum-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+    color: #ffffff;
+}
+
+.modal-hukum-meta-chips {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.modal-hukum-body {
+    padding: 1.85rem;
+    background: #ffffff;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-reading-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #B40D14;
+    border-radius: 14px;
+    padding: 1.5rem;
+    color: #1E293B;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    position: relative;
+}
+
+.modal-reading-box p {
+    margin-bottom: 0.85rem;
+}
+
+.modal-reading-box p:last-child {
+    margin-bottom: 0;
+}
+
+.modal-reading-box ol, .modal-reading-box ul {
+    padding-left: 1.25rem;
+    margin-bottom: 0.85rem;
+}
+
+.modal-hukum-footer {
+    background: #F8FAFC;
+    padding: 1.15rem 1.85rem;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. MODAL DELETE CONFIRMATION
+   -------------------------------------------------------------------------- */
+.modal-hukum-delete .modal-content {
+    border-radius: 22px;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    overflow: hidden;
+}
+
+.modal-hukum-delete .modal-body {
+    padding: 2.25rem 2rem 1.75rem;
+    text-align: center;
+}
+
+.modal-delete-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #FEF2F2;
+    color: #DC2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    margin: 0 auto 1.25rem;
+    border: 2px solid #FEE2E2;
+}
+
+.modal-hukum-name-highlight {
+    background: #F8FAFC;
+    border: 1px dashed #CBD5E1;
+    border-radius: 12px;
+    padding: 0.85rem 1.25rem;
+    font-weight: 700;
+    color: #0F172A;
+    font-size: 0.95rem;
+    margin: 1.15rem 0;
+    word-break: break-word;
+}
+
+.modal-hukum-delete .modal-footer {
+    background: #F8FAFC;
+    padding: 1.15rem 1.75rem;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-modal-cancel {
+    padding: 0.65rem 1.4rem;
+    background: #ffffff;
+    border: 1px solid #CBD5E1;
+    color: #475569;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-cancel:hover {
+    background: #F1F5F9;
+    color: #1E293B;
+}
+
+.btn-modal-delete {
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    border: none;
+    color: #ffffff;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-modal-delete:hover {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+    transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   9. FORM CARD (CREATE & EDIT VIEWS)
+   -------------------------------------------------------------------------- */
+.hukum-form-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hukum-form-header {
+    background: #ffffff;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 1.75rem 2rem;
+    position: relative;
+}
+
+.hukum-form-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
+}
+
+.hukum-form-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 0.25rem;
+}
+
+.hukum-form-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+.hukum-form-body {
+    padding: 2rem;
+}
+
+.hukum-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.hukum-form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #1E293B;
+    margin-bottom: 0.55rem;
+}
+
+.hukum-input-control {
+    width: 100%;
+    padding: 0.75rem 1.15rem;
+    background: #F8FAFC;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 12px;
+    font-size: 0.925rem;
+    color: #0F172A;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.hukum-input-control:focus {
+    background: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.12);
+}
+
+.hukum-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #E2E8F0;
+}
+
+.btn-form-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 1.85rem;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.925rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(180, 13, 20, 0.28);
+    transition: all 0.25s ease;
+}
+
+.btn-form-save:hover {
+    background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
+}
+
+.btn-form-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 1.5rem;
+    background: #F1F5F9;
+    color: #475569;
+    border: 1px solid #E2E8F0;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.925rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-form-back:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVE ADJUSTMENTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+    .hukum-hero-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    .hukum-header-title {
+        font-size: 1.6rem;
+    }
+
+    .hukum-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hukum-toolbar-left {
+        width: 100%;
+    }
+
+    .hukum-search-box {
+        max-width: 100%;
+    }
+
+    .hukum-filter-select {
+        max-width: 100%;
+        flex: 1;
+    }
+
+    .hukum-toolbar-actions {
+        justify-content: flex-end;
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
-    .landasan-hukum-table {
-        min-width: 680px;
+    .hukum-cards-grid {
+        grid-template-columns: 1fr;
     }
 
-    .landasan-hukum-table th.kolom-aksi,
-    .landasan-hukum-table td.kolom-aksi {
-        width: 94px;
+    .hukum-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
-    .landasan-hukum-actions .btn {
-        width: 30px;
-        height: 30px;
+    .hukum-list-right {
+        width: 100%;
+        justify-content: flex-end;
+        border-top: 1px dashed #E2E8F0;
+        padding-top: 0.75rem;
+    }
+
+    .hukum-form-header, .hukum-form-body {
+        padding: 1.25rem;
     }
 }

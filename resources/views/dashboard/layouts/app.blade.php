@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bagan-strukturors.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-banner.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-galeri.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-landasanhukum.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-sakip.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-pemilu.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-responsive.css') }}">
 
     @stack('styles')

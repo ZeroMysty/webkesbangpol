@@ -13,21 +13,52 @@ use Illuminate\Http\RedirectResponse;
 
 class LandasanHukumController extends Controller
 {
-
-    public function index(): View
+    public function index(Request $request): View
     {
-        
-        $hukum = LandasanHukum::with('bidang')->first()->paginate(5);
-        return view('dashboard.landasanhukum.index', compact('hukum'));
+        $count = LandasanHukum::count();
+        $totalBidang = Bidang::count();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
+
+        $query = LandasanHukum::with('bidang');
+
+        if ($request->filled('bidang_id')) {
+            $query->where('bidang_id', $request->bidang_id);
+        }
+
+        if ($request->filled('jenis')) {
+            $query->where('jenis_peraturan', $request->jenis);
+        }
+
+        if ($request->filled('q')) {
+            $search = trim($request->q);
+            $query->where(function ($q) use ($search) {
+                $q->where('jenis_peraturan', 'like', "%{$search}%")
+                  ->orWhere('nomor_peraturan', 'like', "%{$search}%")
+                  ->orWhere('tahun_peraturan', 'like', "%{$search}%")
+                  ->orWhere('tentang', 'like', "%{$search}%");
+            });
+        }
+
+        $hukum = $query->orderBy('tahun_peraturan', 'desc')
+                       ->orderBy('id', 'desc')
+                       ->paginate(12)
+                       ->withQueryString();
+
+        $jenisList = LandasanHukum::select('jenis_peraturan')
+                        ->distinct()
+                        ->orderBy('jenis_peraturan', 'asc')
+                        ->pluck('jenis_peraturan');
+
+        $latestYear = LandasanHukum::max('tahun_peraturan') ?? date('Y');
+
+        return view('dashboard.landasanhukum.index', compact('hukum', 'count', 'totalBidang', 'bidangs', 'jenisList', 'latestYear'));
     }
 
-
-    public function create()
+    public function create(): View
     {
-        $bidangs = Bidang::all();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
         return view('dashboard.landasanhukum.create', compact('bidangs'));
     }
-
 
     public function store(Request $request): RedirectResponse
     {
@@ -47,18 +78,15 @@ class LandasanHukumController extends Controller
             'tentang' => Purifier::clean($request->tentang),
         ]);
 
-        return redirect()->route('landasanhukum.index')->with('success', 'Data berhasil disimpan.');
-
+        return redirect()->route('landasanhukum.index')->with('success', 'Data dasar hukum berhasil disimpan.');
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $landasanHukum = LandasanHukum::findOrFail($id);
-        $bidangs = Bidang::all();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
         return view('dashboard.landasanhukum.edit', compact('landasanHukum', 'bidangs'));
     }
-
-
 
     public function update(Request $request, $id): RedirectResponse
     {
@@ -80,14 +108,13 @@ class LandasanHukumController extends Controller
             'tentang' => Purifier::clean($request->tentang),
         ]);
 
-        return redirect()->route('landasanhukum.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('landasanhukum.index')->with('success', 'Data dasar hukum berhasil diperbarui!');
     }
-
 
     public function destroy($id): RedirectResponse
     {
         $hukum = LandasanHukum::findOrFail($id);
         $hukum->delete();
-        return redirect()->route('landasanhukum.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('landasanhukum.index')->with('success', 'Data dasar hukum berhasil dihapus!');
     }
 }

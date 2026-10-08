@@ -1,94 +1,159 @@
 @extends('dashboard.layouts.app')
 
+@section('title', 'Manajemen Walikota')
+
 @section('content')
-<div class="container-fluid">
-    {{-- Bagian Judul Utama dan Tombol Tambah --}}
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        {{-- PERBAIKAN: Menambahkan div untuk mengelompokkan tombol kembali dan judul --}}
-        <div>
-            <a href="{{ route('admin.pemilu-raya.dashboard') }}" class="btn btn-secondary mb-2">
-                <i class="fas fa-arrow-left me-1"></i> Kembali ke Pemilu Raya
-            </a>
-            <h3 class="m-0">Manajemen Walikota</h3>
-        </div>
-        <a href="{{ route('admin.pemilu.walikota.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus-circle me-1"></i> Tambah Paslon Baru
+<div class="pemilu-page-wrapper">
+
+    {{-- 1. HERO HEADER & BREADCRUMB --}}
+    <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <a href="{{ route('admin.pemilu-raya.dashboard') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2">
+            <i class="fas fa-arrow-left"></i>
+            <span>Kembali ke Dashboard Pemilu Raya</span>
         </a>
+        <div class="badge bg-light text-secondary border px-3 py-2 rounded-pill">
+            <i class="fas fa-city text-primary me-1"></i> Pemilihan Walikota & Wakil Walikota Bandung
+        </div>
     </div>
 
-    {{-- Notifikasi Sukses --}}
+    <div class="pemilu-hero-header">
+        <div class="pemilu-header-left">
+            <div class="pemilu-badge-category" style="background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE;">
+                <i class="fas fa-building-columns"></i>
+                <span>Pilkada Kota Bandung</span>
+            </div>
+            <h1 class="pemilu-header-title">Manajemen Paslon Walikota</h1>
+            <p class="pemilu-header-subtitle">
+                Kelola daftar pasangan calon Walikota dan Wakil Walikota Bandung, nomor urut peserta, profil biodata, program unggulan, serta koalisi partai politik.
+            </p>
+        </div>
+        <div class="pemilu-header-right">
+            <a href="{{ route('admin.pemilu.walikota.create') }}" class="btn-tambah-sakip-modern" style="background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);">
+                <i class="fas fa-plus"></i>
+                <span>Tambah Paslon Baru</span>
+            </a>
+        </div>
+    </div>
+
+    {{-- Session Feedback Messages --}}
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm mb-4" role="alert">
+            <i class="fas fa-circle-check me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
 
-    {{-- Kondisi Utama untuk Menampilkan Tabel atau Pesan Kosong --}}
+    {{-- 2. KONTEN PASLON --}}
     @if($paslons->isNotEmpty())
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Daftar Pasangan Calon Wali Kota</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">No Urut</th>
-                                <th>Foto</th>
-                                <th>Calon Wali Kota</th>
-                                <th>Calon Wakil Wali Kota</th>
-                                <th>Partai Pengusung</th>
-                                <th style="width: 150px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($paslons as $paslon)
-                            <tr>
-                                <td class="text-center"><h4>{{ $paslon->no_urut }}</h4></td>
-                                <td>
-                                    {{-- Tampilkan foto Calon Wali Kota --}}
-                                    @if($paslon->capres_foto && file_exists(public_path($paslon->capres_foto)))
-                                        <img src="{{ asset($paslon->capres_foto) }}" alt="Foto Wali Kota" style="height: 100px; object-fit: cover;" class="rounded mb-2">
-                                    @endif
+        <div class="paslon-grid">
+            @foreach($paslons as $paslon)
+                <div class="paslon-card" style="border-top: 4px solid #2563EB;">
+                    <div>
+                        {{-- Card Header --}}
+                        <div class="paslon-card-header">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="paslon-number-chip" style="background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);" title="Nomor Urut Pasangan Calon">
+                                    {{ sprintf('%02d', $paslon->no_urut) }}
+                                </span>
+                                <div>
+                                    <span class="text-uppercase fw-bold text-muted small d-block" style="font-size: 0.72rem; letter-spacing: 0.05em;">Nomor Urut</span>
+                                    <span class="fw-bold text-dark">Pasangan Calon</span>
+                                </div>
+                            </div>
 
-                                    {{-- Tampilkan foto Calon Wakil Wali Kota --}}
-                                    @if($paslon->cawapres_foto && file_exists(public_path($paslon->cawapres_foto)))
-                                        <img src="{{ asset($paslon->cawapres_foto) }}" alt="Foto Wakil Wali Kota" style="height: 100px; object-fit: cover;" class="rounded">
-                                    @endif
-                                </td>
-                                <td>{{ $paslon->capres_nama }}</td>
-                                <td>{{ $paslon->cawapres_nama }}</td>
-                                <td>{{ $paslon->partai_pengusung }}</td>
-                                <td>
-                                    <a href="{{ route('admin.pemilu.walikota.show', $paslon->id) }}" class="btn btn-sm btn-info" title="Detail"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('admin.pemilu.walikota.edit', $paslon->id) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('admin.pemilu.walikota.destroy', $paslon->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill small">
+                                <i class="fas fa-calendar-check me-1 text-primary"></i> {{ $paslon->tahun_pemilu ?? '2024' }}
+                            </span>
+                        </div>
+
+                        {{-- Duo Photos --}}
+                        <div class="paslon-photos-duo">
+                            {{-- Walikota --}}
+                            <div class="paslon-photo-box">
+                                @if($paslon->capres_foto && file_exists(public_path($paslon->capres_foto)))
+                                    <img src="{{ asset($paslon->capres_foto) }}" alt="{{ $paslon->capres_nama }}">
+                                @else
+                                    <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 100px; height: 110px;">
+                                        <i class="fas fa-user-tie fa-2x text-muted"></i>
+                                    </div>
+                                @endif
+                                <span class="candidate-role text-primary d-block">Calon Walikota</span>
+                            </div>
+
+                            {{-- Wakil Walikota --}}
+                            <div class="paslon-photo-box">
+                                @if($paslon->cawapres_foto && file_exists(public_path($paslon->cawapres_foto)))
+                                    <img src="{{ asset($paslon->cawapres_foto) }}" alt="{{ $paslon->cawapres_nama }}">
+                                @else
+                                    <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 100px; height: 110px;">
+                                        <i class="fas fa-user-tie fa-2x text-muted"></i>
+                                    </div>
+                                @endif
+                                <span class="candidate-role text-primary d-block">Calon Wakil Walikota</span>
+                            </div>
+                        </div>
+
+                        {{-- Candidate Names --}}
+                        <div class="paslon-candidate-names text-center">
+                            <h4 class="paslon-name-item mb-1">{{ $paslon->capres_nama }}</h4>
+                            <span class="text-muted small fw-semibold">&</span>
+                            <h4 class="paslon-name-item mt-1">{{ $paslon->cawapres_nama }}</h4>
+                        </div>
+
+                        {{-- Partai Pengusung --}}
+                        <div class="text-center mb-3">
+                            <span class="paslon-partai-chip">
+                                <i class="fas fa-landmark text-primary"></i>
+                                <span>{{ $paslon->partai_pengusung }}</span>
+                            </span>
+                        </div>
+
+                        @if($paslon->total_suara)
+                            <div class="bg-light p-2 rounded-3 text-center mb-3 border">
+                                <span class="small text-muted d-block">Total Suara Sah Terdata</span>
+                                <span class="fw-bold text-dark fs-5">{{ number_format($paslon->total_suara, 0, ',', '.') }}</span>
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- Actions --}}
+                    <div class="d-flex align-items-center justify-content-between pt-3 border-top mt-2">
+                        <a href="{{ route('admin.pemilu.walikota.show', $paslon->id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                            <i class="fas fa-eye me-1"></i> Rincian
+                        </a>
+
+                        <div class="d-flex align-items-center gap-1">
+                            <a href="{{ route('admin.pemilu.walikota.edit', $paslon->id) }}" class="btn-card-action btn-action-edit" title="Edit Paslon">
+                                <i class="fas fa-pen-to-square"></i>
+                            </a>
+
+                            <form action="{{ route('admin.pemilu.walikota.destroy', $paslon->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data paslon nomor urut {{ $paslon->no_urut }}?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-card-action btn-action-delete" title="Hapus Paslon">
+                                    <i class="fas fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     @else
-        {{-- Tampilan jika tidak ada data --}}
-        <div class="card">
-            <div class="card-body text-center p-5">
-                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
-                <h5 class="text-muted">Belum Ada Data Pasangan Calon</h5>
-                <p class="text-muted">Silakan tambahkan data baru melalui tombol "Tambah Paslon Baru" di pojok kanan atas.</p>
+        <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+            <div class="mb-3 text-muted">
+                <i class="fas fa-building-columns fa-4x text-primary opacity-50"></i>
+            </div>
+            <h4 class="fw-bold text-dark">Belum Ada Pasangan Calon</h4>
+            <p class="text-muted">Data pasangan calon Walikota & Wakil Walikota Bandung belum tersedia.</p>
+            <div class="mt-2">
+                <a href="{{ route('admin.pemilu.walikota.create') }}" class="btn-tambah-sakip-modern mx-auto" style="background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);">
+                    <i class="fas fa-plus"></i>
+                    <span>Tambah Paslon Baru</span>
+                </a>
             </div>
         </div>
     @endif
+
 </div>
 @endsection
-
-@push('styles')
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
-@endpush
-@endpush

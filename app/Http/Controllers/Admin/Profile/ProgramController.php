@@ -13,15 +13,38 @@ use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $programs = Program::with('bidang')->latest()->paginate(5);
-        return view('dashboard.programs.index', compact('programs'));
+        $count = Program::count();
+        $totalBidangs = Bidang::count();
+        $bidangs = Bidang::withCount('programs')->orderBy('no_bidang', 'asc')->get();
+
+        $query = Program::with('bidang');
+
+        if ($request->filled('bidang_id')) {
+            $query->where('bidang_id', $request->bidang_id);
+        }
+
+        if ($request->filled('q')) {
+            $search = trim($request->q);
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_program', 'like', "%{$search}%")
+                  ->orWhereHas('bidang', function ($qb) use ($search) {
+                      $qb->where('nama_bidang', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $programs = $query->latest()->paginate(12)->withQueryString();
+
+        $programsByBidang = Bidang::with('programs')->orderBy('no_bidang', 'asc')->get();
+
+        return view('dashboard.programs.index', compact('programs', 'count', 'totalBidangs', 'bidangs', 'programsByBidang'));
     }
 
     public function create(): View 
     {
-        $bidangs = Bidang::all();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
         return view('dashboard.programs.create', compact('bidangs'));
     }
 
@@ -29,20 +52,20 @@ class ProgramController extends Controller
     {
         $request->validate([
             'bidang_id' => 'required|exists:bidangs,id',
-            'nama_program' => 'required|string|min:5|max:255',
+            'nama_program' => 'required|string|min:3|max:255',
         ]);
 
         Program::create([
             'bidang_id' => $request->bidang_id,
             'nama_program' => $request->nama_program,
         ]);
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('programs.index')->with('success', 'Data program kerja berhasil ditambahkan.');
     }
 
     public function edit(string $id): View
     {
         $programs = Program::findOrFail($id);
-        $bidangs = Bidang::all();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
         return view('dashboard.programs.edit', compact('programs', 'bidangs'));
     }
 
@@ -50,24 +73,24 @@ class ProgramController extends Controller
     {
         $request->validate([
             'bidang_id' => 'required|exists:bidangs,id',
-            'nama_program' => 'required|string|min:5|max:255',
+            'nama_program' => 'required|string|min:3|max:255',
         ]);
 
-        $programs = Program::findOrFail($id);
+        $program = Program::findOrFail($id);
 
-        $programs->update([
+        $program->update([
             'bidang_id' => $request->bidang_id,
             'nama_program' => $request->nama_program,
         ]);
 
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('programs.index')->with('success', 'Data program kerja berhasil diperbarui!');
     }
 
     public function destroy($id): RedirectResponse
     {
-        $programs = Program::findOrFail($id);
-        $programs->delete();
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        $program = Program::findOrFail($id);
+        $program->delete();
+        return redirect()->route('programs.index')->with('success', 'Data program kerja berhasil dihapus!');
     }
 
     

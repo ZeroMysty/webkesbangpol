@@ -3,53 +3,167 @@
 @section('title', 'Edit Pengukuran Kerja')
 
 @section('content')
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <form action="{{ route('ukurkerja.update', $ukurkerja->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
+<div class="sakip-page-wrapper">
 
-                            <div class="mb-3">
-                                <label for="title-ukurkerja" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title-ukurkerja" name="title" value="{{ old('title', $ukurkerja->title) }}" required autocomplete="off">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="tahun" class="form-label">Tahun</label>
-                                <input type="text" class="form-control" id="tahun" name="tahun" value="{{ old('tahun', $ukurkerja->tahun) }}" required autocomplete="off">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="file_upload" class="form-label">Ganti File (jika perlu)</label>
-                                <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf">
-                                <small class="form-text text-muted">Kosongkan jika tidak ingin mengganti file.</small>
-                                @if($ukurkerja->file_upload)
-                                    <p class="mt-2">File saat ini: <a href="{{ asset($ukurkerja->file_upload) }}" target="_blank">Lihat File</a></p>
-                                @endif
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="file_upload_wm" class="form-label">Ganti File Watermark(jika perlu)</label>
-                                <input type="file" class="form-control" id="file_upload_wm" name="file_upload_wm" accept=".pdf">
-                                <small class="form-text text-muted">Kosongkan jika tidak ingin mengganti file.</small>
-                                @if($ukurkerja->file_upload_wm)
-                                    <p class="mt-2">File saat ini: <a href="{{ asset($ukurkerja->file_upload_wm) }}" target="_blank">Lihat File</a></p>
-                                @endif
-                            </div>
-
-                            <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
-                            <a href="{{ route('ukurkerja.index') }}" class="btn btn-md btn-secondary">BATAL</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    {{-- Breadcrumb Navigation --}}
+    <div class="mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <a href="{{ route('ukurkerja.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2">
+            <i class="fas fa-arrow-left"></i>
+            <span>Kembali ke Daftar Pengukuran</span>
+        </a>
+        <div class="badge bg-light text-secondary border px-3 py-2 rounded-pill">
+            <i class="fas fa-square-poll-vertical me-1 text-danger"></i> SAKIP & Pengukuran Kinerja
         </div>
     </div>
-@stop
 
-@section('js')
-    
+    {{-- Form Card --}}
+    <div class="sakip-form-card">
+        <div class="sakip-form-header">
+            <h2 class="sakip-form-title">
+                <i class="fas fa-pen-to-square me-2 text-danger"></i>Edit Pengukuran Kerja
+            </h2>
+            <p class="sakip-form-subtitle">
+                Perbarui judul dokumen, tahun periode, atau unggah perbaikan berkas capaian kinerja instansi.
+            </p>
+        </div>
+
+        <div class="sakip-form-body">
+            @if ($errors->any())
+                <div class="alert-modern-feedback alert-danger mb-4">
+                    <i class="fas fa-circle-exclamation fs-5"></i>
+                    <div>
+                        <strong>Terjadi Kesalahan Pengisian Form:</strong>
+                        <ul class="mb-0 mt-1 ps-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
+            <form action="{{ route('ukurkerja.update', $ukurkerja->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="sakip-form-group">
+                    <label for="title" class="sakip-form-label">
+                        <i class="fas fa-heading text-danger"></i>
+                        <span>Judul Pengukuran Kinerja <span class="text-danger">*</span></span>
+                    </label>
+                    <input type="text" 
+                           class="sakip-input-control @error('title') is-invalid @enderror" 
+                           id="title" 
+                           name="title" 
+                           value="{{ old('title', $ukurkerja->title) }}" 
+                           required 
+                           autocomplete="off">
+                    @error('title')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="sakip-form-group">
+                    <label for="tahun" class="sakip-form-label">
+                        <i class="fas fa-calendar-alt text-danger"></i>
+                        <span>Tahun Periode <span class="text-danger">*</span></span>
+                    </label>
+                    <input type="number" 
+                           class="sakip-input-control @error('tahun') is-invalid @enderror" 
+                           id="tahun" 
+                           name="tahun" 
+                           value="{{ old('tahun', $ukurkerja->tahun) }}" 
+                           min="2000" 
+                           max="2099" 
+                           required 
+                           autocomplete="off">
+                    @error('tahun')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="row">
+                    {{-- File Asli --}}
+                    <div class="col-md-6">
+                        <div class="sakip-form-group">
+                            <label for="file_upload" class="sakip-form-label">
+                                <i class="fas fa-file-pdf text-danger"></i>
+                                <span>Ganti Berkas Asli (PDF)</span>
+                            </label>
+
+                            @if($ukurkerja->file_upload)
+                                <div class="sakip-file-status-box">
+                                    <div class="d-flex align-items-center gap-2 overflow-hidden text-truncate">
+                                        <i class="fas fa-file-pdf text-danger fs-5"></i>
+                                        <span class="small text-truncate fw-semibold">{{ basename($ukurkerja->file_upload) }}</span>
+                                    </div>
+                                    <a href="{{ asset($ukurkerja->file_upload) }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-2 py-1 ms-2" style="font-size: 0.75rem;">
+                                        <i class="fas fa-eye me-1"></i> Lihat
+                                    </a>
+                                </div>
+                            @endif
+
+                            <input type="file" 
+                                   class="sakip-input-control @error('file_upload') is-invalid @enderror" 
+                                   id="file_upload" 
+                                   name="file_upload" 
+                                   accept=".pdf,.doc,.docx">
+                            <small class="text-muted d-block mt-1">
+                                <i class="fas fa-circle-info me-1"></i> Kosongkan jika tidak ingin mengubah berkas asli saat ini.
+                            </small>
+                            @error('file_upload')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- File Watermark --}}
+                    <div class="col-md-6">
+                        <div class="sakip-form-group">
+                            <label for="file_upload_wm" class="sakip-form-label">
+                                <i class="fas fa-stamp text-primary"></i>
+                                <span>Ganti Berkas Watermark (PDF)</span>
+                            </label>
+
+                            @if($ukurkerja->file_upload_wm)
+                                <div class="sakip-file-status-box">
+                                    <div class="d-flex align-items-center gap-2 overflow-hidden text-truncate">
+                                        <i class="fas fa-stamp text-primary fs-5"></i>
+                                        <span class="small text-truncate fw-semibold">{{ basename($ukurkerja->file_upload_wm) }}</span>
+                                    </div>
+                                    <a href="{{ asset($ukurkerja->file_upload_wm) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-2" style="font-size: 0.75rem;">
+                                        <i class="fas fa-eye me-1"></i> Lihat
+                                    </a>
+                                </div>
+                            @endif
+
+                            <input type="file" 
+                                   class="sakip-input-control @error('file_upload_wm') is-invalid @enderror" 
+                                   id="file_upload_wm" 
+                                   name="file_upload_wm" 
+                                   accept=".pdf,.doc,.docx">
+                            <small class="text-muted d-block mt-1">
+                                <i class="fas fa-circle-info me-1"></i> Kosongkan jika tidak ingin mengubah berkas watermark publik.
+                            </small>
+                            @error('file_upload_wm')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sakip-form-actions">
+                    <button type="submit" class="btn-tambah-sakip-modern">
+                        <i class="fas fa-check"></i>
+                        <span>Perbarui Dokumen Pengukuran</span>
+                    </button>
+                    <a href="{{ route('ukurkerja.index') }}" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                        Batal
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
 @stop

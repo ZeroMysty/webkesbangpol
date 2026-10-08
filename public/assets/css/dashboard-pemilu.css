@@ -1,0 +1,686 @@
+/* ==========================================================================
+   DASHBOARD PEMILU RAYA - MODERN & ELEGANT DESIGN SYSTEM
+   Bakesbangpol Kota Bandung
+   (Manajemen Pilpres, Manajemen Walikota, Manajemen DPRD)
+   ========================================================================== */
+
+/* Page Wrapper */
+.pemilu-page-wrapper {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0.5rem 0.75rem 2.5rem;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO HEADER
+   -------------------------------------------------------------------------- */
+.pemilu-hero-header {
+    background: #ffffff;
+    border: 1px solid rgba(180, 13, 20, 0.08);
+    border-radius: 20px;
+    padding: 2rem 2.25rem;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    margin-bottom: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+}
+
+.pemilu-hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B0000 0%, #B40D14 40%, #D97706 75%, #2563EB 100%);
+}
+
+.pemilu-hero-header::after {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(180, 13, 20, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.pemilu-header-left {
+    max-width: 820px;
+}
+
+.pemilu-badge-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.95rem;
+    background: #FEF2F2;
+    color: #B40D14;
+    font-size: 0.775rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(180, 13, 20, 0.12);
+}
+
+.pemilu-header-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.02em;
+}
+
+.pemilu-header-subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.55;
+}
+
+.pemilu-header-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1.25rem;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+}
+
+.pemilu-header-meta i {
+    color: #B40D14;
+}
+
+/* --------------------------------------------------------------------------
+   2. STATS OVERVIEW CARDS
+   -------------------------------------------------------------------------- */
+.pemilu-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.pemilu-stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 1.35rem 1.45rem;
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pemilu-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+    border-color: rgba(180, 13, 20, 0.2);
+}
+
+.pemilu-stat-icon-wrapper {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-red {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+}
+
+.stat-icon-blue {
+    background: #EFF6FF;
+    color: #2563EB;
+    border: 1px solid #93C5FD;
+}
+
+.stat-icon-green {
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+}
+
+.stat-icon-purple {
+    background: #F5F3FF;
+    color: #7C3AED;
+    border: 1px solid #C4B5FD;
+}
+
+.pemilu-stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pemilu-stat-value {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.pemilu-stat-label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. SECTION TITLE
+   -------------------------------------------------------------------------- */
+.pemilu-section-title-box {
+    margin-bottom: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pemilu-section-title-box h3 {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.pemilu-section-title-box p {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. THE 3 MANAGEMENT PORTAL CARDS (PILPRES, WALIKOTA, DPRD)
+   -------------------------------------------------------------------------- */
+.pemilu-portal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.65rem;
+    margin-bottom: 2rem;
+}
+
+.pemilu-portal-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 22px;
+    padding: 1.85rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pemilu-portal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.12), 0 6px 16px -4px rgba(15, 23, 42, 0.04);
+}
+
+/* Accent Bars Top */
+.pemilu-portal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    transition: height 0.25s ease;
+}
+
+.pemilu-portal-card:hover::before {
+    height: 7px;
+}
+
+/* Theme 1: PILPRES (Kebangsaan - Merah Putih) */
+.theme-pilpres::before {
+    background: linear-gradient(90deg, #990000 0%, #DC2626 100%);
+}
+.theme-pilpres:hover {
+    border-color: rgba(220, 38, 38, 0.35);
+}
+
+/* Theme 2: WALIKOTA (Bandung Pride - Royal Blue & Sapphire) */
+.theme-walikota::before {
+    background: linear-gradient(90deg, #1E3A8A 0%, #2563EB 100%);
+}
+.theme-walikota:hover {
+    border-color: rgba(37, 99, 235, 0.35);
+}
+
+/* Theme 3: DPRD (Parlemen - Emerald Forest & Teal) */
+.theme-dprd::before {
+    background: linear-gradient(90deg, #065F46 0%, #059669 100%);
+}
+.theme-dprd:hover {
+    border-color: rgba(5, 150, 105, 0.35);
+}
+
+/* Card Top Badges */
+.portal-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+    gap: 0.5rem;
+}
+
+.portal-category-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.theme-pilpres .portal-category-chip {
+    background: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+}
+
+.theme-walikota .portal-category-chip {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #BFDBFE;
+}
+
+.theme-dprd .portal-category-chip {
+    background: #ECFDF5;
+    color: #047857;
+    border: 1px solid #A7F3D0;
+}
+
+.portal-period-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.7rem;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748B;
+}
+
+/* Icon & Header Box */
+.portal-icon-area {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    margin-bottom: 1.15rem;
+}
+
+.portal-icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.pemilu-portal-card:hover .portal-icon-box {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.theme-pilpres .portal-icon-box {
+    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.3);
+}
+
+.theme-walikota .portal-icon-box {
+    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
+}
+
+.theme-dprd .portal-icon-box {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(5, 150, 105, 0.3);
+}
+
+.portal-title-group {
+    flex: 1;
+}
+
+.portal-card-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+}
+
+.portal-card-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* Card Body Content */
+.portal-card-desc {
+    font-size: 0.885rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 1.35rem;
+    min-height: 58px;
+}
+
+/* Live Metrics Highlight Box */
+.portal-metrics-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.portal-metric-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.portal-metric-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.15;
+}
+
+.portal-metric-txt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748B;
+    margin-top: 0.15rem;
+}
+
+.portal-metric-divider {
+    width: 1px;
+    height: 32px;
+    background: #E2E8F0;
+}
+
+/* Key Features List */
+.portal-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.portal-features-list li {
+    font-size: 0.835rem;
+    font-weight: 500;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.theme-pilpres .portal-features-list li i {
+    color: #DC2626;
+    font-size: 0.9rem;
+}
+
+.theme-walikota .portal-features-list li i {
+    color: #2563EB;
+    font-size: 0.9rem;
+}
+
+.theme-dprd .portal-features-list li i {
+    color: #059669;
+    font-size: 0.9rem;
+}
+
+/* Action Button */
+.btn-portal-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.85rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    text-decoration: none;
+    border: none;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-pilpres .btn-portal-action {
+    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.28);
+}
+
+.theme-pilpres .btn-portal-action:hover {
+    background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+    box-shadow: 0 10px 24px rgba(220, 38, 38, 0.38);
+    transform: translateY(-2px);
+}
+
+.theme-walikota .btn-portal-action {
+    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+}
+
+.theme-walikota .btn-portal-action:hover {
+    background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.38);
+    transform: translateY(-2px);
+}
+
+.theme-dprd .btn-portal-action {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.28);
+}
+
+.theme-dprd .btn-portal-action:hover {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    box-shadow: 0 10px 24px rgba(5, 150, 105, 0.38);
+    transform: translateY(-2px);
+}
+
+.btn-portal-action i {
+    transition: transform 0.22s ease;
+}
+
+.btn-portal-action:hover i {
+    transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   5. CANDIDATE PASLON CARDS (FOR PILPRES & WALIKOTA VIEWS)
+   -------------------------------------------------------------------------- */
+.paslon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+}
+
+.paslon-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.paslon-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+}
+
+.paslon-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.15rem;
+}
+
+.paslon-number-chip {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    box-shadow: 0 4px 10px rgba(180, 13, 20, 0.25);
+}
+
+.paslon-photos-duo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    background: #F8FAFC;
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid #E2E8F0;
+}
+
+.paslon-photo-box {
+    text-align: center;
+    flex: 1;
+}
+
+.paslon-photo-box img {
+    width: 100%;
+    max-width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+    margin-bottom: 0.4rem;
+}
+
+.paslon-photo-box .candidate-role {
+    font-size: 0.725rem;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+}
+
+.paslon-candidate-names {
+    margin-bottom: 1rem;
+}
+
+.paslon-name-item {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.35;
+    margin-bottom: 0.2rem;
+}
+
+.paslon-partai-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 50px;
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   6. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+    .pemilu-portal-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .pemilu-portal-card {
+        padding: 1.65rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .pemilu-hero-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    .pemilu-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .paslon-grid {
+        grid-template-columns: 1fr;
+    }
+}
