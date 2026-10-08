@@ -1,0 +1,205 @@
+.admin-interface {
+    --admin-brand: #a90e18;
+    --admin-ink: #20242b;
+    --admin-muted: #68707d;
+    --admin-border: #e7e9ee;
+    color: var(--admin-ink);
+    background: #f4f6f9;
+}
+
+.admin-interface *,
+.admin-interface *::before,
+.admin-interface *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+}
+
+.admin-interface .dashboard-content {
+    padding: 1.25rem !important;
+    background: #f4f6f9;
+}
+
+.admin-interface .card {
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(22, 28, 45, 0.055);
+}
+
+.admin-interface .card-body {
+    padding: 1.25rem;
+}
+
+.admin-interface .form-control,
+.admin-interface .form-select {
+    min-height: 42px;
+    border-color: #d9dde5;
+    border-radius: 8px;
+}
+
+.admin-interface .form-control:focus,
+.admin-interface .form-select:focus {
+    border-color: #bd6b70;
+    box-shadow: 0 0 0 0.2rem rgba(169, 14, 24, 0.12);
+}
+
+.admin-interface .btn {
+    border-radius: 8px;
+}
+
+.admin-interface .table {
+    color: #303640;
+}
+
+.admin-interface .table thead th {
+    color: #505763;
+    background: #f7f8fa;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+}
+
+.admin-interface .alert {
+    border: 0;
+    border-radius: 9px;
+}
+
+.dashboard-mobile-menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.dashboard-sidebar-backdrop {
+    display: none;
+}
+
+.admin-interface .dashboard-navbar {
+    min-width: 0;
+}
+
+.admin-interface .dashboard-navbar > div {
+    min-width: 0;
+}
+
+.admin-interface .dashboard-navbar .navbar-search.expanded {
+    width: 260px;
+}
+
+@media (max-width: 767.98px) {
+    html,
+    body.admin-interface {
+        min-height: 100%;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .admin-interface > .d-flex {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .admin-interface .dashboard-sidebar {
+        z-index: 1200;
+        width: min(290px, 86vw);
+        height: 100vh;
+        height: 100dvh;
+        transform: translateX(-105%);
+        visibility: hidden;
+        box-shadow: 8px 0 28px rgba(22, 28, 45, 0.2);
+    }
+
+    .admin-interface.admin-sidebar-open .dashboard-sidebar {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    .admin-interface .dashboard-sidebar-backdrop {
+        position: fixed;
+        z-index: 1190;
+        inset: 0;
+        display: none;
+        border: 0;
+        background: rgba(20, 24, 31, 0.42);
+    }
+
+    .admin-interface.admin-sidebar-open .dashboard-sidebar-backdrop {
+        display: block;
+    }
+
+    .admin-interface .main-wrapper,
+    .admin-interface .main-wrapper.sidebar-expanded {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        margin-left: 0;
+        overflow: visible;
+    }
+
+    .admin-interface .dashboard-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+        height: 58px;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+
+    .dashboard-mobile-menu-toggle {
+        display: inline-flex;
+    }
+
+    .admin-interface .dashboard-navbar .navbar-search.expanded {
+        position: absolute;
+        top: 8px;
+        right: 3.25rem;
+        width: min(220px, calc(100vw - 7rem));
+        z-index: 2;
+    }
+
+    .admin-interface .dashboard-content {
+        min-height: calc(100vh - 58px);
+        min-height: calc(100dvh - 58px);
+        padding: 0.85rem !important;
+        overflow: visible;
+    }
+
+    .admin-interface .dashboard-content > .container,
+    .admin-interface .dashboard-content > .container-fluid {
+        max-width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .admin-interface .card-body {
+        padding: 0.95rem;
+    }
+
+    .admin-interface .table-responsive {
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-width: 420px) {
+    .admin-interface .dashboard-navbar .btn-fullscreen {
+        display: none;
+    }
+
+    .admin-interface .dashboard-content {
+        padding: 0.65rem !important;
+    }
+
+    .admin-interface .card-body {
+        padding: 0.75rem;
+    }
+}

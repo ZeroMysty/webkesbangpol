@@ -1,4 +1,8 @@
-<nav class="dashboard-navbar d-flex justify-content-end align-items-center px-3">
+<nav class="dashboard-navbar d-flex justify-content-between align-items-center px-3">
+    <button type="button" class="dashboard-mobile-menu-toggle" id="dashboardMobileMenuToggle"
+        aria-label="Buka menu navigasi" aria-controls="dashboardSidebar" aria-expanded="false">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
     <div class="d-flex align-items-center gap-2">
         <form class="navbar-search collapsed" role="search">
             <input type="text" class="dashboard-navbar-search-input" placeholder="Search...">
@@ -8,7 +12,7 @@
         </form>
 
         {{-- Fullscreen --}}
-        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen">
+        <button type="button" class="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">
             <i class="fas fa-expand-arrows-alt"></i>
         </button>
     </div>
@@ -60,18 +64,19 @@
     document.addEventListener('DOMContentLoaded', function () {
         const searchForm = document.querySelector('.navbar-search');
         const toggleBtn = document.querySelector('.toggle-search');
-        const inputField = searchForm.querySelector('.dashboard-navbar-search-input');
+        const inputField = searchForm && searchForm.querySelector('.dashboard-navbar-search-input');
 
-        toggleBtn.addEventListener('click', function () {
+        if (searchForm && toggleBtn && inputField) {
+            toggleBtn.addEventListener('click', function () {
             searchForm.classList.toggle('expanded');
             inputField.focus();
-        });
+            });
 
-        // Auto-collapse saat klik di luar
-        document.addEventListener('click', function (e) {
-            if (!searchForm.contains(e.target)) {
-                searchForm.classList.remove('expanded');
-            }
-        });
+            document.addEventListener('click', function (e) {
+                if (!searchForm.contains(e.target)) {
+                    searchForm.classList.remove('expanded');
+                }
+            });
+        }
     });
 </script>

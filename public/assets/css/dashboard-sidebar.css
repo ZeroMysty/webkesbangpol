@@ -17,6 +17,7 @@
     z-index: 1100;
     font-family: 'Roboto', sans-serif;
     box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
 }
 
 .dashboard-sidebar.collapsed {
@@ -70,6 +71,7 @@
 /* ===== Area menu (scrollable, footer profil tetap di bawah) ===== */
 .dashboard-sidebar-menu {
     flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -251,6 +253,8 @@
     border-top: 1px solid rgba(255, 255, 255, 0.18);
     padding: 0.65rem;
     background: rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 2;
 }
 
 .sidebar-user-dropdown {

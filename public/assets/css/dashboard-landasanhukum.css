@@ -1,0 +1,73 @@
+.landasan-hukum-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.landasan-hukum-table th,
+.landasan-hukum-table td {
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.landasan-hukum-table th:nth-child(1),
+.landasan-hukum-table td:nth-child(1) {
+    width: 16%;
+}
+
+.landasan-hukum-table th:nth-child(2),
+.landasan-hukum-table td:nth-child(2) {
+    width: 29%;
+}
+
+.landasan-hukum-table th:nth-child(3),
+.landasan-hukum-table td:nth-child(3) {
+    width: auto;
+}
+
+.landasan-hukum-table th.kolom-aksi,
+.landasan-hukum-table td.kolom-aksi {
+    width: 104px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+.landasan-hukum-actions {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.landasan-hukum-actions form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.landasan-hukum-actions .btn {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .landasan-hukum-table {
+        min-width: 680px;
+    }
+
+    .landasan-hukum-table th.kolom-aksi,
+    .landasan-hukum-table td.kolom-aksi {
+        width: 94px;
+    }
+
+    .landasan-hukum-actions .btn {
+        width: 30px;
+        height: 30px;
+    }
+}

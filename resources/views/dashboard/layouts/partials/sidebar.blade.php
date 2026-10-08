@@ -1,4 +1,4 @@
-<aside class="dashboard-sidebar">
+<aside class="dashboard-sidebar" id="dashboardSidebar">
         <a href="{{ url('/home') }}" class="dashboard-sidebar-brand d-flex align-items-center justify-content-center py-3">
             <img src="{{ asset('images/component/logo1-2.png') }}" alt="Logo" class="sidebar-logo" width="35" height="35">
             <span class="sidebar-title">BAKESBANGPOL</span>
@@ -141,28 +141,30 @@
         </div>
         @endauth
     </aside>
+    <button type="button" class="dashboard-sidebar-backdrop" id="dashboardSidebarBackdrop"
+        aria-label="Tutup menu navigasi" tabindex="-1"></button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.querySelector('.dashboard-sidebar');
-            const wrapper = document.querySelector('.main-wrapper');
+            const menuToggle = document.getElementById('dashboardMobileMenuToggle');
+            const backdrop = document.getElementById('dashboardSidebarBackdrop');
+            const closeMobileMenu = function () {
+                document.body.classList.remove('admin-sidebar-open');
+                if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+            };
 
-            if (sidebar && wrapper) {
-                // Sidebar mulai dalam keadaan menyempit (icon-only),
-                // otomatis melebar begitu kursor masuk area sidebar,
-                // dan menyempit lagi begitu kursor keluar.
-                sidebar.classList.add('collapsed');
-                wrapper.classList.add('expanded');
-
-                sidebar.addEventListener('mouseenter', function () {
-                    sidebar.classList.remove('collapsed');
+            if (sidebar && menuToggle && backdrop) {
+                menuToggle.addEventListener('click', function () {
+                    const isOpen = document.body.classList.toggle('admin-sidebar-open');
+                    menuToggle.setAttribute('aria-expanded', String(isOpen));
                 });
-
-                sidebar.addEventListener('mouseleave', function () {
-                    sidebar.classList.add('collapsed');
-                    // Tutup juga dropdown profil kalau lagi kebuka
-                    const userDropdown = document.getElementById('sidebarUserDropdown');
-                    if (userDropdown) userDropdown.classList.remove('open');
+                backdrop.addEventListener('click', closeMobileMenu);
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') closeMobileMenu();
+                });
+                sidebar.querySelectorAll('.dashboard-sidebar-menu .nav-link').forEach(function (link) {
+                    link.addEventListener('click', closeMobileMenu);
                 });
             }
 

@@ -29,12 +29,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-program.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormas.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bagan-strukturors.css') }}">
-
-
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-responsive.css') }}">
 
     @stack('styles')
 </head>
-<body>
+<body class="admin-interface">
     <div class="d-flex">
         @include('dashboard.layouts.partials.sidebar')
 

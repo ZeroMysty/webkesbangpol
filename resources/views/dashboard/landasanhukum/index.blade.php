@@ -17,7 +17,7 @@
                         @endif
 
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered">
+                            <table class="table table-hover table-bordered landasan-hukum-table">
                                 <thead>
                                     <tr>
                                         <th scope="col" class="kolom-bidang text-start">BIDANG</th>
@@ -33,22 +33,24 @@
                                             <td>{{ $item->jenis_peraturan }} No. {{ $item->nomor_peraturan }} Tahun {{ $item->tahun_peraturan }}</td>
                                             <td>{!! $item->tentang !!}</td> 
                                             <td class="kolom-aksi text-center">
-                                                <a href="{{ route('landasanhukum.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <form action="{{ route('landasanhukum.destroy', $item->id) }}" method="POST" class="d-inline"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                    @csrf @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                                <div class="landasan-hukum-actions">
+                                                    <a href="{{ route('landasanhukum.edit', $item->id) }}" class="btn btn-sm btn-warning" aria-label="Edit dasar hukum" title="Edit">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <form action="{{ route('landasanhukum.destroy', $item->id) }}" method="POST"
+                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger" aria-label="Hapus dasar hukum" title="Hapus">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
 
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="3">
+                                            <td colspan="4">
                                                 <div class="alert alert-warning text-center m-0">Belum ada data Hukum.</div>
                                             </td>
                                         </tr>
@@ -65,6 +67,7 @@
     </div>
     @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-landasanhukum.css') }}">
 @endpush
 
     <script>
@@ -79,10 +82,6 @@
             
         @endif
     </script>
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-struktur.css') }}">
 @stop
 
 @section('js')
