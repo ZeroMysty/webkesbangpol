@@ -3,10 +3,10 @@
 @section('title', 'Artikel')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid article-index-page">
         <div class="row">
             <div class="col-md-12 mt-3">
-                <div class="card border-0 shadow-sm rounded">
+                <div class="card border-0 shadow-sm rounded article-index-card">
                     <div class="card-body">
                     @if(session()->has('success'))
                         <div class="alert alert-success">{{ session()->get('success') }}</div>
@@ -69,7 +69,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $posts->links('pagination::bootstrap-5') }}
+                        <div class="article-index-pagination">
+                            {{ $posts->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,4 +90,3 @@
         @endif
     </script>
 @stop
-
