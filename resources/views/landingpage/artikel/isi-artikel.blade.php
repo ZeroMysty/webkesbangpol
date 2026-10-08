@@ -6,8 +6,20 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
+<<<<<<< Updated upstream
 @endpush
 
+=======
+    <style>
+        body {
+            background-image: linear-gradient(rgba(12, 47, 78, 0.72), rgba(12, 47, 78, 0.72)), url("{{ asset('images/component/BGKesbangpol.png') }}") !important;
+            background-repeat: no-repeat !important;
+            background-position: center center !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+        }
+    </style>
+>>>>>>> Stashed changes
 @section('content')
 <div class="back-to-home">
     <a href="{{ route('beranda') }}" class="back-btn">
