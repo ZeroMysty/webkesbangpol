@@ -17,11 +17,30 @@ use App\Services\ImageOptimizer;
 
 class PostController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $count = Post::count();
-        $posts = Post::latest()->paginate(5);
-        return view('dashboard.artikel.index', compact('posts'));
+        $query = Post::with(['bidang', 'program'])->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('bidang_id')) {
+            $query->where('bidang_id', $request->bidang_id);
+        }
+
+        $posts = $query->paginate(9)->withQueryString();
+        $bidangs = Bidang::orderBy('no_bidang', 'asc')->get();
+        $thisMonthCount = Post::whereMonth('created_at', now()->month)
+                              ->whereYear('created_at', now()->year)
+                              ->count();
+
+        return view('dashboard.artikel.index', compact('posts', 'count', 'bidangs', 'thisMonthCount'));
     }
 
     public function create(): View

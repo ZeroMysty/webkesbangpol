@@ -1,19 +1,967 @@
-.table th,
-.table td {
-    vertical-align: middle;
+/* ==========================================================================
+   DASHBOARD BIDANG - MODERN & ELEGANT DESIGN SYSTEM
+   Bakesbangpol Kota Bandung
+   ========================================================================== */
+
+/* Page Wrapper */
+.bidang-page-wrapper {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0.5rem 0.75rem 2.5rem;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
 }
 
-.table td.text-start {
-    text-align: left !important;
+/* --------------------------------------------------------------------------
+   1. HERO HEADER
+   -------------------------------------------------------------------------- */
+.bidang-hero-header {
+    background: #ffffff;
+    border: 1px solid rgba(180, 13, 20, 0.08);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.btn-outline-primary,
-.btn-outline-danger {
-    min-width: 40px;
-    margin-left: 1rem;
+.bidang-hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B0000 0%, #B40D14 50%, #EF4444 100%);
 }
 
-.table .alert {
-    margin: 0;
-    padding: 8px;
+.bidang-hero-header::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(180, 13, 20, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.bidang-header-left {
+    max-width: 700px;
+}
+
+.bidang-badge-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    background: #FEF2F2;
+    color: #B40D14;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 0.65rem;
+    border: 1px solid rgba(180, 13, 20, 0.12);
+}
+
+.bidang-header-title {
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+}
+
+.bidang-header-subtitle {
+    font-size: 0.935rem;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.btn-tambah-bidang-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.6rem;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 0.925rem;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(180, 13, 20, 0.28);
+    text-decoration: none;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.btn-tambah-bidang-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(180, 13, 20, 0.38);
+    background: linear-gradient(135deg, #C2131A 0%, #990000 100%);
+    color: #ffffff !important;
+}
+
+.btn-tambah-bidang-modern:active {
+    transform: translateY(0);
+}
+
+.btn-tambah-bidang-modern i {
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+}
+
+.btn-tambah-bidang-modern:hover i {
+    transform: rotate(90deg);
+}
+
+/* --------------------------------------------------------------------------
+   2. STATS OVERVIEW CARDS
+   -------------------------------------------------------------------------- */
+.bidang-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.bidang-stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s ease;
+}
+
+.bidang-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.15);
+}
+
+.bidang-stat-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-red {
+    background: #FEF2F2;
+    color: #B40D14;
+}
+
+.stat-icon-indigo {
+    background: #EEF2FF;
+    color: #4F46E5;
+}
+
+.stat-icon-emerald {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.bidang-stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bidang-stat-value {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.bidang-stat-label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. TOOLBAR CONTROLS (SEARCH & VIEW SWITCHER)
+   -------------------------------------------------------------------------- */
+.bidang-toolbar {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    border-radius: 16px;
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    flex-wrap: wrap;
+}
+
+.bidang-search-box {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+    max-width: 460px;
+}
+
+.bidang-search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.bidang-search-input {
+    width: 100%;
+    height: 42px;
+    padding: 0.5rem 1rem 0.5rem 2.6rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.bidang-search-input:focus {
+    background: #ffffff;
+    border-color: #B40D14;
+    box-shadow: 0 0 0 3px rgba(180, 13, 20, 0.1);
+}
+
+.bidang-search-input:focus + i {
+    color: #B40D14;
+}
+
+.bidang-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.bidang-view-switch {
+    display: inline-flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 10px;
+    gap: 2px;
+}
+
+.btn-view-switch {
+    border: none;
+    background: transparent;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-view-switch:hover {
+    color: #1e293b;
+}
+
+.btn-view-switch.active {
+    background: #ffffff;
+    color: #B40D14;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   4. CARDS GRID VIEW (MODERN EXECUTIVE CARDS)
+   -------------------------------------------------------------------------- */
+.bidang-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.35rem;
+}
+
+.bidang-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bidang-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #B40D14 0%, #E11D48 100%);
+    opacity: 0.85;
+    transition: width 0.25s ease;
+}
+
+.bidang-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -4px rgba(180, 13, 20, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    border-color: rgba(180, 13, 20, 0.25);
+}
+
+.bidang-card:hover::before {
+    width: 7px;
+}
+
+/* Card Top Section */
+.bidang-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-left: 0.25rem;
+}
+
+.bidang-avatar-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.bidang-avatar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    box-shadow: 0 4px 12px rgba(180, 13, 20, 0.25);
+    flex-shrink: 0;
+}
+
+/* Specific theme per card */
+.theme-kewaspadaan {
+    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+}
+
+.theme-ketahanan {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.theme-politik {
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+}
+
+.theme-ideologi {
+    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+}
+
+.bidang-number-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 0.775rem;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.02em;
+}
+
+/* Card Action Buttons */
+.bidang-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-card-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-action-edit {
+    background: #FFFBEB;
+    color: #D97706;
+    border: 1px solid rgba(217, 119, 6, 0.15);
+}
+
+.btn-action-edit:hover {
+    background: #FDE68A;
+    color: #B45309;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+}
+
+.btn-action-delete {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+.btn-action-delete:hover {
+    background: #FEE2E2;
+    color: #991B1B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+
+/* Card Main Content */
+.bidang-card-body {
+    padding-left: 0.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.bidang-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.075rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+    min-height: 2.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bidang-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.badge-tag-program {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.badge-tag-program i {
+    color: #B40D14;
+    font-size: 0.8rem;
+}
+
+.badge-tag-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: #ECFDF5;
+    border: 1px solid rgba(5, 150, 105, 0.15);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #059669;
+}
+
+.status-dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+
+/* Card Footer */
+.bidang-card-footer {
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.25rem;
+}
+
+.btn-card-view-programs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #B40D14;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.btn-card-view-programs:hover {
+    color: #8B0000;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.btn-card-view-programs i {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-card-view-programs:hover i {
+    transform: translateX(3px);
+}
+
+.bidang-card-meta-date {
+    font-size: 0.775rem;
+    color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   5. LIST VIEW (MODERN FLOATING ROW CARDS - NOT A BOXED TABLE!)
+   -------------------------------------------------------------------------- */
+.bidang-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.bidang-list-item {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 16px;
+    padding: 1.15rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bidang-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #B40D14;
+    opacity: 0.75;
+    transition: width 0.2s ease;
+}
+
+.bidang-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: rgba(180, 13, 20, 0.2);
+}
+
+.bidang-list-item:hover::before {
+    width: 6px;
+}
+
+.bidang-list-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.bidang-list-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    flex-shrink: 0;
+}
+
+.bidang-list-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.bidang-list-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.35;
+    margin-bottom: 0.35rem;
+    word-break: break-word;
+}
+
+.bidang-list-submeta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.bidang-list-right {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. EMPTY STATE & ALERTS
+   -------------------------------------------------------------------------- */
+.bidang-empty-state {
+    background: #ffffff;
+    border: 2px dashed #e2e8f0;
+    border-radius: 20px;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.bidang-empty-icon {
+    width: 72px;
+    height: 72px;
+    background: #FEF2F2;
+    color: #B40D14;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+.bidang-empty-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+}
+
+.bidang-empty-desc {
+    color: #64748b;
+    font-size: 0.925rem;
+    max-width: 440px;
+    margin: 0 auto 1.5rem;
+}
+
+.alert-modern-feedback {
+    border-radius: 14px;
+    padding: 1rem 1.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.alert-modern-feedback.alert-success {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+    color: #166534;
+}
+
+.alert-modern-feedback.alert-danger {
+    background: #FEF2F2;
+    border-color: #FECACA;
+    color: #991B1B;
+}
+
+/* --------------------------------------------------------------------------
+   7. DELETE CONFIRMATION MODAL
+   -------------------------------------------------------------------------- */
+.modal-bidang-delete .modal-content {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+}
+
+.modal-bidang-delete .modal-body {
+    padding: 2.25rem 2rem 1.75rem;
+    text-align: center;
+}
+
+.modal-delete-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #FEF2F2;
+    color: #DC2626;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.15);
+}
+
+.modal-bidang-name-highlight {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+}
+
+.modal-bidang-footer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 0 2rem 2rem;
+    border: none;
+}
+
+.btn-modal-cancel {
+    padding: 0.65rem 1.4rem;
+    border-radius: 50px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-cancel:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.btn-modal-delete {
+    padding: 0.65rem 1.6rem;
+    border-radius: 50px;
+    border: none;
+    background: #DC2626;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-modal-delete:hover {
+    background: #B91C1C;
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   8. FORM STYLES (CREATE & EDIT BIDANG)
+   -------------------------------------------------------------------------- */
+.bidang-form-card {
+    background: #ffffff;
+    border: 1px solid rgba(180, 13, 20, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.bidang-form-header {
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    padding: 1.75rem 2rem;
+    color: #ffffff;
+}
+
+.bidang-form-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+    color: #ffffff;
+}
+
+.bidang-form-subtitle {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+}
+
+.bidang-form-body {
+    padding: 2rem;
+}
+
+.bidang-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.bidang-form-label {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #334155;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.bidang-input-control {
+    width: 100%;
+    padding: 0.75rem 1.15rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.925rem;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+}
+
+.bidang-input-control:focus {
+    background: #ffffff;
+    border-color: #B40D14;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(180, 13, 20, 0.1);
+}
+
+.bidang-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-form-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    background: linear-gradient(135deg, #B40D14 0%, #8B0000 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    border-radius: 50px;
+    border: none;
+    font-size: 0.925rem;
+    box-shadow: 0 4px 14px rgba(180, 13, 20, 0.25);
+    transition: all 0.25s ease;
+}
+
+.btn-form-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(180, 13, 20, 0.35);
+}
+
+.btn-form-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #f1f5f9;
+    color: #475569 !important;
+    font-weight: 600;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    font-size: 0.925rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-form-back:hover {
+    background: #e2e8f0;
+    color: #1e293b !important;
+    text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVE DESIGN
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .bidang-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .bidang-hero-header {
+        padding: 1.35rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .btn-tambah-bidang-modern {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bidang-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bidang-search-box {
+        max-width: 100%;
+    }
+
+    .bidang-toolbar-actions {
+        justify-content: flex-end;
+    }
+
+    .bidang-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bidang-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .bidang-list-right {
+        width: 100%;
+        justify-content: space-between;
+        padding-top: 0.75rem;
+        border-top: 1px solid #f1f5f9;
+    }
 }
