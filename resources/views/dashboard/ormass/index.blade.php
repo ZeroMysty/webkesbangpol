@@ -3,185 +3,191 @@
 @section('title', 'Organisasi Masyarakat')
 
 @section('content')
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 mt-3">
-            <div class="card border-0 shadow-sm rounded">
-                <div class="card-body">
-                    <div class="ormas-header-actions">
-                        <a href="{{ route('ormass.create') }}" class="btn-tambah-konten">
-                            <i class="fas fa-plus"></i> <span>Tambah Organisasi</span>
-                        </a>
-                        <a href="{{ route('ormass.import-history') }}" class="btn btn-sm text-white ms-2" style="background-color: #B40D14; border: 1px solid #B40D14;" title="Lihat riwayat import Excel">
-                            <i class="fas fa-history me-1"></i> Riwayat Import
-                        </a>
-                        
-                        <!-- Toolbar (Filter & Search) -->
-                        <div class="ormas-toolbar-container">
-                            <!-- Filter Dua Pilihan: Data Terbaru & Terlama -->
-                            <div class="btn-group ormas-filter-btn-group" role="group" aria-label="Filter Urutan Data">
-                                <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terbaru', 'page' => 1])) }}" 
-                                   class="btn {{ request('sort', 'terbaru') == 'terbaru' ? 'btn-danger active' : 'btn-outline-secondary' }}"
-                                   title="Urutkan dari data yang terbaru">
-                                    <i class="fas fa-clock me-1"></i> Data Terbaru
-                                </a>
-                                <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terlama', 'page' => 1])) }}" 
-                                   class="btn {{ request('sort') == 'terlama' ? 'btn-danger active' : 'btn-outline-secondary' }}"
-                                   title="Urutkan dari data yang terlama">
-                                    <i class="fas fa-history me-1"></i> Data Terlama
-                                </a>
-                            </div>
-
-                            <!-- Search Form -->
-                            <div class="ormas-search-container">
-                                <form method="GET" action="{{ route('ormass.index') }}" class="d-flex">
-                                    <input type="hidden" name="sort" value="{{ request('sort', 'terbaru') }}">
-                                    <div class="input-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                name="search" 
-                                                value="{{ request('search') }}" 
-                                                placeholder="Cari nama organisasi..."
-                                                aria-label="Search" autocomplete="off">
-                                        <button class="btn btn-search-submit" type="submit" id="search-button" title="Cari">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                        @if(request('search'))
-                                            <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-outline-danger" title="Hapus pencarian">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        @endif
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    @if(session('warning'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-triangle me-2"></i> {{ session('warning') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    <!-- Search Results Info -->
-                    @if(request('search'))
-                        <div class="mb-3">
-                            <div class="alert alert-info mb-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
-                                <div>
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Menampilkan hasil pencarian untuk: "<strong>{{ request('search') }}</strong>"
-                                    ({{ $ormass->total() }} hasil ditemukan) &bull;
-                                    Urutan: <strong>{{ request('sort') == 'terlama' ? 'Data Terlama' : 'Data Terbaru' }}</strong>
-                                </div>
-                                <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-sm btn-outline-primary">
-                                    <i class="fas fa-times me-1"></i> Reset Pencarian
-                                </a>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered ormas-table">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="kolom-nama"><div class="text-wrap">NAMA ORGANISASI</div></th>
-                                    <th class="kolom-alamat"><div class="text-wrap">ALAMAT</div></th>
-                                    <th class="kolom-ketua"><div class="text-wrap">KETUA</div></th>
-                                    <th class="kolom-akta"><div class="text-wrap">NO. TGL AKTA NOTARIS</div></th>
-                                    <th class="kolom-ahu"><div class="text-wrap">NO. AHU/SKT/TGL</div></th>
-                                    <th class="kolom-bidang"><div class="text-wrap">BIDANG</div></th>
-                                    <th class="kolom-aksi"><div class="text-wrap">AKSI</div></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($ormass as $o)
-                                    @php
-                                        $ketua      = $o->pengurus->firstWhere('jabatan', 'Ketua');
-                                        $dok        = $o->dokumen->first();
-                                    @endphp
-                                    <tr>
-                                        <td class="kolom-nama">
-                                            @if(request('search'))
-                                                {!! str_ireplace(request('search'), '<mark>' . request('search') . '</mark>', e($o->nama_organisasi)) !!}
-                                            @else
-                                                {{ $o->nama_organisasi }}
-                                            @endif
-                                        </td>
-                                        <td class="kolom-alamat">{!! $o->alamat ?? '-' !!}</td>
-                                        <td class="kolom-ketua">{{ $ketua->nama ?? '-' }}</td>
-
-                                        <td class="kolom-akta">
-                                            @if(!empty($dok->akta_notaris))
-                                                {{ $dok->akta_notaris }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td class="kolom-ahu">
-                                            @if(!empty($dok->ahu_skt))
-                                                {{ $dok->ahu_skt }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-
-                                        <td class="kolom-bidang">{{ $o->bidang ?? '-' }}</td>
-
-                                        <td class="kolom-aksi text-center">
-                                            <a href="{{ route('ormass.edit', $o->id) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('ormass.destroy', $o->id) }}" method="POST" class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus {{ $o->nama_organisasi }}?')">
-                                                @csrf @method('DELETE')
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center">
-                                            @if(request('search'))
-                                                Tidak ada organisasi yang ditemukan dengan kata kunci "{{ request('search') }}".
-                                                <br>
-                                                <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="btn btn-sm btn-primary mt-2">
-                                                    <i class="fas fa-arrow-left"></i> Kembali ke semua data
-                                                </a>
-                                            @else
-                                                Belum ada data organisasi.
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt-3">
-                        {{ $ormass->appends(request()->query())->links('pagination::bootstrap-5') }}
-                    </div>
-
-                </div>
-            </div>
+<div class="container-fluid ormas-admin-page">
+    <header class="ormas-page-header">
+        <div>
+            <span class="ormas-page-eyebrow">INFORMASI &amp; KEMASYARAKATAN</span>
+            <h1>Organisasi Masyarakat</h1>
+            <p>Kelola data organisasi, pengurus, dan dokumen legalitas.</p>
         </div>
+        <div class="ormas-page-actions">
+            <a href="{{ route('ormass.import-history') }}" class="ormas-history-button">
+                <i class="fas fa-history" aria-hidden="true"></i>
+                <span>Riwayat Import</span>
+            </a>
+            <a href="{{ route('ormass.create') }}" class="ormas-add-button">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                <span>Tambah Organisasi</span>
+            </a>
+        </div>
+    </header>
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('warning'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i> {{ session('warning') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <section class="ormas-tools-card" aria-label="Pencarian dan pengurutan organisasi">
+        <div class="ormas-filter-group" role="group" aria-label="Filter urutan data">
+            <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terbaru', 'page' => 1])) }}"
+                class="ormas-filter-button {{ request('sort', 'terbaru') == 'terbaru' ? 'active' : '' }}">
+                <i class="fas fa-clock" aria-hidden="true"></i> Data Terbaru
+            </a>
+            <a href="{{ route('ormass.index', array_merge(request()->query(), ['sort' => 'terlama', 'page' => 1])) }}"
+                class="ormas-filter-button {{ request('sort') == 'terlama' ? 'active' : '' }}">
+                <i class="fas fa-history" aria-hidden="true"></i> Data Terlama
+            </a>
+        </div>
+
+        <form method="GET" action="{{ route('ormass.index') }}" class="ormas-search-form">
+            <input type="hidden" name="sort" value="{{ request('sort', 'terbaru') }}">
+            <label class="visually-hidden" for="ormas-search">Cari nama organisasi</label>
+            <div class="ormas-search-input-wrap">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input id="ormas-search" type="search" name="search" value="{{ request('search') }}"
+                    placeholder="Cari nama organisasi..." autocomplete="off">
+                @if(request('search'))
+                    <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}"
+                        class="ormas-clear-search" aria-label="Hapus pencarian" title="Hapus pencarian">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </a>
+                @endif
+            </div>
+            <button type="submit" class="ormas-search-submit">Cari</button>
+        </form>
+    </section>
+
+    @if(request('search'))
+        <div class="ormas-search-summary">
+            <div>
+                <i class="fas fa-circle-info" aria-hidden="true"></i>
+                Hasil pencarian untuk <strong>“{{ request('search') }}”</strong>
+                <span class="ormas-result-count">{{ $ormass->total() }} data</span>
+                <span class="ormas-sort-summary">Urutan: {{ request('sort') == 'terlama' ? 'Terlama' : 'Terbaru' }}</span>
+            </div>
+            <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}">Reset pencarian</a>
+        </div>
+    @else
+        <div class="ormas-list-summary">
+            <span>Daftar organisasi</span>
+            <span>{{ $ormass->total() }} data</span>
+        </div>
+    @endif
+
+    <div class="ormas-record-grid">
+        @forelse($ormass as $o)
+            @php
+                $ketua = $o->pengurus->firstWhere('jabatan', 'Ketua');
+                $dok = $o->dokumen->first();
+                $aktaParts = preg_split('/,\s*(?=Tanggal\s*:)/i', trim((string) ($dok->akta_notaris ?? '')), 2);
+                $ahuParts = preg_split('/,\s*(?=Tanggal\s*:)/i', trim((string) ($dok->ahu_skt ?? '')), 2);
+            @endphp
+            <article class="ormas-record-card">
+                <header class="ormas-record-header">
+                    <div class="ormas-record-identity">
+                        <span class="ormas-record-icon"><i class="fas fa-people-group" aria-hidden="true"></i></span>
+                        <div class="ormas-record-title">
+                            <span class="ormas-record-kicker">ORGANISASI MASYARAKAT</span>
+                            <h2>
+                                @if(request('search'))
+                                    {!! str_ireplace(request('search'), '<mark>' . e(request('search')) . '</mark>', e($o->nama_organisasi)) !!}
+                                @else
+                                    {{ $o->nama_organisasi }}
+                                @endif
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="ormas-record-actions">
+                        <a href="{{ route('ormass.edit', $o->id) }}" class="ormas-action-button edit"
+                            aria-label="Edit {{ $o->nama_organisasi }}" title="Edit">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <form action="{{ route('ormass.destroy', $o->id) }}" method="POST"
+                            onsubmit="return confirm('Yakin ingin menghapus organisasi ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="ormas-action-button delete"
+                                aria-label="Hapus {{ $o->nama_organisasi }}" title="Hapus">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </header>
+
+                <div class="ormas-record-body">
+                    <section class="ormas-record-detail address">
+                        <span class="ormas-detail-label"><i class="fas fa-location-dot" aria-hidden="true"></i> Alamat</span>
+                        <div class="ormas-detail-value">{{ $o->alamat ? Str::limit(strip_tags($o->alamat), 200, '...') : '-' }}</div>
+                    </section>
+                    <section class="ormas-record-detail">
+                        <span class="ormas-detail-label"><i class="fas fa-user-tie" aria-hidden="true"></i> Ketua</span>
+                        <div class="ormas-detail-value">{{ $ketua->nama ?? '-' }}</div>
+                    </section>
+                    <section class="ormas-record-detail right">
+                        <span class="ormas-detail-label"><i class="fas fa-file-signature" aria-hidden="true"></i> Akta Notaris</span>
+                        <div class="ormas-detail-value ormas-document-value">
+                            @if(count($aktaParts) === 2)
+                                <span>{{ trim($aktaParts[0]) }}</span>
+                                <span>{{ trim($aktaParts[1]) }}</span>
+                            @else
+                                <span>{{ $aktaParts[0] ?: '-' }}</span>
+                            @endif
+                        </div>
+                    </section>
+                    <section class="ormas-record-detail">
+                        <span class="ormas-detail-label"><i class="fas fa-certificate" aria-hidden="true"></i> AHU / SKT</span>
+                        <div class="ormas-detail-value ormas-document-value">
+                            @if(count($ahuParts) === 2)
+                                <span>{{ trim($ahuParts[0]) }}</span>
+                                <span>{{ trim($ahuParts[1]) }}</span>
+                            @else
+                                <span>{{ $ahuParts[0] ?: '-' }}</span>
+                            @endif
+                        </div>
+                    </section>
+                    <section class="ormas-record-detail right">
+                        <span class="ormas-detail-label"><i class="fas fa-layer-group" aria-hidden="true"></i> Bidang</span>
+                        <div class="ormas-detail-value">{{ $o->bidang ?: '-' }}</div>
+                    </section>
+                </div>
+            </article>
+        @empty
+            <div class="ormas-empty-state">
+                <span class="ormas-empty-icon"><i class="fas fa-people-group" aria-hidden="true"></i></span>
+                <h2>{{ request('search') ? 'Organisasi tidak ditemukan' : 'Belum ada data organisasi' }}</h2>
+                <p>
+                    @if(request('search'))
+                        Tidak ada organisasi yang cocok dengan kata kunci “{{ request('search') }}”.
+                    @else
+                        Tambahkan organisasi masyarakat untuk mulai mengelola data dan legalitasnya.
+                    @endif
+                </p>
+                @if(request('search'))
+                    <a href="{{ route('ormass.index', ['sort' => request('sort', 'terbaru')]) }}" class="ormas-add-button">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i> Kembali ke semua data
+                    </a>
+                @else
+                    <a href="{{ route('ormass.create') }}" class="ormas-add-button">
+                        <i class="fas fa-plus" aria-hidden="true"></i> Tambah Organisasi
+                    </a>
+                @endif
+            </div>
+        @endforelse
+    </div>
+
+    <div class="ormas-pagination">
+        {{ $ormass->appends(request()->query())->links('pagination::bootstrap-5') }}
     </div>
 </div>
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormas-index.css') }}?v=2">
-@endpush
 
 <script>
     @if(session()->has('success'))
@@ -193,26 +199,9 @@
     @if(session()->has('error'))
         toastr.error(@json(session('error')), 'GAGAL!');
     @endif
-
-    // Auto-focus search input when page loads if there's a search query
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.querySelector('input[name="search"]');
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (urlParams.get('search') && searchInput) {
-            searchInput.focus();
-            // Move cursor to end of input
-            searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
-        }
-    });
-
-    // Handle Enter key for search
-    document.querySelector('input[name="search"]').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            this.closest('form').submit();
-        }
-    });
 </script>
-
 @stop
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-ormas-index.css') }}?v=4">
+@endpush

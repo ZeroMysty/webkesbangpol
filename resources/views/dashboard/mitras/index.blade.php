@@ -3,93 +3,114 @@
 @section('title', 'Mitra')
 
 @section('content')
-<div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-3">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">{{ session()->get('success') }}</div>
-                    @endif
-                        <a href="{{ route('mitras.create') }}" class="btn-tambah-konten">
-                            <i class="fas fa-plus fa-fw"></i> <span>Tambah Mitra</span>
-                        </a>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle text-center">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Kategori</th>
-                                        <th>Logo Lembaga</th>
-                                        <th>Nama Lembaga</th>
-                                        <th>Alamat</th>
-                                        <th>Deskripsi</th>
-                                        <th>Ketua</th>
-                                        <th>Foto Ketua</th>
-                                        <th>Kontak</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($mitras as $mitra)
-                                        <tr>
-                                            <td class="fw-semibold">{{ $mitra->kategori_mitra }}</td>
-                                            <td>
-                                                <img src="{{ asset('images/mitras/logo/'.$mitra->logo_lembaga) }}" alt="{{ $mitra->nama_lembaga }}" class="img-thumbnail" style="width: 120px; height: auto;">
-                                            </td>
-                                            <td class="fw-semibold">{{ $mitra->nama_lembaga }}</td>
-                                            <td class="text-start">{!! Str::limit(strip_tags($mitra->alamat), 100, '...') !!}</td>
-                                            <td class="text-start">{!! Str::limit(strip_tags($mitra->deskripsi), 100, '...') !!}</td>
-                                            <td class="fw-semibold">{{ $mitra->ketua }}</td>
-                                            <td>
-                                                <img src="{{ asset('images/mitras/foto_ketua/'.$mitra->foto_ketua) }}" alt="{{ $mitra->ketua }}" class="img-thumbnail" style="width: 120px; height: auto;">
-                                            </td>
-                                            <td class="fw-semibold">{{ $mitra->kontak }}</td>
-                                            <td class="kolom-aksi text-center">
-                                                <a href="{{ route('mitras.edit', $mitra->id) }}" class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <form action="{{ route('mitras.destroy', $mitra->id) }}" method="POST" class="d-inline"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                    @csrf @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="9" class="text-center">
-                                                <div class="alert alert-warning">Data mitra belum tersedia.</div>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                        {{ $mitras->links('pagination::bootstrap-5') }}
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid mitra-admin-page">
+    <div class="mitra-page-header">
+        <div>
+            <span class="mitra-page-eyebrow">KEMITRAAN</span>
+            <h1>Daftar Mitra</h1>
+            <p>Kelola lembaga mitra dan informasi kontaknya.</p>
         </div>
+        <a href="{{ route('mitras.create') }}" class="mitra-add-button">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+            <span>Tambah Mitra</span>
+        </a>
     </div>
-    @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-crud.css') }}">
-@endpush
 
-    <script>
-        //message with toastr
-        @if(session()->has('success'))
-        
-            toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+    @if(session()->has('success'))
+        <div class="alert alert-success">{{ session()->get('success') }}</div>
+    @endif
 
-        @elseif(session()->has('error'))
+    <div class="mitra-grid">
+        @forelse ($mitras as $mitra)
+            <article class="mitra-card">
+                <header class="mitra-card-header">
+                    <div class="mitra-identity">
+                        <div class="mitra-logo-frame">
+                            @if($mitra->logo_lembaga)
+                                <img src="{{ asset('images/mitras/logo/'.$mitra->logo_lembaga) }}" alt="Logo {{ $mitra->nama_lembaga }}">
+                            @else
+                                <i class="fas fa-building" aria-hidden="true"></i>
+                            @endif
+                        </div>
+                        <div class="mitra-identity-copy">
+                            <span class="mitra-category">{{ $mitra->kategori_mitra }}</span>
+                            <h2>{{ $mitra->nama_lembaga }}</h2>
+                        </div>
+                    </div>
+                    <div class="mitra-actions">
+                        <a href="{{ route('mitras.edit', $mitra->id) }}" class="mitra-action edit" aria-label="Edit {{ $mitra->nama_lembaga }}" title="Edit">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <form action="{{ route('mitras.destroy', $mitra->id) }}" method="POST"
+                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="mitra-action delete" aria-label="Hapus {{ $mitra->nama_lembaga }}" title="Hapus">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </header>
 
-            toastr.error('{{ session('error') }}', 'GAGAL!'); 
-            
-        @endif
-    </script>
+                <div class="mitra-card-body">
+                    <section class="mitra-detail">
+                        <span class="mitra-detail-label"><i class="fas fa-location-dot" aria-hidden="true"></i> Alamat</span>
+                        <div class="mitra-detail-value">{{ $mitra->alamat ? Str::limit(strip_tags($mitra->alamat), 180, '...') : 'Belum ada alamat' }}</div>
+                    </section>
+
+                    <section class="mitra-detail">
+                        <span class="mitra-detail-label"><i class="fas fa-align-left" aria-hidden="true"></i> Deskripsi</span>
+                        <div class="mitra-detail-value">{{ $mitra->deskripsi ? Str::limit(strip_tags($mitra->deskripsi), 220, '...') : 'Belum ada deskripsi' }}</div>
+                    </section>
+                </div>
+
+                <footer class="mitra-card-footer">
+                    <div class="mitra-chair">
+                        <div class="mitra-chair-photo">
+                            @if($mitra->foto_ketua)
+                                <img src="{{ asset('images/mitras/foto_ketua/'.$mitra->foto_ketua) }}" alt="Foto {{ $mitra->ketua }}">
+                            @else
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            @endif
+                        </div>
+                        <div class="mitra-chair-copy">
+                            <span class="mitra-detail-label">Ketua</span>
+                            <strong>{{ $mitra->ketua ?: 'Belum diisi' }}</strong>
+                        </div>
+                    </div>
+                    <div class="mitra-contact">
+                        <span class="mitra-detail-label"><i class="fas fa-phone" aria-hidden="true"></i> Kontak</span>
+                        <strong>{{ $mitra->kontak ?: 'Belum diisi' }}</strong>
+                    </div>
+                </footer>
+            </article>
+        @empty
+            <div class="mitra-empty">
+                <span class="mitra-empty-icon"><i class="fas fa-handshake" aria-hidden="true"></i></span>
+                <h2>Belum ada data mitra</h2>
+                <p>Tambahkan lembaga mitra untuk mulai mengelola informasi kemitraan.</p>
+                <a href="{{ route('mitras.create') }}" class="mitra-add-button">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    <span>Tambah Mitra</span>
+                </a>
+            </div>
+        @endforelse
+    </div>
+
+    <div class="mitra-pagination">
+        {{ $mitras->links('pagination::bootstrap-5') }}
+    </div>
+</div>
+
+<script>
+    @if(session()->has('success'))
+        toastr.success(@json(session('success')), 'BERHASIL!');
+    @elseif(session()->has('error'))
+        toastr.error(@json(session('error')), 'GAGAL!');
+    @endif
+</script>
 @stop
 
-
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-mitra.css') }}">
+@endpush
